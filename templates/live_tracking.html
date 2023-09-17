@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Live Tracking {% endblock %}
+
+{% block content %}
+    {% include 'includes/navbar.html' %}
+
+    <div class="container my-5">
+        <h1>Live Tracking</h1>
+        <div class="blockquote">Ongoing Service</div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="container border shadow rounded-4 p-4 my-5">
+                    <small>Service Number</small>
+                    <h6 class="mb-3">EV-2017002346</h6>
+
+                    <small class="fw-light">Laptop repair</small>
+                    <hr class="my-4">
+                    <div class="d-flex align-items-center">
+                        <img class="img-fluid me-4" style="width: 50px;" src="{% static 'img/green_location.png' %}" alt="">
+                        <div>
+                            <h5>xxx</h5>
+                            <small>Kolkata</small>
+                        </div>
+                    </div>
+                    <span class="vertical_dotted_line_2"></span>
+                    <div class="d-flex align-items-center">
+                        <img class="img-fluid me-4" style="width: 50px;" src="{% static 'img/location.png' %}" alt="">
+                        <div>
+                            <h5>Customer's Address</h5>
+                            <small>Kolkata</small>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between">
+                            <img class="img-fluid me-4" src="{% static 'img/service_provider.png' %}" style="width: 80px; object-fit: cover;" alt="">
+                            <div>
+                                <div>Service Provider</div>
+                                <div>Ketul Raval</div>
+                                <div>+91 9825436789</div>
+                            </div>
+                        </div>
+                        <img class="img-fluid" src="{% static 'img/call.png' %}" style="width: 60px; height: 60px; object-fit: cover;" alt="">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 d-flex justify-content-center align-items-center">
+                <div class="" id="live_tracking">
+                    <span  class="d-flex flex-column">
+                        <div class="d-flex align-items-center">
+                            <input type="checkbox" class="form-check-input p-4" id="check_1" checked />
+                            <h5 class="ms-4">Booked Today</h5>
+                        </div>
+                        <span class="vertical_dotted_line"></span>
+                        <div class="d-flex align-items-center">
+                            <input type="checkbox" class="form-check-input p-4" id="check_2" checked />
+                            <h5 class="ms-4">Out for Service</h5>
+                        </div>
+                        <span class="vertical_dotted_line"></span>
+                        <div class="d-flex align-items-center">
+                            <input type="checkbox" class="form-check-input p-4" id="check_3" />
+                            <h5 class="ms-4">Service Begun</h5>
+                        </div>
+                        <span class="vertical_dotted_line"></span>
+                        <div class="d-flex align-items-center">
+                            <input type="checkbox" class="form-check-input p-4" id="check_4"  />
+                            <h5 class="ms-4">Service Completed</h5>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'includes/footer.html' %}
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Checkout {% endblock %}
+
+{% block extra_css %}
+<style>
+    .btn_color{
+        background-image: linear-gradient(to right bottom, #F6931E, #f3c082);
+        color: white;
+    }
+
+    .cart_img {
+        width: 160px;
+        height: 120px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 10px;
+    }
+
+    .coupon_img {
+        background-color: #07794C;
+        border-radius: 5px;
+        width: 50px;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .num_spinner .num-in {
+        background: #FFFFFF;
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+        border-radius: 25px;
+        height: 40px;
+        width: 110px;
+        float: left;
+    }
+
+    .num_spinner .num-in span {
+        width: 40%;
+        display: block;
+        height: 40px;
+        float: left;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .num_spinner .num-in span:before,
+    .num_spinner .num-in span:after {
+        content: '';
+        position: absolute;
+        background-color: #667780;
+        height: 2px;
+        width: 10px;
+        top: 50%;
+        left: 50%;
+        margin-top: -1px;
+        margin-left: -5px;
+    }
+
+    .num_spinner .num-in span.plus:after {
+        transform: rotate(90deg);
+    }
+
+    .num_spinner .num-in input {
+        float: left;
+        width: 20%;
+        height: 40px;
+        border: none;
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+    {% include 'includes/navbar.html' %}
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-8 col-12">
+                <h1 class="mb-5">Billing Details</h1>
+                <form action="">
+                    <div class="row">
+                        <div class="col-md-6 col-12 mb-3">
+                            <label for="first_name">First Name</label>
+                            <input class="form-control" type="text" id="first_name" name="first_name" placeholder="Enter your first name">
+                        </div>
+                        <div class="col-md-6 col-12 mb-3">
+                            <label for="last_name">Last Name</label>
+                            <input class="form-control" type="text" id="last_name" name="last_name" placeholder="Enter your last name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12 mb-3">
+                            <label for="email">Email Address</label>
+                            <input class="form-control" type="email" id="email" name="email" placeholder="e.g. vaibhav@gmail.com">
+                        </div>
+                        <div class="col-md-6 col-12 mb-3">
+                            <label for="phone">Phone Number</label>
+                            <input class="form-control" type="tel" id="phone" name="phone" placeholder="e.g. +91 9988007766">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="address_line_1">Address Line 1</label>
+                            <input class="form-control" type="text" id="address_line_1" name="address_line_1" placeholder="House Number and Street Name">
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="address_line_2">Address Line 2</label>
+                            <input class="form-control" type="text" id="address_line_2" name="address_line_2" placeholder="Apartment, Suite, Unit etc. (optional)">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12 mb-3">
+                            <label for="city">Town / City</label>
+                            <input class="form-control" type="text" id="city" name="city" placeholder="e.g. Ahmedabad">
+                        </div>
+                        <div class="col-md-6 col-12 mb-3">
+                            <label for="state">State</label>
+                            <input class="form-control" type="text" id="state" name="state" placeholder="e.g. Gujarat">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="p-4 my-5" style="border: 1px solid #f6911e75; border-radius: 10px;">
+                    <h3>Payment Summary</h3>
+                    <div class="d-flex justify-content-between py-2">
+                        <div>Item Total</div>
+                        <div>Rs. 1920/-</div>
+                    </div>
+                    <div class="d-flex justify-content-between py-2">
+                        <div>Discount</div>
+                        <div>Rs. 20/-</div>
+                    </div>
+                    <div class="d-flex justify-content-between py-2">
+                        <div>Taxes and Fees</div>
+                        <div>Rs. 0/-</div>
+                    </div>
+                    <div class="d-flex justify-content-between py-2">
+                        <div>Coupon Applied</div>
+                        <div>Rs. 0/-</div>
+                    </div>
+                    <div class="my-4" style="border: 1px solid #f6911e75;"></div>
+
+                    <div class="d-flex justify-content-between mb-3" style="color: #F6921E;">
+                        <div class="fw-bold py-2">TOTAL</div>
+                        <div class="fw-bold">Rs. 4000/-</div>
+                    </div>
+                    <button class="btn py-2 px-4 text-white btn_color fw-bold">Pay Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'includes/footer.html' %}
+
+{% endblock %}
+
+
+

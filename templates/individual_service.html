@@ -1,0 +1,711 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Individual Service {% endblock %}
+
+{% block extra_css %}
+<style>
+
+    .select_service_img {
+        width: 64px;
+        height: 64px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 8px;
+    }
+
+    .service_img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 10px;
+    }
+    @media (min-width: 768px){
+        .service_img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 10px;
+        }
+    }
+    @media (max-width: 576px){
+        .service_img {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 10px;
+        }
+    }
+
+    .coupon_img {
+        background-color: #07794C;
+        border-radius: 5px;
+        width: 50px;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .num_spinner .num-in {
+        background: #FFFFFF;
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+        border-radius: 25px;
+        height: 40px;
+        width: 110px;
+        float: left;
+    }
+
+    .num_spinner .num-in span {
+        width: 40%;
+        display: block;
+        height: 40px;
+        float: left;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .num_spinner .num-in span:before,
+    .num_spinner .num-in span:after {
+        content: '';
+        position: absolute;
+        background-color: #667780;
+        height: 2px;
+        width: 10px;
+        top: 50%;
+        left: 50%;
+        margin-top: -1px;
+        margin-left: -5px;
+    }
+
+    .num_spinner .num-in span.plus:after {
+        transform: rotate(90deg);
+    }
+
+    .num_spinner .num-in input {
+        float: left;
+        width: 20%;
+        height: 40px;
+        border: none;
+        text-align: center;
+    }
+
+
+    .select_service_text{
+        font-size: 12px;
+    }
+    @media (min-width: 786px) {
+        .select_service_container{
+            border: 2px solid #e7e7e7;
+            padding: 20px;
+            border-radius: 8px;
+        }
+    }
+
+    @media(min-width: 786px){
+        .service_detail_container{
+            padding: 0px 100px;
+        }
+    }
+
+    .slot_btn{
+        border: 1px solid #F6921E;
+        color: #F6921E;
+    }
+    .slot_btn:hover{
+        border: 1px solid #F6921E;
+        background-color: #f6911e22;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+    {% include 'includes/navbar.html' %}
+
+
+    <section>
+        <div class="row mt-5" style="width: 90%; margin: auto;">
+            <div class="col-md-4">
+                <div class="select_service_container mb-5" style="position: sticky; top: 30px;">
+                    <div class="h5 mb-2">Select a Service</div>
+                    <div class="row">
+                        <div class="col-4 col-md-3 mt-3">
+                            <a href="#upgrade_ram" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
+                                <img class="img-fluid select_service_img" src="{% static 'clickfix_photos/image7.jpg' %}" alt="">
+                                <div class="mt-2 text-center select_service_text">Upgrade Ram/Memory</div>
+                            </a>
+                        </div>
+                        <div class="col-4 col-md-3 mt-3">
+                            <a href="#screen_repair" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
+                                <img class="img-fluid select_service_img" src="{% static 'clickfix_photos/image2.webp' %}" alt="">
+                                <div class="mt-2 text-center select_service_text">Screen Repair/Replace </div>
+                            </a>
+                        </div>
+                        <div class="col-4 col-md-3 mt-3">
+                            <a href="#crashed_os" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
+                                <img class="img-fluid select_service_img" src="{% static 'clickfix_photos/server.webp' %}" alt="">
+                                <div class="mt-2 text-center select_service_text">Crashed OS </div>
+                            </a>
+                        </div>
+                        <div class="col-4 col-md-3 mt-3">
+                            <a href="#keyboard_issue" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
+                                <img class="img-fluid select_service_img" src="{% static 'clickfix_photos/image4.webp' %}" alt="">
+                                <div class="mt-2 text-center select_service_text">Keyboard & Touchpad Issue</div>
+                            </a>
+                        </div>
+                        <div class="col-4 col-md-3 mt-3">
+                            <a href="#virus" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
+                                <img class="img-fluid select_service_img" src="{% static 'clickfix_photos/image5.webp' %}" alt="">
+                                <div class="mt-2 text-center select_service_text">Virus/Malware Issue</div>
+                            </a>
+                        </div>
+                        <div class="col-4 col-md-3 mt-3">
+                            <a href="#battery" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
+                                <img class="img-fluid select_service_img" src="{% static 'clickfix_photos/image6.jpg' %}" alt="">
+                                <div class="mt-2 text-center select_service_text">Battery/Charging Issue</div>
+                            </a>
+                        </div>
+                        <div class="col-4 col-md-3 mt-3">
+                            <a href="#backup" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
+                                <img class="img-fluid select_service_img" src="{% static 'clickfix_photos/image.webp' %}" alt="">
+                                <div class="mt-2 text-center select_service_text">Data Recovery/Backup</div>
+                            </a>
+                        </div>
+                        <div class="col-4 col-md-3 mt-3">
+                            <a href="#physical_damage" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
+                                <img class="img-fluid select_service_img" src="{% static 'clickfix_photos/image8.webp' %}" alt="">
+                                <div class="mt-2 text-center select_service_text">Physical Damage/Repair</div>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+
+                <div class="mb-5">
+                    <div class="swiper deals_and_discount_swiper">
+                        <div class="swiper-wrapper pb-5">
+
+                            <div class="swiper-slide">
+                                <div class="sales_container">
+                                    <img class="sales_image" src="{% static 'clickfix_photos/sale1.jpg' %}" alt="">
+                                    <div class="overlay">
+                                        <div class="text-white h-100 d-flex flex-column px-5 justify-content-center align-items-center">
+                                            <div style="font-size: 4rem;">Welcome Offer</div>
+                                            <div class="blockquote">UPTO <span style="font-size: 4rem; color: #F6921E;">50%</span> OFF</div>
+                                            <div class="blockquote text-center">Welcome to Click Fix! Enjoy 10% off your first IT service. Let us make your tech hassles disappear</div>
+                                            <button class="btn btn_color">Avail Now</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <div class="sales_container">
+                                    <img class="sales_image" src="{% static 'clickfix_photos/sale2.jpg' %}" alt="">
+                                    <div class="overlay">
+                                        <div class="text-white h-100 d-flex flex-column px-5 justify-content-center align-items-center">
+                                            <div style="font-size: 4rem;">Welcome Offer</div>
+                                            <div class="blockquote">UPTO <span style="font-size: 4rem; color: #F6921E;">50%</span> OFF</div>
+                                            <div class="blockquote text-center">Welcome to Click Fix! Enjoy 10% off your first IT service. Let us make your tech hassles disappear</div>
+                                            <button class="btn btn_color">Avail Now</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <div class="sales_container">
+                                    <img class="sales_image" src="{% static 'clickfix_photos/sale3.jpg' %}" alt="">
+                                    <div class="overlay">
+                                        <div class="text-white h-100 d-flex flex-column px-5 justify-content-center align-items-center">
+                                            <div style="font-size: 4rem;">Welcome Offer</div>
+                                            <div class="blockquote">UPTO <span style="font-size: 4rem; color: #F6921E;">50%</span> OFF</div>
+                                            <div class="blockquote text-center">Welcome to Click Fix! Enjoy 10% off your first IT service. Let us make your tech hassles disappear</div>
+                                            <button class="btn btn_color">Avail Now</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+
+                <div class="service_detail_container">
+                    <div class="card py-4 mb-4 border-0" id="upgrade_ram">
+                        <img class="img-fluid service_img" src="{% static 'clickfix_photos/laptop_repair.jpg' %}" alt="...">
+                        <div class="card-body">
+                            <div class="card-title d-flex flex-column mb-4">
+                                <div class="h5 mb-4">Upgrade RAM / Memory </div>
+                                <div class="num_spinner">
+                                    <div class="num-in">
+                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
+                                        <input type="text" class="in-num" value="0">
+                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-text">Diagnosing and fixing the causes of sluggish performance, such as insufficient RAM, outdated hardware, or excessive background processes. Installing new components like RAM or hard drives to improve performance.</p>
+                            <div class="mb-3">
+                                <div class="fw-bold me-5" style="color: #f6921e;">Starts from ₹99</div>
+                                <div class="">
+                                    <ul>
+                                        <li>Warranty 1 year**</li>
+                                        <li>Visit Charges of Rs.99 will be waived off in final bill</li>
+                                        <li>Final bill will be confirmed after complete inspection</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
+                        </div>
+                    </div>
+                    <!-- SEPERATOR -->
+                    <div class="my-5" style="border: 1px solid #e7e7e7;"></div>
+                    <!-- ********* -->
+                    <div class="card py-4 mb-4 border-0"  id="screen_repair">
+                        <img class="img-fluid service_img" src="{% static 'clickfix_photos/screen.jpg' %}" alt="...">
+                        <div class="card-body">
+                            <div class="card-title d-flex flex-column mb-4">
+                                <div class="h5 mb-4">Screen Replace / Repair</div>
+                                <div class="num_spinner">
+                                    <div class="num-in">
+                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
+                                        <input type="text" class="in-num" value="0">
+                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-text">Investigating and fixing issues causing a blank screen or no display output.</p>
+                            <div class="mb-3">
+                                <div class="fw-bold me-5" style="color: #f6921e;">Starts from ₹99</div>
+                                <div class="">
+                                    <ul>
+                                        <li>Warranty 1 year**</li>
+                                        <li>Visit Charges of Rs.99 will be waived off in final bill</li>
+                                        <li>Final bill will be confirmed after complete inspection</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
+                        </div>
+                    </div>
+                    <div class="my-5" style="border: 1px solid #e7e7e7;"></div>
+                    <div class="card py-4 mb-4 border-0" id="crashed_os">
+                        <img class="img-fluid service_img" src="{% static 'clickfix_photos/image8.webp' %}" alt="...">
+                        <div class="card-body">
+                            <div class="card-title d-flex flex-column mb-4">
+                                <div class="h5 mb-4">Crashed OS</div>
+                                <div class="num_spinner">
+                                    <div class="num-in">
+                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
+                                        <input type="text" class="in-num" value="0">
+                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-text">Assisting with software installation, updates, and compatibility issues.</p>
+                            <div class="mb-3">
+                                <div class="fw-bold me-5" style="color: #f6921e;">Starts from ₹99</div>
+                                <div class="">
+                                    <ul>
+                                        <li>Warranty 1 year**</li>
+                                        <li>Visit Charges of Rs.99 will be waived off in final bill</li>
+                                        <li>Final bill will be confirmed after complete inspection</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
+                        </div>
+                    </div>
+                    <div class="my-5" style="border: 1px solid #e7e7e7  ;"></div>
+                    <div class="card py-4 mb-4 border-0" id="keyboard_issue">
+                        <img class="img-fluid service_img" src="{% static 'clickfix_photos/banner2.jpg' %}" alt="...">
+                        <div class="card-body">
+                            <div class="card-title d-flex flex-column mb-4">
+                                <div class="h5 mb-4">Keyboard and Touchpad Issue</div>
+                                <div class="num_spinner">
+                                    <div class="num-in">
+                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
+                                        <input type="text" class="in-num" value="0">
+                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-text">Resolving problems with unresponsive or malfunctioning keyboards and mice.</p>
+                            <div class="mb-3">
+                                <div class="fw-bold me-5" style="color: #f6921e;">Starts from ₹99</div>
+                                <div class="">
+                                    <ul>
+                                        <li>Warranty 1 year**</li>
+                                        <li>Visit Charges of Rs.99 will be waived off in final bill</li>
+                                        <li>Final bill will be confirmed after complete inspection</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
+                        </div>
+                    </div>
+                    <div class="my-5" style="border: 1px solid #e7e7e7;"></div>
+                    <div class="card py-4 mb-4 border-0" id="virus">
+                        <img class="img-fluid service_img" src="{% static 'clickfix_photos/virus.webp' %}" alt="...">
+                        <div class="card-body">
+                            <div class="card-title d-flex flex-column mb-4">
+                                <div class="h5 mb-4">Virus and Malware detection and removal</div>
+                                <div class="num_spinner">
+                                    <div class="num-in">
+                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
+                                        <input type="text" class="in-num" value="0">
+                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-text">Cleaning up infections that can slow down the system or compromise user data.</p>
+                            <div class="mb-3">
+                                <div class="fw-bold me-5" style="color: #f6921e;">Starts from ₹99</div>
+                                <div class="">
+                                    <ul>
+                                        <li>Warranty 1 year**</li>
+                                        <li>Visit Charges of Rs.99 will be waived off in final bill</li>
+                                        <li>Final bill will be confirmed after complete inspection</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
+                        </div>
+                    </div>
+                    <div class="my-5" style="border: 1px solid #e7e7e7  ;"></div>
+                    <div class="card py-4 mb-4 border-0" id="battery">
+                        <img class="img-fluid service_img" src="{% static 'clickfix_photos/battery.webp' %}" alt="...">
+                        <div class="card-body">
+                            <div class="card-title d-flex flex-column mb-4">
+                                <div class="h5 mb-4">Battery / Charging Issue </div>
+                                <div class="num_spinner">
+                                    <div class="num-in">
+                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
+                                        <input type="text" class="in-num" value="0">
+                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-text">Facing laptop battery issues? Our experts fix it all - quick drain, charging problems, sudden shutdowns, swelling, overheating, inconsistent readings, and more. Get a fully charged laptop back in no time.</p>
+                            <div class="mb-3">
+                                <div class="fw-bold me-5" style="color: #f6921e;">Starts from ₹99</div>
+                                <div class="">
+                                    <ul>
+                                        <li>Warranty 1 year**</li>
+                                        <li>Visit Charges of Rs.99 will be waived off in final bill</li>
+                                        <li>Final bill will be confirmed after complete inspection</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
+                        </div>
+                    </div>
+                    <div class="my-5" style="border: 1px solid #e7e7e7  ;"></div>
+                    <div class="card py-4 mb-4 border-0" id="backup">
+                        <img class="img-fluid service_img" src="{% static 'clickfix_photos/image5.webp' %}" alt="...">
+                        <div class="card-body">
+                            <div class="card-title d-flex flex-column mb-4">
+                                <div class="h5 mb-4"> Data Recovery / Backup </div>
+                                <div class="num_spinner">
+                                    <div class="num-in">
+                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
+                                        <input type="text" class="in-num" value="0">
+                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-text">Retrieving data from damaged or corrupted hard drives, partitions, or accidentally deleted files.</p>
+                            <div class="mb-3">
+                                <div class="fw-bold me-5" style="color: #f6921e;">Starts from ₹99</div>
+                                <div class="">
+                                    <ul>
+                                        <li>Warranty 1 year**</li>
+                                        <li>Visit Charges of Rs.99 will be waived off in final bill</li>
+                                        <li>Final bill will be confirmed after complete inspection</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
+                        </div>
+                    </div>
+                    <div class="my-5" style="border: 1px solid #e7e7e7  ;"></div>
+                    <div class="card py-4 mb-4 border-0" id="physical_damage">
+                        <img class="img-fluid service_img" src="{% static 'clickfix_photos/image4.webp' %}" alt="...">
+                        <div class="card-body">
+                            <div class="card-title d-flex flex-column mb-4">
+                                <div class="h5 mb-4"> Physical Damage / Repair </div>
+                                <div class="num_spinner">
+                                    <div class="num-in">
+                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
+                                        <input type="text" class="in-num" value="0">
+                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-text">Facing laptop battery issues? Our experts fix it all - quick drain, charging problems, sudden shutdowns, swelling, overheating, inconsistent readings, and more. Get a fully charged laptop back in no time.</p>
+                            <div class="mb-3">
+                                <div class="fw-bold me-5" style="color: #f6921e;">Starts from ₹99</div>
+                                <div class="">
+                                    <ul>
+                                        <li>Warranty 1 year**</li>
+                                        <li>Visit Charges of Rs.99 will be waived off in final bill</li>
+                                        <li>Final bill will be confirmed after complete inspection</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Appointment Modal -->
+    <div class="modal fade" id="bookAppointment">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="myModalLabel">
+                        When Should the Professional Arrive?
+                    </h1>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3 d-flex justify-content-between" id="appointment_date">
+                        <button class="btn me-2 mb-3 slot_btn">
+                            <div class="d-flex flex-column align-items-center justify-content-center">
+                                <div>Mon</div>
+                                <div class="fw-bold">04</div>
+                            </div>
+                        </button>
+                        <button class="btn me-2 mb-3 slot_btn">
+                            <div class="d-flex flex-column align-items-center justify-content-center">
+                                <div>Tue</div>
+                                <div class="fw-bold">05</div>
+                            </div>
+                        </button>
+                        <button class="btn me-2 mb-3 slot_btn">
+                            <div class="d-flex flex-column align-items-center justify-content-center">
+                                <div>Wed</div>
+                                <div class="fw-bold">06</div>
+                            </div>
+                        </button>
+                        <button class="btn me-2 mb-3 slot_btn">
+                            <div class="d-flex flex-column align-items-center justify-content-center">
+                                <div>Thu</div>
+                                <div class="fw-bold">07</div>
+                            </div>
+                        </button>
+                        <button class="btn me-2 mb-3 slot_btn">
+                            <div class="d-flex flex-column align-items-center justify-content-center">
+                                <div>Fri</div>
+                                <div class="fw-bold">08</div>
+                            </div>
+                        </button>
+                        <button class="btn me-2 mb-3 slot_btn">
+                            <div class="d-flex flex-column align-items-center justify-content-center">
+                                <div>Sat</div>
+                                <div class="fw-bold">09</div>
+                            </div>
+                        </button>
+                        <button class="btn me-2 mb-3 slot_btn">
+                            <div class="d-flex flex-column align-items-center justify-content-center">
+                                <div>Sun</div>
+                                <div class="fw-bold">10</div>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="h5 mb-4">Select Time Slot</div>
+                    <div class="mb-3 d-flex justify-content-between">
+                        <button class="btn me-2 mb-3 slot_btn">10am-12pm</button>
+                        <button class="btn me-2 mb-3 slot_btn">12pm-2pm</button>
+                        <button class="btn me-2 mb-3 slot_btn">2pm-4pm</button>
+                        <button class="btn me-2 mb-3 slot_btn">4pm-7pm</button>
+                    </div>
+                    <button class="btn py-2 px-4 mt-3 text-white btn_color w-100">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- FAQ Section -->
+    <section class="container w-75" style="margin-top: 100px; margin-bottom: 100px;">
+        <h1 class="text-center mb-5">FAQs</h1>
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">What
+                        is Click Fix?</button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">Click Fix is an online platform that connects you with skilled IT
+                        professionals who can provide various repair and service solutions right at your doorstep.</div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">What
+                        services does Click Fix offer?</button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">Click Fix offers a wide range of IT repair and services, including but not
+                        limited to just computer and laptop repairs, software troubleshooting, network setup, printer
+                        repairs, and data recovery. Click Fix also offers renting of IT infrastructure for urgent needs and
+                        can be your go to for any sort of IT infrastructure solution big or small.</div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">How does ClickFix work?</button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <ul>
+                            <li> Start by visiting our website and selecting the service you need. </li>
+                            <li> Provide your location and preferred time for the service. </li>
+                            <li> Choose from a list of available professionals and book your appointment. </li>
+                            <li> The selected technician will arrive at your location to fix the issue. </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush_4">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush_4" aria-expanded="false" aria-controls="flush_4">Is Click Fix available in my area?</button>
+                </h2>
+                <div id="flush_4" class="accordion-collapse collapse" aria-labelledby="flush_4"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">Click Fix operates in Kolkata, Howrah, Bidhanagar, Newtown as of now</div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-5" aria-expanded="false" aria-controls="flush-5">Are the technicians qualified and reliable?</button>
+                </h2>
+                <div id="flush-5" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">Yes, all technicians on Click Fix are thoroughly screened, qualified, and have a proven track record in providing IT repair and services since last 27 years.</div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-6" aria-expanded="false" aria-controls="flush-6">How do I pay for services on Click Fix?</button>
+                </h2>
+                <div id="flush-6" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">You can make payment for the services through our secure online payment system. We accept major credit cards and digital payment methods for your convenience.</div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-7" aria-expanded="false" aria-controls="flush-7">What if I'm not satisfied with the service?</button>
+                </h2>
+                <div id="flush-7" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">We strive for customer satisfaction. If you're not satisfied with the service provided, please contact our customer support team, and we will work to resolve the issue or provide a refund if necessary.</div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-8" aria-expanded="false" aria-controls="flush-8">How do I cancel or reschedule an appointment?</button>
+                </h2>
+                <div id="flush-8" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">You can cancel or reschedule an appointment by logging into your Click Fix
+                        account and accessing the "My Appointments" section. Please note that there may be
+                        cancellation/rescheduling policies in place.</div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-9" aria-expanded="false" aria-controls="flush-9">Is my personal information safe with Click Fix?</button>
+                </h2>
+                <div id="flush-9" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">Yes, we take your privacy seriously. Click Fix uses industry-standard
+                        security measures to protect your personal information and ensure it's not shared with unauthorized
+                        parties.</div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-10" aria-expanded="false" aria-controls="flush-10">How do I contact Click Fix support?</button>
+                </h2>
+                <div id="flush-10" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">For any inquiries, concerns, or assistance, you can contact our customer support team via email - support@clickfix.co.in , phone - +918910434505 / +919836066464 , instagram</div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-11" aria-expanded="false" aria-controls="flush-11">Do I need to provide any tools or equipment for the service?</button>
+                </h2>
+                <div id="flush-11" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">Typically, technicians come prepared with the necessary tools and equipment.
+                        However, if there are specific requirements for your service, the technician will inform you in
+                        advance.</div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-12" aria-expanded="false" aria-controls="flush-12">Are there any warranties or guarantees on the services?</button>
+                </h2>
+                <div id="flush-12" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">The warranty or guarantee on services may vary depending on the type of service and the technician. Please inquire about warranties or guarantees when booking your service.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    {% include 'includes/footer.html' %}
+
+    {% block extra_js %}
+        <script>
+            let test = document.getElementById('test')
+            function plusFunc(button) {
+                let input = button.previousSibling.previousElementSibling;
+                let quantity = parseInt(input.value)
+                quantity = parseInt(quantity)
+                quantity += 1
+                button.previousSibling.previousElementSibling.value = quantity
+            }
+
+            function minusFunc(button) {
+                let input = button.nextSibling.nextElementSibling;
+                let quantity = parseInt(input.value)
+                quantity -= 1
+                if (quantity < 0) quantity = 0
+                button.nextSibling.nextElementSibling.value = quantity
+            }
+        </script>
+    {% endblock %}
+
+{% endblock %}

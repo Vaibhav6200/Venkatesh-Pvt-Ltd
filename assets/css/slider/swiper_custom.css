@@ -1,0 +1,24 @@
+.swiper_navBtn{
+    color: #fda745;
+    transition: color 0.3s ease;
+}
+.swiper_navBtn:hover{
+    color: #F6921E;
+}
+.swiper_navBtn::before,.swiper_navBtn::after{
+    font-size: 40px;
+}
+.swiper-button-next{
+    right: 0;
+}
+.swiper-button-prev{
+    left: 0;
+}
+.swiper-pagination-bullet{
+    background-color: #fda745;
+    opacity: 1;
+}
+.swiper-pagination-bullet-active{
+    background-color: #F6921E;
+    opacity: 1;
+}

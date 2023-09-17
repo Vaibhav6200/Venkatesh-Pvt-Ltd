@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Cart {% endblock %}
+
+{% block extra_css %}
+<style>
+    .btn_color{
+        background-image: linear-gradient(to right bottom, #F6931E, #f3c082);
+        color: white;
+    }
+
+    .cart_img {
+        width: 160px;
+        height: 120px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 10px;
+    }
+
+    .coupon_img {
+        background-color: #07794C;
+        border-radius: 5px;
+        width: 50px;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .num_spinner .num-in {
+        background: #FFFFFF;
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+        border-radius: 25px;
+        height: 40px;
+        width: 110px;
+        float: left;
+    }
+
+    .num_spinner .num-in span {
+        width: 40%;
+        display: block;
+        height: 40px;
+        float: left;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .num_spinner .num-in span:before,
+    .num_spinner .num-in span:after {
+        content: '';
+        position: absolute;
+        background-color: #667780;
+        height: 2px;
+        width: 10px;
+        top: 50%;
+        left: 50%;
+        margin-top: -1px;
+        margin-left: -5px;
+    }
+
+    .num_spinner .num-in span.plus:after {
+        transform: rotate(90deg);
+    }
+
+    .num_spinner .num-in input {
+        float: left;
+        width: 20%;
+        height: 40px;
+        border: none;
+        text-align: center;
+    }
+
+
+    @media (min-width: 786px){
+        .coupon_section{
+            padding-left: 150px !important;
+        }
+    }
+
+
+    .coupon_modal_img {
+        width: 120px;
+        height: 100px;
+        object-fit: cover;
+        object-position: center;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+    {% include 'includes/navbar.html' %}
+
+    <div class="container mt-5">
+        <h1 class="mb-5">Cart</h1>
+        <div class="row">
+            <!-- User Details and payment summary -->
+            <div class="col-md-6 col-sm-12  p-3">
+                <div class="blockquote fw-bold mb-4">Services Booked</div>
+                <div class="row my-4">
+                    <div class="col-4">
+                        <img class="img-fluid cart_img mr-3" src="{% static 'clickfix_photos/image.webp' %}" alt="">
+                    </div>
+                    <div class="col-8">
+                        <div class="d-flex flex-column h-100">
+                            <div class="">
+                                <div class="d-flex justify-content-between w-100">
+                                    <div>Desktop Repair</div>
+                                    <div>Rs 650/-</div>
+                                </div>
+                                <small>Sept 9, 10AM</small>
+                            </div>
+                            <div class="d-flex justify-content-between mt-auto">
+                                <div class="num_spinner">
+                                    <div class="num-in">
+                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
+                                        <input type="text" class="in-num" value="1" id="test">
+                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
+                                    </div>
+                                </div>
+                                <a class="text-danger text-decoration-none" href="">remove</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my-3" style="border: 1px solid #f6911e25;"></div>
+                <div class="row my-4">
+                    <div class="col-4">
+                        <img class="img-fluid cart_img mr-3" src="{% static 'clickfix_photos/image2.webp' %}" alt="">
+                    </div>
+                    <div class="col-8">
+                        <div class="d-flex flex-column  h-100">
+                            <div class="">
+                                <div class="d-flex justify-content-between w-100">
+                                    <div>Desktop Repair</div>
+                                    <div>Rs 650/-</div>
+                                </div>
+                                <small>Sept 9, 10AM</small>
+                            </div>
+                            <div class="d-flex justify-content-between mt-auto">
+                                <div class="num_spinner">
+                                    <div class="num-in">
+                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
+                                        <input type="text" class="in-num" value="1">
+                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
+                                    </div>
+                                </div>
+                                <a class="text-danger text-decoration-none" href="">remove</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- For Cart and coupon applied -->
+            <div class="col-md-6 col-sm-12 p-3 coupon_section">
+
+                <!-- APPLY COUPON -->
+                <div class="d-flex justify-content-between align-items-center p-4"
+                    style="border: 1px solid #f6911e75; border-radius: 10px;">
+                    <div class="d-flex">
+                        <div class="d-flex justify-content-center align-items-center text-white coupon_img">
+                            <span>%</span>
+                        </div>
+                        <div class="d-flex flex-column ms-4">
+                            <div class="mb-2">Coupons and Offers</div>
+                            <small class="text-muted">Save ₹250 on this order</small>
+                        </div>
+                    </div>
+                    <a href="" class="text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#couponModal">4 Offers > </a>
+                </div>
+                <!-- COUPON MODAL -->
+                <div class="modal fade" id="couponModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="myModalLabel">
+                                    Coupons & Offers
+                                </h1>
+                                <button class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body  px-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex">
+                                        <img class="img-fluid coupon_modal_img me-4" src="{% static 'img/kotak.png' %}" alt="">
+                                        <div class="d-flex flex-column h-100">
+                                            <div>15% off on Kotak Credit card</div>
+                                            <small>15% off up to INR 250</small>
+                                            <p class="text-success">SAVE 250 ON THIS ORDER</p>
+                                            <a href="" class="text-decoration-none" style="color: #F6921E;">View T&C</a>
+                                        </div>
+                                    </div>
+                                    <a class="text-decoration-none" href="" style="color: #F6921E;">Apply</a>
+                                </div>
+                                <div class="my-4" style="border: 1px solid #e3e3e3;"></div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex">
+                                        <img class="img-fluid coupon_modal_img me-4" src="{% static 'img/kotak.png' %}" alt="">
+                                        <div class="d-flex flex-column h-100">
+                                            <div>15% off on Kotak Credit card</div>
+                                            <small>15% off up to INR 250</small>
+                                            <p class="text-success">SAVE 250 ON THIS ORDER</p>
+                                            <a href="" class="text-decoration-none" style="color: #F6921E;">View T&C</a>
+                                        </div>
+                                    </div>
+                                    <a class="text-decoration-none" href="" style="color: #F6921E;">Apply</a>
+                                </div>
+                                <div class="my-4" style="border: 1px solid #e3e3e3;"></div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex">
+                                        <img class="img-fluid coupon_modal_img me-4" src="{% static 'img/kotak.png' %}" alt="">
+                                        <div class="d-flex flex-column h-100">
+                                            <div>15% off on Kotak Credit card</div>
+                                            <small>15% off up to INR 250</small>
+                                            <p class="text-success">SAVE 250 ON THIS ORDER</p>
+                                            <a href="" class="text-decoration-none" style="color: #F6921E;">View T&C</a>
+                                        </div>
+                                    </div>
+                                    <a class="text-decoration-none" href="" style="color: #F6921E;">Apply</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex justify-content-between align-items-center p-4" style="border: 1px solid #f6911e75; border-radius: 10px;">
+                    <div class="d-flex">
+                        <div class="d-flex justify-content-center align-items-center text-white coupon_img">
+                            <span>%</span>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center ms-4">
+                            <span class="fw-bold me-2">SILKUC20</span> applied
+                        </div>
+                    </div>
+                    <a href="" class="text-danger text-decoration-none">Remove</a>
+                </div>
+
+                <div class="mt-4 d-flex align-items-center p-4" style="background-color: #f6911e44; border-radius: 10px;">
+                    <img class="img-fluid" style="width: 50px;" src="{% static 'img/coins.png' %}" alt="">
+                    <div class="d-flex">
+                        <div class="d-flex justify-content-center align-items-center ms-4">
+                            You're saving total ₹350 on this order!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    {% include 'includes/footer.html' %}
+
+    {% block extra_js %}
+        <script>
+            let test = document.getElementById('test')
+            function plusFunc(button) {
+                let input = button.previousSibling.previousElementSibling;
+                let quantity = parseInt(input.value)
+                quantity = parseInt(quantity)
+                quantity += 1
+                button.previousSibling.previousElementSibling.value = quantity
+            }
+
+            function minusFunc(button) {
+                let input = button.nextSibling.nextElementSibling;
+                let quantity = parseInt(input.value)
+                quantity -= 1
+                if (quantity < 0) quantity = 0
+                button.nextSibling.nextElementSibling.value = quantity
+            }
+        </script>
+    {% endblock %}
+
+{% endblock %}

@@ -1,0 +1,501 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Home Page {% endblock %}
+
+{% block extra_css %}
+    <style>
+        .about_text{
+            font-size: 1.3rem;
+            text-align: justify;
+        }
+        @media (max-width: 767px){
+            .about_text{
+                font-size: 1.2rem;
+            }
+        }
+        @media (max-width: 568px){
+            .about_text{
+                font-size: 1rem;
+            }
+        }
+
+        @media (min-width: 767px){
+            .banner_content{
+                max-width: 60%;
+                margin: 0 auto;
+            }
+            .banner_search_bar{
+                width: 100%;
+            }
+        }
+        @media (max-width: 568px){
+            .banner_content{
+                font-size: 80%;
+                margin: 0 auto;
+
+            }
+        }
+
+        .service_image{
+            width: 100%;
+            max-height: 210px;
+            object-fit: cover;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    {% include 'includes/navbar.html' %}
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="home_banner_container ">
+            <img class="banner_image" src="{% static 'clickfix_photos/banner4.jpg' %}" alt="">
+            <div class="overlay p-5">
+                <div class="banner_content text-white d-flex flex-column justify-content-center align-items-center h-100">
+                    <h1 class="">Experience instant solutions for your IT repairs. With just one click, access seamless IT repair services.</h1>
+                    <div class="d-flex align-items-center mt-5 w-100">
+                        <div class="input-group w-100">
+                            <i class="input-group-text d-flex justify-content-center align-items-center fa-solid fa-magnifying-glass bg-white border-end-0" style="font-size: 25px;"></i>
+                            <input class="form-control py-3 border-start-0 banner_search_bar" name="" id="" placeholder="Search" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- About Us -->
+    <section id="about" style="margin: 150px 0px;">
+        <div class="container">
+            <h3 class="text-center mb-5" style="color: #F6921e;">About Us</h3>
+            <div class="row">
+                <div class="col-md-5 col-12">
+                    <img class="img-fluid mb-5 mb-md-0" src="{% static 'img/about.webp' %}" alt="">
+                </div>
+                <div class="col-md-7 col-12 px-md-5 d-flex flex-column justify-content-center align-items-center">
+                    <p class="about_text px-4 px-md-0">Click Fix,  your gateway to a range of doorstep IT services. From repairing and upgrading laptops, desktops, CCTV, projectors, and printers to installing attendance systems, we cover it all. Our commitment is simple yet strong - provide customers with consistent, top-tier service.</p>
+                    <p class="about_text px-4 px-md-0">We also offer comprehensive IT solutions such as AMC services to ensure your technology runs smoothly. We achieve this by collaborating closely with our carefully selected service partners, equipping them with technology, training, products, tools, financing, insurance, and our brand support. Together, we're dedicated to delivering on our promise.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Service Slider -->
+    <section style="margin: 150px 0px;" id="services">
+        <h5 class="text-center mb-3" style="color: #F6921e;">OUR SERVICES</h5>
+        <h2 class="text-center">We are Experienced in Making <br>your work easy</h2>
+        <div class="container">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide py-5">
+                        <div class="card">
+                            <img class="service_image" src="{% static 'clickfix_photos/image.webp' %}"  alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Phone repair / Upgradation/ Installation</h5>
+                                <p class="card-text text-center">₹1,432</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide py-5">
+                        <div class="card" >
+                            <img class="service_image" src="{% static 'clickfix_photos/image2.webp' %}"  alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title text-center">Desktop repair / Upgradation/ Installation</h5>
+                            <p class="card-text text-center">₹1,432</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide py-5">
+                        <div class="card" >
+                            <img class="service_image" src="{% static 'clickfix_photos/image3.webp' %}"  alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title text-center">Tablet / iPad repair / Upgradation / Installation</h5>
+                            <p class="card-text text-center">₹1,432</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide py-5">
+                        <div class="card" >
+                            <img class="service_image" src="{% static 'clickfix_photos/image4.webp' %}"  alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title text-center">cctv repair / Upgradation/ Installation</h5>
+                            <p class="card-text text-center">₹1,432</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide py-5">
+                        <div class="card">
+                            <img class="service_image" src="{% static 'clickfix_photos/image5.webp' %}"  alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title text-center">server repair / Upgradation/ Installation</h5>
+                            <p class="card-text text-center">₹1,432</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide py-5">
+                        <div class="card" >
+                            <img class="service_image" src="{% static 'clickfix_photos/image6.jpg' %}"  alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title text-center">Health checkup of IT assets</h5>
+                            <p class="card-text text-center">₹1,432</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide py-5">
+                        <div class="card" >
+                            <img class="service_image" src="{% static 'clickfix_photos/image7.jpg' %}"  alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title text-center">AMC of all it assets</h5>
+                            <p class="card-text text-center">₹1,432</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide py-5">
+                        <div class="card" >
+                            <img class="service_image" src="{% static 'clickfix_photos/image8.webp' %}"  alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title text-center">Attendence system Installation</h5>
+                            <p class="card-text text-center">₹1,432</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide py-5">
+                        <div class="card" >
+                            <img class="service_image" src="{% static 'clickfix_photos/image9.webp' %}"  alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title text-center">Application of screen of guard / covers /other accessories</h5>
+                            <p class="card-text text-center">₹1,432</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Our Benefits -->
+    <section style="margin: 150px 0px;">
+        <div class="container">
+            <h5 class="text-center mb-3" style="color: #F6921e;">OUR AWESOME BENEFITS</h5>
+            <h2 class="text-center mb-5">Actually What You'll Get From</h2>
+            <div class="row">
+                <div class="col-md-3 col-6 p-4 text-center">
+                    <img class="img-fluid" src="{% static 'img/services/trust.png' %}" alt="">
+                    <p class="blockquote mt-3">Decade of Trust</p>
+                    <p>With 27+ years of industry experience, we're your reliable and trusted partner.</p>
+                </div>
+                <div class="col-md-3 col-6 p-4 text-center">
+                    <img class="img-fluid" src="{% static 'img/services/all_in_one.png' %}"  alt="">
+                    <p class="blockquote mt-3">All-in-One Solution</p>
+                    <p>Find all your IT needs met under one roof with our comprehensive platform.</p>
+                </div>
+                <div class="col-md-3 col-6 p-4 text-center">
+                    <img class="img-fluid" src="{% static 'img/services/support.png' %}"  alt="">
+                    <p class="blockquote mt-3">Instant Support</p>
+                    <p>We deliver quick resolutions right to your doorstep.</p>
+                </div>
+                <div class="col-md-3 col-6 p-4 text-center">
+                    <img class="img-fluid" src="{% static 'img/services/ownership.png' %}"  alt="">
+                    <p class="blockquote mt-3">Total Ownership</p>
+                    <p>We're committed to ownership and driven by your feedback.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 col-6 p-4 text-center">
+                    <img class="img-fluid" src="{% static 'img/services/tech.png' %}"  alt="">
+                    <p class="blockquote mt-3">Tech Expertise</p>
+                    <p>Benefit from our extensive knowledge in IT infrastructure and the latest technology.</p>
+                </div>
+                <div class="col-md-3 col-6 p-4 text-center">
+                    <img class="img-fluid" src="{% static 'img/services/quality.png' %}"  alt="">
+                    <p class="blockquote mt-3">Unmatched Quality</p>
+                    <p>Experience superior work quality and efficient customer support.</p>
+                </div>
+                <div class="col-md-3 col-6 p-4 text-center">
+                    <img class="img-fluid" src="{% static 'img/services/boost.png' %}"  alt="">
+                    <p class="blockquote mt-3">Boost Productivity</p>
+                    <p>Minimize IT downtime to maximize your productivity.</p>
+                </div>
+                <div class="col-md-3 col-6 p-4 text-center">
+                    <img class="img-fluid" src="{% static 'img/services/assured.png' %}"  alt="">
+                    <p class="blockquote mt-3">Assured Services</p>
+                    <p>Rest easy knowing that our services are guaranteed to meet your needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Deals & Discount -->
+    <section class="deals_and_discount" style="margin: 150px 0px;">
+        <h2 class="text-center mb-5" style="color: #F6921e;">DEALS AND DISCOUNTS</h2>
+        <div class="swiper deals_and_discount_swiper">
+            <div class="swiper-wrapper pb-5">
+
+                <div class="swiper-slide">
+                    <div class="sales_container">
+                        <img class="sales_image" src="{% static 'clickfix_photos/sale1.jpg' %}" alt="">
+                        <div class="overlay">
+                            <div class="text-white h-100 d-flex justify-content-center align-items-center">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div style="font-size: 4rem;">Welcome Offer</div>
+                                        <div class="blockquote"><span style="font-size: 4rem; color: #F6921E;">10%</span> OFF</div>
+                                        <div class="blockquote">Welcome to Click Fix! Enjoy 10% off your first IT service. Let us make your tech hassles disappear</div>
+                                        <a href="#services" class="btn btn_color">Avail Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="sales_container">
+                        <img class="sales_image" src="{% static 'clickfix_photos/sale2.jpg' %}" alt="">
+                        <div class="overlay">
+                            <div class="text-white h-100 d-flex justify-content-center align-items-center">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div style="font-size: 4rem;">Welcome Offer</div>
+                                        <div class="blockquote"> <span style="font-size: 4rem; color: #F6921E;">10%</span> OFF</div>
+                                        <div class="blockquote">Welcome to Click Fix! Enjoy 10% off your first IT service. Let us make your tech hassles disappear</div>
+                                        <a href="#services" class="btn btn_color">Avail Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="sales_container">
+                        <img class="sales_image" src="{% static 'clickfix_photos/sale3.jpg' %}" alt="">
+                        <div class="overlay">
+                            <div class="text-white h-100 d-flex justify-content-center align-items-center">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div style="font-size: 4rem;">Welcome Offer</div>
+                                        <div class="blockquote"> <span style="font-size: 4rem; color: #F6921E;">10%</span> OFF</div>
+                                        <div class="blockquote">Welcome to Click Fix! Enjoy 10% off your first IT service. Let us make your tech hassles disappear</div>
+                                        <a href="#services" class="btn btn_color">Avail Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+
+    <section class="" id="testimonials" style="margin: 150px 0px;">
+        <h5 class="text-center mb-3 text-uppercase" style="color: #F6921e;">Testimonial</h5>
+        <h2 class="text-center mb-5">What our Customers Says</h2>
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="card border-0 mx-auto">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <img src="{% static 'img/testimonials/jay_shree_tea.jpg' %}"  class="card-img-top rounded mb-3"  alt="...">
+                            <h4 class="card-title fw-bold text-center">Jayshree Tea</h4>
+                            <div class="mb-2">Kolkata</div>
+                            <div class="d-flex mb-3">
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                            </div>
+                            <p class="card-text text-center">Consistently dependable IT support. They've got our back, no matter what.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card border-0 mx-auto">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <img src="{% static 'img/testimonials/img.jpg' %}"  class="card-img-top rounded mb-3"  alt="...">
+                            <h4 class="card-title fw-bold text-center">ABC India Ltd</h4>
+                            <div class="mb-2">Kolkata</div>
+                            <div class="d-flex mb-3">
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                            </div>
+                            <p class="card-text text-center">Trustworthy, efficient, and always ready to tackle IT challenges head-on.</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card border-0 mx-auto">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <img src="{% static 'img/testimonials/wbpdcl.jpg' %}"  class="card-img-top rounded mb-3"  alt="...">
+                            <h4 class="card-title fw-bold text-center">Eastern &North-East Frontier Railway Cooperative Bank Ltd</h4>
+                            <div class="mb-2">Kolkata</div>
+                            <div class="d-flex mb-3">
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                            </div>
+                            <p class="card-text text-center">In the ever-changing world of technology, they remain a steady anchor for our business.</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card border-0 mx-auto">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <img src="{% static 'img/testimonials/img.jpg' %}"  class="card-img-top rounded mb-3"  alt="...">
+                            <h4 class="card-title fw-bold text-center">St.Laurence School</h4>
+                            <div class="mb-2">Kolkata</div>
+                            <div class="d-flex mb-3">
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                            </div>
+                            <p class="card-text text-center">An invaluable partner in our journey, delivering consistent IT excellence.</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card border-0 mx-auto">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <img src="{% static 'img/testimonial.png' %}"  class="card-img-top rounded mb-3"  alt="...">
+                            <h4 class="card-title fw-bold text-center">Doerra India</h4>
+                            <div class="mb-2">Kolkata</div>
+                            <div class="d-flex mb-3">
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                            </div>
+                            <p class="card-text text-center">Responsive, reliable, and resourceful. They make IT headaches disappear</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card border-0 mx-auto">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <img src="{% static 'img/testimonial.png' %}"  class="card-img-top rounded mb-3"  alt="...">
+                            <h4 class="card-title fw-bold text-center">Kolkataa Tea</h4>
+                            <div class="mb-2">Kolkata</div>
+                            <div class="d-flex mb-3">
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                            </div>
+                            <p class="card-text text-center">For years, they've kept our IT infrastructure running like a well-oiled machine</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card border-0 mx-auto">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <img src="{% static 'img/testimonial.png' %}"  class="card-img-top rounded mb-3"  alt="...">
+                            <h4 class="card-title fw-bold text-center">Soorajmull Baijnath Pvt Ltd</h4>
+                            <div class="mb-2">Kolkata</div>
+                            <div class="d-flex mb-3">
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                            </div>
+                            <p class="card-text text-center">Our IT lifeline for years, and they've never let us down.</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card border-0 mx-auto">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <img src="{% static 'img/testimonial.png' %}"  class="card-img-top rounded mb-3"  alt="...">
+                            <h4 class="card-title fw-bold text-center">The West Bengal Power Development Corporation Limited</h4>
+                            <div class="mb-2">Kolkata</div>
+                            <div class="d-flex mb-3">
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                                <i class="fa-solid fa-star" style="color: #F6921e;"></i>
+                            </div>
+                            <p class="card-text text-center">Reliability is their middle name. Our IT worries are a thing of the past.</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev d-none d-md-block" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="fa-solid fa-less-than p-4 rounded-circle" style="background-color: #F6921e;" aria-hidden="true"></span>
+            </button>
+            <button class=" carousel-control-next d-none d-md-block" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="fa-solid fa-greater-than p-4 rounded-circle" style="background-color: #F6921e;" aria-hidden="true"></span>
+            </button>
+        </div>
+    </section>
+
+
+    <section style="margin: 150px 0px;" id="contact_form">
+        <div class="container">
+            <div class="d-flex flex-wrap justify-content-around">
+                <div class="d-flex flex-column justify-content-center">
+                    <h1>Have a question?</h1>
+                    <h1 class="mb-5">Write to us.</h1>
+                    <div class="blockquote mb-3"><i class="fa-solid fa-envelope me-3" style="color: #F6921E;"></i> support@example.com</div>
+                    <div class="blockquote mb-3"><i class="fa-solid fa-phone me-3" style="color: #F6921E;"></i> +91 9988776655</div>
+                    <div class="blockquote mb-3"><i class="fa-solid fa-location-dot me-3 mb-5" style="color: #F6921E;"></i> Collins road, lorem ipsum, Kolkata</div>
+                </div>
+                <div class="shadow-lg p-5 ">
+                    <div class="input-group rounded mb-3" style="border: 1px solid black;">
+                        <i class="input-group-text fa-solid fa-user bg-white d-flex align-items-center" style="border-right: 0px;"></i>
+                        <input class="form-control" style="border-left: 0px;" type="text" name="" id="" placeholder="Name" required>
+                    </div>
+                    <div class="input-group rounded mb-3" style="border: 1px solid black;">
+                        <i class="input-group-text fa-solid fa-envelope bg-white d-flex align-items-center" style="border-right: 0px;"></i>
+                        <input class="form-control" type="email" name="" id="" placeholder="Email" required style="border-left: 0px;">
+                    </div>
+                    <div class="input-group rounded mb-3" style="border: 1px solid black;">
+                        <i class="input-group-text fa-solid fa-phone bg-white d-flex align-items-center" style="border-right: 0px;"></i>
+                        <input class="form-control" type="tel" name="" id="" placeholder="Phone" required style="border-left: 0px;">
+                    </div>
+                    <div class="input-group rounded mb-3" style="border: 1px solid black;">
+                        <i class="input-group-text fa-solid fa-wrench bg-white d-flex align-items-center" style="border-right: 0px;"></i>
+                        <input class="form-control" type="text" name="" id="" placeholder="Service You Need" required style="border-left: 0px;">
+                    </div>
+
+                    <div class="input-group rounded mb-3" style="border: 1px solid black;">
+                        <i class="input-group-text fa-solid fa-pen-to-square bg-white pt-2 mt-1 border-0" style="border-right: 0px;"></i>
+                        <textarea class="form-control" name="" id="" cols="30" rows="5" placeholder="Any Note For Us" required style="border-left: 0px;"></textarea>
+                    </div>
+                    <button class="btn btn_color w-100 py-3" style="font-size: 18px;">Get An Appointment</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    {% include 'includes/footer.html' %}
+
+{% endblock %}

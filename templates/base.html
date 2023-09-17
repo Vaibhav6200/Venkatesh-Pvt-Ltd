@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %} {% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+
+    <!-- Bootstrap stylesheet-->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Swiper stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/slider/swiper.bundle.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slider/swiper_custom.css' %}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+
+    <style>
+        @font-face {
+            font-family: 'Baloo 2';
+            src: url("{% static 'fonts/Baloo2-Bold.ttf' %}") format("opentype");
+            font-style: normal;
+        }
+        body{
+            box-sizing: border-box;
+            font-family: 'Baloo 2';
+        }
+    </style>
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+    {% block content %}
+    {% endblock %}
+
+
+    {% block extra_js %}
+    {% endblock %}
+
+    <!-- Bootstrap JavaScript -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Swiper JavaScript -->
+    <script src="{% static 'js/slider/swiper.bundle.min.js' %}"></script>
+    <script src="{% static 'js/slider/slider_custom.js' %}"></script>
+
+</body>
+
+</html>
