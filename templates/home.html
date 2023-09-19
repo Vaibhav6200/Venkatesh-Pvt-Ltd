@@ -54,8 +54,11 @@
         <div class="home_banner_container ">
             <img class="banner_image" src="{% static 'clickfix_photos/banner4.jpg' %}" alt="">
             <div class="overlay p-5">
-                <div class="banner_content text-white d-flex flex-column justify-content-center align-items-center h-100">
-                    <h1 class="">Experience instant solutions for your IT repairs. With just one click, access seamless IT repair services.</h1>
+                <div class="banner_content text-white d-flex flex-column justify-content-center  h-100">
+                    <h1 style="font-size: 4rem;"><span style="color: #F6921E;">Solving</span> IT.</span> <span style="color: #F6921E;">Simplifying</span> Life</h1>
+                    <!-- <h1 style="font-size: 4rem;">Solving<span style="color: #F6921E;"> IT. </span> Simplifying <span style="color: #F6921E;">Life</span> </h1> -->
+
+                    <h3 class="">Experience instant solutions for your IT repairs. With just one click, access seamless IT repair services.</h3>
                     <div class="d-flex align-items-center mt-5 w-100">
                         <div class="input-group w-100">
                             <i class="input-group-text d-flex justify-content-center align-items-center fa-solid fa-magnifying-glass bg-white border-end-0" style="font-size: 25px;"></i>
@@ -71,7 +74,7 @@
     <!-- About Us -->
     <section id="about" style="margin: 150px 0px;">
         <div class="container">
-            <h3 class="text-center mb-5" style="color: #F6921e;">About Us</h3>
+            <h3 class="text-center mb-5 fa-3x" style="color: #F6921e;">About Us</h3>
             <div class="row">
                 <div class="col-md-5 col-12">
                     <img class="img-fluid mb-5 mb-md-0" src="{% static 'img/about.webp' %}" alt="">
@@ -87,92 +90,22 @@
 
     <!-- Service Slider -->
     <section style="margin: 150px 0px;" id="services">
-        <h5 class="text-center mb-3" style="color: #F6921e;">OUR SERVICES</h5>
+        <h5 class="text-center mb-3 fa-3x" style="color: #F6921e;">OUR SERVICES</h5>
         <h2 class="text-center">We are Experienced in Making <br>your work easy</h2>
         <div class="container">
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide py-5">
+                    {% for service in services %}
+                    <a  href="{% url 'clickfix:individual_service' service.slug %}" class="swiper-slide py-5 text-decoration-none">
                         <div class="card">
-                            <img class="service_image" src="{% static 'clickfix_photos/image.webp' %}"  alt="...">
+                            <img class="service_image" src="{{ service.card_image.url }}"  alt="...">
                             <div class="card-body">
-                                <h5 class="card-title text-center">Phone repair / Upgradation/ Installation</h5>
-                                <p class="card-text text-center">₹1,432</p>
+                                <h5 class="card-title text-center">{{ service.name }}</h5>
+                                <p class="card-text text-center">₹{{service.price }}</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide py-5">
-                        <div class="card" >
-                            <img class="service_image" src="{% static 'clickfix_photos/image2.webp' %}"  alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title text-center">Desktop repair / Upgradation/ Installation</h5>
-                            <p class="card-text text-center">₹1,432</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide py-5">
-                        <div class="card" >
-                            <img class="service_image" src="{% static 'clickfix_photos/image3.webp' %}"  alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title text-center">Tablet / iPad repair / Upgradation / Installation</h5>
-                            <p class="card-text text-center">₹1,432</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide py-5">
-                        <div class="card" >
-                            <img class="service_image" src="{% static 'clickfix_photos/image4.webp' %}"  alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title text-center">cctv repair / Upgradation/ Installation</h5>
-                            <p class="card-text text-center">₹1,432</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide py-5">
-                        <div class="card">
-                            <img class="service_image" src="{% static 'clickfix_photos/image5.webp' %}"  alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title text-center">server repair / Upgradation/ Installation</h5>
-                            <p class="card-text text-center">₹1,432</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide py-5">
-                        <div class="card" >
-                            <img class="service_image" src="{% static 'clickfix_photos/image6.jpg' %}"  alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title text-center">Health checkup of IT assets</h5>
-                            <p class="card-text text-center">₹1,432</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide py-5">
-                        <div class="card" >
-                            <img class="service_image" src="{% static 'clickfix_photos/image7.jpg' %}"  alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title text-center">AMC of all it assets</h5>
-                            <p class="card-text text-center">₹1,432</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide py-5">
-                        <div class="card" >
-                            <img class="service_image" src="{% static 'clickfix_photos/image8.webp' %}"  alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title text-center">Attendence system Installation</h5>
-                            <p class="card-text text-center">₹1,432</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide py-5">
-                        <div class="card" >
-                            <img class="service_image" src="{% static 'clickfix_photos/image9.webp' %}"  alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title text-center">Application of screen of guard / covers /other accessories</h5>
-                            <p class="card-text text-center">₹1,432</p>
-                            </div>
-                        </div>
-                    </div>
+                    </a>
+                    {% endfor %}
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -183,7 +116,7 @@
     <!-- Our Benefits -->
     <section style="margin: 150px 0px;">
         <div class="container">
-            <h5 class="text-center mb-3" style="color: #F6921e;">OUR AWESOME BENEFITS</h5>
+            <h5 class="text-center mb-3 fa-3x" style="color: #F6921E;">WHY CHOOSE US</h5>
             <h2 class="text-center mb-5">Actually What You'll Get From</h2>
             <div class="row">
                 <div class="col-md-3 col-6 p-4 text-center">
@@ -236,7 +169,7 @@
 
     <!-- Deals & Discount -->
     <section class="deals_and_discount" style="margin: 150px 0px;">
-        <h2 class="text-center mb-5" style="color: #F6921e;">DEALS AND DISCOUNTS</h2>
+        <h2 class="text-center mb-5 fa-3x" style="color: #F6921e;">DEALS AND DISCOUNTS</h2>
         <div class="swiper deals_and_discount_swiper">
             <div class="swiper-wrapper pb-5">
 
@@ -298,8 +231,8 @@
 
 
     <section class="" id="testimonials" style="margin: 150px 0px;">
-        <h5 class="text-center mb-3 text-uppercase" style="color: #F6921e;">Testimonial</h5>
-        <h2 class="text-center mb-5">What our Customers Says</h2>
+        <h5 class="text-center mb-3 text-uppercase fa-3x" style="color: #F6921e;">Testimonial</h5>
+        <h2 class="text-center mb-5">What our Customers Says?</h2>
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -315,7 +248,7 @@
                                 <i class="fa-solid fa-star" style="color: #F6921e;"></i>
                                 <i class="fa-solid fa-star" style="color: #F6921e;"></i>
                             </div>
-                            <p class="card-text text-center">Consistently dependable IT support. They've got our back, no matter what.</p>
+                            <p class="card-text text-center" style="font-size: 1.5rem;">Consistently dependable IT support. They've got our back, no matter what.</p>
                         </div>
                     </div>
                 </div>
@@ -332,7 +265,7 @@
                                 <i class="fa-solid fa-star" style="color: #F6921e;"></i>
                                 <i class="fa-solid fa-star" style="color: #F6921e;"></i>
                             </div>
-                            <p class="card-text text-center">Trustworthy, efficient, and always ready to tackle IT challenges head-on.</p>
+                            <p class="card-text text-center" style="font-size: 1.5rem;">Trustworthy, efficient, and always ready to tackle IT challenges head-on.</p>
 
                         </div>
                     </div>
@@ -462,9 +395,9 @@
                 <div class="d-flex flex-column justify-content-center">
                     <h1>Have a question?</h1>
                     <h1 class="mb-5">Write to us.</h1>
-                    <div class="blockquote mb-3"><i class="fa-solid fa-envelope me-3" style="color: #F6921E;"></i> support@example.com</div>
-                    <div class="blockquote mb-3"><i class="fa-solid fa-phone me-3" style="color: #F6921E;"></i> +91 9988776655</div>
-                    <div class="blockquote mb-3"><i class="fa-solid fa-location-dot me-3 mb-5" style="color: #F6921E;"></i> Collins road, lorem ipsum, Kolkata</div>
+                    <div class="blockquote mb-3"><i class="fa-solid fa-envelope me-3" style="color: #F6921E;"></i> support@clickfix.co.in</div>
+                    <div class="blockquote mb-3"><i class="fa-solid fa-phone me-3" style="color: #F6921E;"></i>(+91) 89104 34505 / (+91) 98360 66464</div>
+                    <div class="blockquote mb-3"><i class="fa-solid fa-location-dot me-3 mb-5" style="color: #F6921E;"></i> Chandni Chawk, Bowbazar, Kolkata, West Bengal</div>
                 </div>
                 <div class="shadow-lg p-5 ">
                     <div class="input-group rounded mb-3" style="border: 1px solid black;">

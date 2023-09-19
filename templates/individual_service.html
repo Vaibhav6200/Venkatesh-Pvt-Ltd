@@ -3,183 +3,25 @@
 
 {% block title %} Individual Service {% endblock %}
 
-{% block extra_css %}
-<style>
-
-    .select_service_img {
-        width: 64px;
-        height: 64px;
-        object-fit: cover;
-        object-position: center;
-        border-radius: 8px;
-    }
-
-    .service_img {
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-        object-position: center;
-        border-radius: 10px;
-    }
-    @media (min-width: 768px){
-        .service_img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            object-position: center;
-            border-radius: 10px;
-        }
-    }
-    @media (max-width: 576px){
-        .service_img {
-            width: 100%;
-            height: 170px;
-            object-fit: cover;
-            object-position: center;
-            border-radius: 10px;
-        }
-    }
-
-    .coupon_img {
-        background-color: #07794C;
-        border-radius: 5px;
-        width: 50px;
-        font-size: 30px;
-        font-weight: bold;
-    }
-
-    .num_spinner .num-in {
-        background: #FFFFFF;
-        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
-        border-radius: 25px;
-        height: 40px;
-        width: 110px;
-        float: left;
-    }
-
-    .num_spinner .num-in span {
-        width: 40%;
-        display: block;
-        height: 40px;
-        float: left;
-        position: relative;
-        cursor: pointer;
-    }
-
-    .num_spinner .num-in span:before,
-    .num_spinner .num-in span:after {
-        content: '';
-        position: absolute;
-        background-color: #667780;
-        height: 2px;
-        width: 10px;
-        top: 50%;
-        left: 50%;
-        margin-top: -1px;
-        margin-left: -5px;
-    }
-
-    .num_spinner .num-in span.plus:after {
-        transform: rotate(90deg);
-    }
-
-    .num_spinner .num-in input {
-        float: left;
-        width: 20%;
-        height: 40px;
-        border: none;
-        text-align: center;
-    }
-
-
-    .select_service_text{
-        font-size: 12px;
-    }
-    @media (min-width: 786px) {
-        .select_service_container{
-            border: 2px solid #e7e7e7;
-            padding: 20px;
-            border-radius: 8px;
-        }
-    }
-
-    @media(min-width: 786px){
-        .service_detail_container{
-            padding: 0px 100px;
-        }
-    }
-
-    .slot_btn{
-        border: 1px solid #F6921E;
-        color: #F6921E;
-    }
-    .slot_btn:hover{
-        border: 1px solid #F6921E;
-        background-color: #f6911e22;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
 
     {% include 'includes/navbar.html' %}
 
 
-    <section>
+    <section id="individual_service">
         <div class="row mt-5" style="width: 90%; margin: auto;">
             <div class="col-md-4">
                 <div class="select_service_container mb-5" style="position: sticky; top: 30px;">
                     <div class="h5 mb-2">Select a Service</div>
                     <div class="row">
+                        {% for service in sub_services %}
                         <div class="col-4 col-md-3 mt-3">
                             <a href="#upgrade_ram" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
-                                <img class="img-fluid select_service_img" src="{% static 'clickfix_photos/image7.jpg' %}" alt="">
-                                <div class="mt-2 text-center select_service_text">Upgrade Ram/Memory</div>
+                                <img class="img-fluid select_service_img" src="{{ service.sub_service_card_image.url }}" alt="">
+                                <div class="mt-2 text-center select_service_text">{{ service.sub_service_name}}</div>
                             </a>
                         </div>
-                        <div class="col-4 col-md-3 mt-3">
-                            <a href="#screen_repair" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
-                                <img class="img-fluid select_service_img" src="{% static 'clickfix_photos/image2.webp' %}" alt="">
-                                <div class="mt-2 text-center select_service_text">Screen Repair/Replace </div>
-                            </a>
-                        </div>
-                        <div class="col-4 col-md-3 mt-3">
-                            <a href="#crashed_os" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
-                                <img class="img-fluid select_service_img" src="{% static 'clickfix_photos/server.webp' %}" alt="">
-                                <div class="mt-2 text-center select_service_text">Crashed OS </div>
-                            </a>
-                        </div>
-                        <div class="col-4 col-md-3 mt-3">
-                            <a href="#keyboard_issue" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
-                                <img class="img-fluid select_service_img" src="{% static 'clickfix_photos/image4.webp' %}" alt="">
-                                <div class="mt-2 text-center select_service_text">Keyboard & Touchpad Issue</div>
-                            </a>
-                        </div>
-                        <div class="col-4 col-md-3 mt-3">
-                            <a href="#virus" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
-                                <img class="img-fluid select_service_img" src="{% static 'clickfix_photos/image5.webp' %}" alt="">
-                                <div class="mt-2 text-center select_service_text">Virus/Malware Issue</div>
-                            </a>
-                        </div>
-                        <div class="col-4 col-md-3 mt-3">
-                            <a href="#battery" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
-                                <img class="img-fluid select_service_img" src="{% static 'clickfix_photos/image6.jpg' %}" alt="">
-                                <div class="mt-2 text-center select_service_text">Battery/Charging Issue</div>
-                            </a>
-                        </div>
-                        <div class="col-4 col-md-3 mt-3">
-                            <a href="#backup" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
-                                <img class="img-fluid select_service_img" src="{% static 'clickfix_photos/image.webp' %}" alt="">
-                                <div class="mt-2 text-center select_service_text">Data Recovery/Backup</div>
-                            </a>
-                        </div>
-                        <div class="col-4 col-md-3 mt-3">
-                            <a href="#physical_damage" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
-                                <img class="img-fluid select_service_img" src="{% static 'clickfix_photos/image8.webp' %}" alt="">
-                                <div class="mt-2 text-center select_service_text">Physical Damage/Repair</div>
-                            </a>
-                        </div>
-
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -237,231 +79,31 @@
                 </div>
 
                 <div class="service_detail_container">
-                    <div class="card py-4 mb-4 border-0" id="upgrade_ram">
-                        <img class="img-fluid service_img" src="{% static 'clickfix_photos/laptop_repair.jpg' %}" alt="...">
-                        <div class="card-body">
-                            <div class="card-title d-flex flex-column mb-4">
-                                <div class="h5 mb-4">Upgrade RAM / Memory </div>
-                                <div class="num_spinner">
-                                    <div class="num-in">
-                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
-                                        <input type="text" class="in-num" value="0">
-                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
+                        {% for service in sub_services %}
+                        <div class="card py-4 mb-4 border-0" id="upgrade_ram">
+                            <img class="img-fluid service_img" src="{{ service.sub_service_main_image.url }}" alt="...">
+                            <div class="card-body">
+                                <div class="card-title d-flex flex-column mb-4">
+                                    <div class="h5 mb-4">{{service.sub_service_name}} </div>
+                                    <div class="num_spinner">
+                                        <div class="num-in">
+                                            <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
+                                            <input type="text" class="in-num" value="0">
+                                            <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <p class="card-text">Diagnosing and fixing the causes of sluggish performance, such as insufficient RAM, outdated hardware, or excessive background processes. Installing new components like RAM or hard drives to improve performance.</p>
-                            <div class="mb-3">
-                                <div class="fw-bold me-5" style="color: #f6921e;">Starts from ₹99</div>
-                                <div class="">
-                                    <ul>
-                                        <li>Warranty 1 year**</li>
-                                        <li>Visit Charges of Rs.99 will be waived off in final bill</li>
-                                        <li>Final bill will be confirmed after complete inspection</li>
-                                    </ul>
+                                <p class="card-text">{{ service.description}} </p>
+                                <div class="mb-3">
+                                    {{ service.detailed_price|safe }}
                                 </div>
+                                <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
                             </div>
-                            <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
                         </div>
-                    </div>
-                    <!-- SEPERATOR -->
-                    <div class="my-5" style="border: 1px solid #e7e7e7;"></div>
-                    <!-- ********* -->
-                    <div class="card py-4 mb-4 border-0"  id="screen_repair">
-                        <img class="img-fluid service_img" src="{% static 'clickfix_photos/screen.jpg' %}" alt="...">
-                        <div class="card-body">
-                            <div class="card-title d-flex flex-column mb-4">
-                                <div class="h5 mb-4">Screen Replace / Repair</div>
-                                <div class="num_spinner">
-                                    <div class="num-in">
-                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
-                                        <input type="text" class="in-num" value="0">
-                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="card-text">Investigating and fixing issues causing a blank screen or no display output.</p>
-                            <div class="mb-3">
-                                <div class="fw-bold me-5" style="color: #f6921e;">Starts from ₹99</div>
-                                <div class="">
-                                    <ul>
-                                        <li>Warranty 1 year**</li>
-                                        <li>Visit Charges of Rs.99 will be waived off in final bill</li>
-                                        <li>Final bill will be confirmed after complete inspection</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
-                        </div>
-                    </div>
-                    <div class="my-5" style="border: 1px solid #e7e7e7;"></div>
-                    <div class="card py-4 mb-4 border-0" id="crashed_os">
-                        <img class="img-fluid service_img" src="{% static 'clickfix_photos/image8.webp' %}" alt="...">
-                        <div class="card-body">
-                            <div class="card-title d-flex flex-column mb-4">
-                                <div class="h5 mb-4">Crashed OS</div>
-                                <div class="num_spinner">
-                                    <div class="num-in">
-                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
-                                        <input type="text" class="in-num" value="0">
-                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="card-text">Assisting with software installation, updates, and compatibility issues.</p>
-                            <div class="mb-3">
-                                <div class="fw-bold me-5" style="color: #f6921e;">Starts from ₹99</div>
-                                <div class="">
-                                    <ul>
-                                        <li>Warranty 1 year**</li>
-                                        <li>Visit Charges of Rs.99 will be waived off in final bill</li>
-                                        <li>Final bill will be confirmed after complete inspection</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
-                        </div>
-                    </div>
-                    <div class="my-5" style="border: 1px solid #e7e7e7  ;"></div>
-                    <div class="card py-4 mb-4 border-0" id="keyboard_issue">
-                        <img class="img-fluid service_img" src="{% static 'clickfix_photos/banner2.jpg' %}" alt="...">
-                        <div class="card-body">
-                            <div class="card-title d-flex flex-column mb-4">
-                                <div class="h5 mb-4">Keyboard and Touchpad Issue</div>
-                                <div class="num_spinner">
-                                    <div class="num-in">
-                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
-                                        <input type="text" class="in-num" value="0">
-                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="card-text">Resolving problems with unresponsive or malfunctioning keyboards and mice.</p>
-                            <div class="mb-3">
-                                <div class="fw-bold me-5" style="color: #f6921e;">Starts from ₹99</div>
-                                <div class="">
-                                    <ul>
-                                        <li>Warranty 1 year**</li>
-                                        <li>Visit Charges of Rs.99 will be waived off in final bill</li>
-                                        <li>Final bill will be confirmed after complete inspection</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
-                        </div>
-                    </div>
-                    <div class="my-5" style="border: 1px solid #e7e7e7;"></div>
-                    <div class="card py-4 mb-4 border-0" id="virus">
-                        <img class="img-fluid service_img" src="{% static 'clickfix_photos/virus.webp' %}" alt="...">
-                        <div class="card-body">
-                            <div class="card-title d-flex flex-column mb-4">
-                                <div class="h5 mb-4">Virus and Malware detection and removal</div>
-                                <div class="num_spinner">
-                                    <div class="num-in">
-                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
-                                        <input type="text" class="in-num" value="0">
-                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="card-text">Cleaning up infections that can slow down the system or compromise user data.</p>
-                            <div class="mb-3">
-                                <div class="fw-bold me-5" style="color: #f6921e;">Starts from ₹99</div>
-                                <div class="">
-                                    <ul>
-                                        <li>Warranty 1 year**</li>
-                                        <li>Visit Charges of Rs.99 will be waived off in final bill</li>
-                                        <li>Final bill will be confirmed after complete inspection</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
-                        </div>
-                    </div>
-                    <div class="my-5" style="border: 1px solid #e7e7e7  ;"></div>
-                    <div class="card py-4 mb-4 border-0" id="battery">
-                        <img class="img-fluid service_img" src="{% static 'clickfix_photos/battery.webp' %}" alt="...">
-                        <div class="card-body">
-                            <div class="card-title d-flex flex-column mb-4">
-                                <div class="h5 mb-4">Battery / Charging Issue </div>
-                                <div class="num_spinner">
-                                    <div class="num-in">
-                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
-                                        <input type="text" class="in-num" value="0">
-                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="card-text">Facing laptop battery issues? Our experts fix it all - quick drain, charging problems, sudden shutdowns, swelling, overheating, inconsistent readings, and more. Get a fully charged laptop back in no time.</p>
-                            <div class="mb-3">
-                                <div class="fw-bold me-5" style="color: #f6921e;">Starts from ₹99</div>
-                                <div class="">
-                                    <ul>
-                                        <li>Warranty 1 year**</li>
-                                        <li>Visit Charges of Rs.99 will be waived off in final bill</li>
-                                        <li>Final bill will be confirmed after complete inspection</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
-                        </div>
-                    </div>
-                    <div class="my-5" style="border: 1px solid #e7e7e7  ;"></div>
-                    <div class="card py-4 mb-4 border-0" id="backup">
-                        <img class="img-fluid service_img" src="{% static 'clickfix_photos/image5.webp' %}" alt="...">
-                        <div class="card-body">
-                            <div class="card-title d-flex flex-column mb-4">
-                                <div class="h5 mb-4"> Data Recovery / Backup </div>
-                                <div class="num_spinner">
-                                    <div class="num-in">
-                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
-                                        <input type="text" class="in-num" value="0">
-                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="card-text">Retrieving data from damaged or corrupted hard drives, partitions, or accidentally deleted files.</p>
-                            <div class="mb-3">
-                                <div class="fw-bold me-5" style="color: #f6921e;">Starts from ₹99</div>
-                                <div class="">
-                                    <ul>
-                                        <li>Warranty 1 year**</li>
-                                        <li>Visit Charges of Rs.99 will be waived off in final bill</li>
-                                        <li>Final bill will be confirmed after complete inspection</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
-                        </div>
-                    </div>
-                    <div class="my-5" style="border: 1px solid #e7e7e7  ;"></div>
-                    <div class="card py-4 mb-4 border-0" id="physical_damage">
-                        <img class="img-fluid service_img" src="{% static 'clickfix_photos/image4.webp' %}" alt="...">
-                        <div class="card-body">
-                            <div class="card-title d-flex flex-column mb-4">
-                                <div class="h5 mb-4"> Physical Damage / Repair </div>
-                                <div class="num_spinner">
-                                    <div class="num-in">
-                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
-                                        <input type="text" class="in-num" value="0">
-                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="card-text">Facing laptop battery issues? Our experts fix it all - quick drain, charging problems, sudden shutdowns, swelling, overheating, inconsistent readings, and more. Get a fully charged laptop back in no time.</p>
-                            <div class="mb-3">
-                                <div class="fw-bold me-5" style="color: #f6921e;">Starts from ₹99</div>
-                                <div class="">
-                                    <ul>
-                                        <li>Warranty 1 year**</li>
-                                        <li>Visit Charges of Rs.99 will be waived off in final bill</li>
-                                        <li>Final bill will be confirmed after complete inspection</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
-                        </div>
-                    </div>
+                        {% if not forloop.last %}
+                            <div class="my-5" style="border: 1px solid #e7e7e7;"></div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
