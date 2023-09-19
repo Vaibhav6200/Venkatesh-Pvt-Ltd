@@ -7,7 +7,7 @@
 
     {% include 'includes/navbar.html' %}
 
-
+    <!-- Sub-Services -->
     <section id="individual_service">
         <div class="row mt-5" style="width: 90%; margin: auto;">
             <div class="col-md-4">
@@ -21,6 +21,9 @@
                                 <div class="mt-2 text-center select_service_text">{{ service.sub_service_name}}</div>
                             </a>
                         </div>
+
+                        {% empty %}
+                        <h5 class="text-muted">No Service Available at this moment</h5>
                         {% endfor %}
                     </div>
                 </div>

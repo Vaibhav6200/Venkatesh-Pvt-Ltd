@@ -53,11 +53,44 @@
     width: inherit;
     background-color: rgba(0, 0, 0, 0.5);
 }
-
 .logo_img{
     width: 10rem;
 }
+#about .about_text{
+    font-size: 1.3rem;
+    text-align: justify;
+}
+@media (max-width: 767px){
+    #about .about_text{
+        font-size: 1.2rem;
+    }
+}
+@media (max-width: 568px){
+    #about .about_text{
+        font-size: 1rem;
+    }
+}
+@media (min-width: 767px){
+    #hero .banner_content{
+        max-width: 60%;
+        margin: 0 auto;
+    }
+    #hero .banner_search_bar{
+        width: 100%;
+    }
+}
+@media (max-width: 568px){
+    #hero .banner_content{
+        font-size: 80%;
+        margin: 0 auto;
 
+    }
+}
+#services .service_image{
+    width: 100%;
+    max-height: 210px;
+    object-fit: cover;
+}
 
 
 

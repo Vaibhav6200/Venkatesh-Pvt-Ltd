@@ -7,8 +7,13 @@ from .models import *
 
 
 def home(request):
+    testimonials = Testimonials.objects.all()
     services = Services.objects.all()
-    return render(request, 'home.html', {'services': services})
+    params = {
+        'services': services,
+        'testimonials': testimonials,
+    }
+    return render(request, 'home.html', params)
 
 def profile(request):
     return render(request, 'profile.html')
@@ -29,6 +34,7 @@ def live_tracking(request):
 
 def bookings(request):
     return render(request, 'bookings.html')
+
 
 
 

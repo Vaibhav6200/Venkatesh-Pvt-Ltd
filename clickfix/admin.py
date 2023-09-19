@@ -23,8 +23,13 @@ class CustomServices(admin.ModelAdmin):
     exclude = ('slug',)
 
 
-
 @admin.register(SubServices)
 class CustomSubServices(admin.ModelAdmin):
     list_display = ['id', 'service', 'sub_service_name']
     list_display_links = ['id', 'service', 'sub_service_name']
+
+
+@admin.register(Testimonials)
+class CustomTestimonials(admin.ModelAdmin):
+    list_display = ['id', 'title', 'state']
+    list_display_links = ['id', 'title']
