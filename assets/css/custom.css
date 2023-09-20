@@ -98,6 +98,7 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+<<<<<<< HEAD
 #about .about_text{
     font-size: 1.3rem;
     text-align: justify;
@@ -117,6 +118,12 @@
     max-height: 210px;
     object-fit: cover;
 }
+=======
+.logo_img{
+    width: 10rem;
+}
+
+>>>>>>> parent of 1a8307c (Now we wil update banner)
 
 
 
