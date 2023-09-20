@@ -48,10 +48,14 @@ class SubServices(models.Model):
     sub_service_name = models.CharField(max_length=255)
     sub_service_card_image = models.ImageField(upload_to='service_cards', help_text='Small card image on left')
     sub_service_main_image = models.ImageField(upload_to='service_cards', help_text='Big card image on Right, which we scroll')
+    sub_service_price = models.FloatField(default=0)
+    price_details = RichTextField(blank=True, null=True)
     description = models.TextField()
-    detailed_price = RichTextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.sub_service_name
 
 
 class Testimonials(models.Model):

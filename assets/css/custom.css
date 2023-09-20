@@ -244,6 +244,10 @@
     border: 1px solid #F6921E;
     background-color: #f6911e22;
 }
+#individual_service .slot_btn_active{
+    border: 1px solid #F6921E;
+    background-color: #f6911e22;
+}
 
 
 

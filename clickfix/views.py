@@ -13,9 +13,6 @@ def home(request):
 def profile(request):
     return render(request, 'profile.html')
 
-def cart(request):
-    return render(request, 'cart.html')
-
 def individual_service(request, service_name):
     service = Services.objects.get(slug=service_name)
     sub_services = SubServices.objects.filter(service=service)

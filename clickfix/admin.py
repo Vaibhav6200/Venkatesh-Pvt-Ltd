@@ -26,5 +26,7 @@ class CustomServices(admin.ModelAdmin):
 
 @admin.register(SubServices)
 class CustomSubServices(admin.ModelAdmin):
-    list_display = ['id', 'service', 'sub_service_name']
+    list_display = ['id', 'sub_service_name', 'service']
     list_display_links = ['id', 'service', 'sub_service_name']
+    search_fields = ['sub_service_name', 'service']
+    list_filter = ['service']

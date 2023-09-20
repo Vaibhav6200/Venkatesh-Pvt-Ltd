@@ -7,7 +7,6 @@
 
     {% include 'includes/navbar.html' %}
 
-
     <section id="individual_service">
         <div class="row mt-5" style="width: 90%; margin: auto;">
             <div class="col-md-4">
@@ -78,6 +77,7 @@
 
                 <div class="service_detail_container">
                         {% for service in sub_services %}
+
                         <div class="card py-4 mb-4 border-0" id="sub_service_{{service.id}}">
                             <img class="img-fluid service_img" src="{{ service.sub_service_main_image.url }}" alt="...">
                             <div class="card-body">
@@ -93,7 +93,8 @@
                                 </div>
                                 <p class="card-text">{{ service.description}} </p>
                                 <div class="mb-3">
-                                    {{ service.detailed_price|safe }}
+                                    Starts from {{ service.sub_service_price }}
+                                    {{ service.price_details|safe }}
                                 </div>
                                 <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment-{{service.id}}">Check Availability</button>
                             </div>
@@ -111,43 +112,43 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="mb-3 d-flex justify-content-between" id="appointment_date">
-                                            <button class="btn me-2 mb-3 slot_btn">
+                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_date(this)">
                                                 <div class="d-flex flex-column align-items-center justify-content-center">
                                                     <div>Mon</div>
                                                     <div class="fw-bold">04</div>
                                                 </div>
                                             </button>
-                                            <button class="btn me-2 mb-3 slot_btn">
+                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_date(this)">
                                                 <div class="d-flex flex-column align-items-center justify-content-center">
                                                     <div>Tue</div>
                                                     <div class="fw-bold">05</div>
                                                 </div>
                                             </button>
-                                            <button class="btn me-2 mb-3 slot_btn">
+                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_date(this)">
                                                 <div class="d-flex flex-column align-items-center justify-content-center">
                                                     <div>Wed</div>
                                                     <div class="fw-bold">06</div>
                                                 </div>
                                             </button>
-                                            <button class="btn me-2 mb-3 slot_btn">
+                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_date(this)">
                                                 <div class="d-flex flex-column align-items-center justify-content-center">
                                                     <div>Thu</div>
                                                     <div class="fw-bold">07</div>
                                                 </div>
                                             </button>
-                                            <button class="btn me-2 mb-3 slot_btn">
+                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_date(this)">
                                                 <div class="d-flex flex-column align-items-center justify-content-center">
                                                     <div>Fri</div>
                                                     <div class="fw-bold">08</div>
                                                 </div>
                                             </button>
-                                            <button class="btn me-2 mb-3 slot_btn">
+                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_date(this)">
                                                 <div class="d-flex flex-column align-items-center justify-content-center">
                                                     <div>Sat</div>
                                                     <div class="fw-bold">09</div>
                                                 </div>
                                             </button>
-                                            <button class="btn me-2 mb-3 slot_btn">
+                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_date(this)">
                                                 <div class="d-flex flex-column align-items-center justify-content-center">
                                                     <div>Sun</div>
                                                     <div class="fw-bold">10</div>
@@ -155,13 +156,13 @@
                                             </button>
                                         </div>
                                         <div class="h5 mb-4">Select Time Slot</div>
-                                        <div class="mb-3 d-flex justify-content-between">
+                                        <div class="mb-3 d-flex justify-content-between" id="appointment_time">
                                             <button class="btn me-2 mb-3 slot_btn">10am-12pm</button>
                                             <button class="btn me-2 mb-3 slot_btn">12pm-2pm</button>
                                             <button class="btn me-2 mb-3 slot_btn">2pm-4pm</button>
                                             <button class="btn me-2 mb-3 slot_btn">4pm-7pm</button>
                                         </div>
-                                        <button class="btn py-2 px-4 mt-3 text-white btn_color w-100">Add to Cart</button>
+                                        <button class="btn py-2 px-4 mt-3 text-white btn_color w-100" value="{{service.id}}" onclick="addToCart(this)">Add to Cart</button>
                                     </div>
                                 </div>
                             </div>
