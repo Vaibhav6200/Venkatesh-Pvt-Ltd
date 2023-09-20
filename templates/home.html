@@ -3,31 +3,32 @@
 
 {% block title %} Home Page {% endblock %}
 
+{% block extra_css %}
+<style>
+
+
+</style>
+{% endblock %}
 
 {% block content %}
-    {% include 'includes/navbar.html' %}
-
     <!-- Hero Section -->
     <section id="hero">
-        <div class="home_banner_container ">
-            <img class="banner_image" src="{% static 'clickfix_photos/banner4.jpg' %}" alt="">
-            <div class="overlay p-5">
-                <div class="banner_content text-white d-flex flex-column justify-content-center  h-100">
-                    <h1 style="font-size: 4rem;"><span style="color: #F6921E;">Solving</span> IT.</span> <span style="color: #F6921E;">Simplifying</span> Life</h1>
-                    <!-- <h1 style="font-size: 4rem;">Solving<span style="color: #F6921E;"> IT. </span> Simplifying <span style="color: #F6921E;">Life</span> </h1> -->
+        <video class="home_banner_video" src="{% static 'video/home_banner_video.mp4' %}" autoplay loop playsinline muted></video>
 
-                    <h3 class="">Experience instant solutions for your IT repairs. With just one click, access seamless IT repair services.</h3>
-                    <div class="d-flex align-items-center mt-5 w-100">
-                        <div class="input-group w-100">
-                            <i class="input-group-text d-flex justify-content-center align-items-center fa-solid fa-magnifying-glass bg-white border-end-0" style="font-size: 25px;"></i>
-                            <input class="form-control py-3 border-start-0 banner_search_bar" name="" id="" placeholder="Search" type="text">
-                        </div>
+        <div class="overlay">
+            {% include 'includes/navbar.html' %}
+            <div class="home_banner_content d-flex justify-content-center align-items-center">
+                <div class="container d-flex flex-column">
+                    <p class="home_banner_heading headings"> <span style="color: #F6921e;" >Solving </span> IT <br>  <span style="color: #F6921e;">Simplifying</span> Life </p>
+                    <p class="home_banner_subheading">Experience instant solutions for your IT repairs. With just one click, access seamless IT repair services.</p>
+                    <div class="input-group">
+                        <i class="input-group-text d-flex justify-content-center align-items-center fa-solid fa-magnifying-glass bg-white border-end-0" style="font-size: 25px;"></i>
+                        <input class="form-control py-3 border-start-0 banner_search_bar" name="" id="" placeholder="Search" type="text">
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
 
     <!-- About Us -->
     <section id="about" style="margin: 150px 0px;">
@@ -126,7 +127,7 @@
 
 
     <!-- Deals & Discount -->
-    <section class="deals_and_discount" style="margin: 150px 0px;">
+    <section id="deals_and_discount" style="margin: 150px 0px;">
         <h2 class="text-center mb-5 fa-3x" style="color: #F6921e;">DEALS AND DISCOUNTS</h2>
         <div class="swiper deals_and_discount_swiper">
             <div class="swiper-wrapper pb-5">

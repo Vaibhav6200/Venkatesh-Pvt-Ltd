@@ -1,0 +1,17 @@
+[33mcommit 1a8307c3540ce7931d9a62dcbc7ecb3430b5782f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: vaibhav <vaibhavpaliwal620@gmail.com>
+Date:   Wed Sep 20 01:20:10 2023 +0530
+
+    Now we wil update banner
+
+[33mcommit e2adb4d41bd8ded9dea4a1f485ccafa2cfd9f8f9[m
+Author: vaibhav <vaibhavpaliwal620@gmail.com>
+Date:   Wed Sep 20 01:01:11 2023 +0530
+
+    Service Made Dynamic
+
+[33mcommit 01f5c4ec7394f00c817663350d5960daa42a9bfe[m
+Author: vaibhav <vaibhavpaliwal620@gmail.com>
+Date:   Sun Sep 17 23:48:29 2023 +0530
+
+    Added Templates in backend

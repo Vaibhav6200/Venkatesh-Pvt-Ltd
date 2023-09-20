@@ -23,13 +23,29 @@
 
     <style>
         @font-face {
-            font-family: 'Baloo 2';
-            src: url("{% static 'fonts/Baloo2-Bold.ttf' %}") format("opentype");
+            font-family: 'metropolis';
+            src: url("./assets/fonts/Metropolis-Black.otf") format("opentype");
             font-style: normal;
         }
+
+
+        @font-face {
+            font-family: 'bahnschrift';
+            src: url("./assets/fonts/BAHNSCHRIFT.ttf") format("opentype");
+            font-style: normal;
+        }
+
         body{
             box-sizing: border-box;
-            font-family: 'Baloo 2';
+            font-family: 'bahnschrift';
+        }
+
+        .headings{
+            font-family: 'metropolis';
+        }
+
+        h1, h2, h3, h4, h5, h6, p, a{
+            font-family: 'bahnschrift';
         }
     </style>
 

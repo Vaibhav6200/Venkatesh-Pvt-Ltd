@@ -3,7 +3,7 @@
     color: white;
 }
 
-/* HOME PAGE TESTIMONIAL SECTION */
+/* HOME PAGE CUSTOM CSS */
 #testimonials .card{
     @media screen and (min-width: 767px) {
         width: 50%;
@@ -14,48 +14,90 @@
     height: 100px;
     object-fit: cover;
 }
-
-
+#hero .navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
 
 /* HOME PAGE DEALS & DISCOUNT SECTION */
-@media (max-width: 768px) {
-    .home_banner_container {
-        width: 100%;
-        height: 70vh;
-    }
-    .dealsContainer {
-        background-color: black;
-        width: 100%;
-        min-height: 70vh;
-    }
-}
+#hero .home_banner_video{
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+  }
+
+  #hero .overlay{
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 
 
-.home_banner_container{
+  #hero .home_banner_content{
     width: 100%;
     height: 90vh;
-    position: relative;
-}
-.sales_container{
+    margin-top: 80px;
+    color: white;
+  }
+  #hero .home_banner_heading{
+    @media (max-width:576px) {
+      font-size: 7vw;
+    }
+    @media (min-width:576px) {
+      font-size: 4vw;
+    }
+    @media (min-width:768px) {
+        font-size: 3.5vw;
+    }
+    @media (min-width:992px) {
+        font-size: 3vw;
+    }
+  }
+  #hero .home_banner_subheading{
+    @media (max-width:576px) {
+      font-size: 5vw;
+    }
+    @media (min-width:576px) {
+      font-size: 4vw;
+      width: 75%;
+    }
+    @media (min-width:768px) {
+        font-size: 3vw;
+    }
+    @media (min-width:992px) {
+        font-size: 2vw;
+    }
+  }
+  #hero .input-group{
+    @media (min-width:576px) {
+        width: 75%;
+    }
+  }
+
+#deals_and_discount .sales_container, #individual_service_deals .sales_container{
     width: 100%;
     height: 70vh;
     position: relative;
 }
-.sales_image, .banner_image{
+
+#deals_and_discount .sales_image, #individual_service_deals .sales_image{
     height: 100%;
     width: 100%;
     object-fit: cover;
 }
-.overlay{
+#deals_and_discount .overlay, #individual_service_deals .overlay{
     position: absolute;
     top: 0;
     height: inherit;
     width: inherit;
     background-color: rgba(0, 0, 0, 0.5);
 }
-.logo_img{
-    width: 10rem;
-}
+
 #about .about_text{
     font-size: 1.3rem;
     text-align: justify;
@@ -70,22 +112,6 @@
         font-size: 1rem;
     }
 }
-@media (min-width: 767px){
-    #hero .banner_content{
-        max-width: 60%;
-        margin: 0 auto;
-    }
-    #hero .banner_search_bar{
-        width: 100%;
-    }
-}
-@media (max-width: 568px){
-    #hero .banner_content{
-        font-size: 80%;
-        margin: 0 auto;
-
-    }
-}
 #services .service_image{
     width: 100%;
     max-height: 210px;
@@ -95,7 +121,7 @@
 
 
 
-/* Live Tracking */
+/* LIVE TRACKING CUSTOM CSS */
 .vertical_dotted_line{
     border-left: dashed 4px #d8d8d8;
     height: 70px;
@@ -150,14 +176,14 @@
         border-radius: 10px;
     }
 }
-#individual_service .coupon_img {
+.coupon_img {
     background-color: #07794C;
     border-radius: 5px;
     width: 50px;
     font-size: 30px;
     font-weight: bold;
 }
-#individual_service .num_spinner .num-in {
+.num_spinner .num-in {
     background: #FFFFFF;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
     border-radius: 25px;
@@ -165,7 +191,7 @@
     width: 110px;
     float: left;
 }
-#individual_service .num_spinner .num-in span {
+.num_spinner .num-in span {
     width: 40%;
     display: block;
     height: 40px;
@@ -173,8 +199,8 @@
     position: relative;
     cursor: pointer;
 }
-#individual_service .num_spinner .num-in span:before,
-#individual_service .num_spinner .num-in span:after {
+.num_spinner .num-in span:before,
+.num_spinner .num-in span:after {
     content: '';
     position: absolute;
     background-color: #667780;
@@ -185,10 +211,10 @@
     margin-top: -1px;
     margin-left: -5px;
 }
-#individual_service .num_spinner .num-in span.plus:after {
+.num_spinner .num-in span.plus:after {
     transform: rotate(90deg);
 }
-#individual_service .num_spinner .num-in input {
+.num_spinner .num-in input {
     float: left;
     width: 20%;
     height: 40px;
@@ -217,4 +243,26 @@
 #individual_service .slot_btn:hover{
     border: 1px solid #F6921E;
     background-color: #f6911e22;
+}
+
+
+
+/* CART PAGE CUSTOM CSS */
+#cart .cart_img {
+    width: 160px;
+    height: 120px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+}
+@media (min-width: 786px){
+    #cart .coupon_section{
+        padding-left: 150px !important;
+    }
+}
+#cart .coupon_modal_img {
+    width: 120px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
 }

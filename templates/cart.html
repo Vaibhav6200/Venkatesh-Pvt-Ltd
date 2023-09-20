@@ -3,95 +3,12 @@
 
 {% block title %} Cart {% endblock %}
 
-{% block extra_css %}
-<style>
-    .btn_color{
-        background-image: linear-gradient(to right bottom, #F6931E, #f3c082);
-        color: white;
-    }
-
-    .cart_img {
-        width: 160px;
-        height: 120px;
-        object-fit: cover;
-        object-position: center;
-        border-radius: 10px;
-    }
-
-    .coupon_img {
-        background-color: #07794C;
-        border-radius: 5px;
-        width: 50px;
-        font-size: 30px;
-        font-weight: bold;
-    }
-
-    .num_spinner .num-in {
-        background: #FFFFFF;
-        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
-        border-radius: 25px;
-        height: 40px;
-        width: 110px;
-        float: left;
-    }
-
-    .num_spinner .num-in span {
-        width: 40%;
-        display: block;
-        height: 40px;
-        float: left;
-        position: relative;
-        cursor: pointer;
-    }
-
-    .num_spinner .num-in span:before,
-    .num_spinner .num-in span:after {
-        content: '';
-        position: absolute;
-        background-color: #667780;
-        height: 2px;
-        width: 10px;
-        top: 50%;
-        left: 50%;
-        margin-top: -1px;
-        margin-left: -5px;
-    }
-
-    .num_spinner .num-in span.plus:after {
-        transform: rotate(90deg);
-    }
-
-    .num_spinner .num-in input {
-        float: left;
-        width: 20%;
-        height: 40px;
-        border: none;
-        text-align: center;
-    }
-
-
-    @media (min-width: 786px){
-        .coupon_section{
-            padding-left: 150px !important;
-        }
-    }
-
-
-    .coupon_modal_img {
-        width: 120px;
-        height: 100px;
-        object-fit: cover;
-        object-position: center;
-    }
-</style>
-
-{% endblock %}
 
 {% block content %}
 
     {% include 'includes/navbar.html' %}
 
-    <div class="container mt-5">
+    <div class="container mt-5" id="cart">
         <h1 class="mb-5">Cart</h1>
         <div class="row">
             <!-- User Details and payment summary -->
