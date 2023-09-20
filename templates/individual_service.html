@@ -16,71 +16,69 @@
                     <div class="row">
                         {% for service in sub_services %}
                         <div class="col-4 col-md-3 mt-3">
-                            <a href="#upgrade_ram" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
+                            <a href="#sub_service_{{service.id}}" class="text-decoration-none text-dark d-flex flex-column align-items-center" style="cursor: pointer;">
                                 <img class="img-fluid select_service_img" src="{{ service.sub_service_card_image.url }}" alt="">
                                 <div class="mt-2 text-center select_service_text">{{ service.sub_service_name}}</div>
                             </a>
                         </div>
+                        {% empty %}
+                            <h6 class="text-muted">No Service at the moment</h6>
                         {% endfor %}
                     </div>
                 </div>
             </div>
 
             <div class="col-md-8">
-
-                <div class="mb-5">
-                    <div class="swiper deals_and_discount_swiper" id="individual_service_deals>
-                        <div class="swiper-wrapper pb-5">
-
-                            <div class="swiper-slide">
-                                <div class="sales_container">
-                                    <img class="sales_image" src="{% static 'clickfix_photos/sale1.jpg' %}" alt="">
-                                    <div class="overlay">
-                                        <div class="text-white h-100 d-flex flex-column px-5 justify-content-center align-items-center">
-                                            <div style="font-size: 4rem;">Welcome Offer</div>
-                                            <div class="blockquote">UPTO <span style="font-size: 4rem; color: #F6921E;">50%</span> OFF</div>
-                                            <div class="blockquote text-center">Welcome to Click Fix! Enjoy 10% off your first IT service. Let us make your tech hassles disappear</div>
-                                            <button class="btn btn_color">Avail Now</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide">
-                                <div class="sales_container">
-                                    <img class="sales_image" src="{% static 'clickfix_photos/sale2.jpg' %}" alt="">
-                                    <div class="overlay">
-                                        <div class="text-white h-100 d-flex flex-column px-5 justify-content-center align-items-center">
-                                            <div style="font-size: 4rem;">Welcome Offer</div>
-                                            <div class="blockquote">UPTO <span style="font-size: 4rem; color: #F6921E;">50%</span> OFF</div>
-                                            <div class="blockquote text-center">Welcome to Click Fix! Enjoy 10% off your first IT service. Let us make your tech hassles disappear</div>
-                                            <button class="btn btn_color">Avail Now</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide">
-                                <div class="sales_container">
-                                    <img class="sales_image" src="{% static 'clickfix_photos/sale3.jpg' %}" alt="">
-                                    <div class="overlay">
-                                        <div class="text-white h-100 d-flex flex-column px-5 justify-content-center align-items-center">
-                                            <div style="font-size: 4rem;">Welcome Offer</div>
-                                            <div class="blockquote">UPTO <span style="font-size: 4rem; color: #F6921E;">50%</span> OFF</div>
-                                            <div class="blockquote text-center">Welcome to Click Fix! Enjoy 10% off your first IT service. Let us make your tech hassles disappear</div>
-                                            <button class="btn btn_color">Avail Now</button>
-                                        </div>
+                <div class="swiper deals_and_discount_swiper mb-5" id="individual_service_deals">
+                    <div class="swiper-wrapper pb-5">
+                        <div class="swiper-slide">
+                            <div class="sales_container">
+                                <img class="sales_image" src="{% static 'clickfix_photos/sale1.jpg' %}" alt="">
+                                <div class="overlay">
+                                    <div class="text-white h-100 d-flex flex-column px-5 justify-content-center align-items-center">
+                                        <div style="font-size: 4rem;">Welcome Offer</div>
+                                        <div class="blockquote">UPTO <span style="font-size: 4rem; color: #F6921E;">50%</span> OFF</div>
+                                        <div class="blockquote text-center">Welcome to Click Fix! Enjoy 10% off your first IT service. Let us make your tech hassles disappear</div>
+                                        <button class="btn btn_color">Avail Now</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="swiper-pagination"></div>
+
+                        <div class="swiper-slide">
+                            <div class="sales_container">
+                                <img class="sales_image" src="{% static 'clickfix_photos/sale2.jpg' %}" alt="">
+                                <div class="overlay">
+                                    <div class="text-white h-100 d-flex flex-column px-5 justify-content-center align-items-center">
+                                        <div style="font-size: 4rem;">Welcome Offer</div>
+                                        <div class="blockquote">UPTO <span style="font-size: 4rem; color: #F6921E;">50%</span> OFF</div>
+                                        <div class="blockquote text-center">Welcome to Click Fix! Enjoy 10% off your first IT service. Let us make your tech hassles disappear</div>
+                                        <button class="btn btn_color">Avail Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="sales_container">
+                                <img class="sales_image" src="{% static 'clickfix_photos/sale3.jpg' %}" alt="">
+                                <div class="overlay">
+                                    <div class="text-white h-100 d-flex flex-column px-5 justify-content-center align-items-center">
+                                        <div style="font-size: 4rem;">Welcome Offer</div>
+                                        <div class="blockquote">UPTO <span style="font-size: 4rem; color: #F6921E;">50%</span> OFF</div>
+                                        <div class="blockquote text-center">Welcome to Click Fix! Enjoy 10% off your first IT service. Let us make your tech hassles disappear</div>
+                                        <button class="btn btn_color">Avail Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="swiper-pagination"></div>
                 </div>
 
                 <div class="service_detail_container">
                         {% for service in sub_services %}
-                        <div class="card py-4 mb-4 border-0" id="upgrade_ram">
+                        <div class="card py-4 mb-4 border-0" id="sub_service_{{service.id}}">
                             <img class="img-fluid service_img" src="{{ service.sub_service_main_image.url }}" alt="...">
                             <div class="card-body">
                                 <div class="card-title d-flex flex-column mb-4">
@@ -97,9 +95,78 @@
                                 <div class="mb-3">
                                     {{ service.detailed_price|safe }}
                                 </div>
-                                <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment">Check Availability</button>
+                                <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment-{{service.id}}">Check Availability</button>
                             </div>
                         </div>
+
+                        <!-- Appointment Modal -->
+                        <div class="modal fade" id="bookAppointment-{{service.id}}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="myModalLabel">
+                                            When Should the Professional Arrive?
+                                        </h1>
+                                        <button class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3 d-flex justify-content-between" id="appointment_date">
+                                            <button class="btn me-2 mb-3 slot_btn">
+                                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                                    <div>Mon</div>
+                                                    <div class="fw-bold">04</div>
+                                                </div>
+                                            </button>
+                                            <button class="btn me-2 mb-3 slot_btn">
+                                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                                    <div>Tue</div>
+                                                    <div class="fw-bold">05</div>
+                                                </div>
+                                            </button>
+                                            <button class="btn me-2 mb-3 slot_btn">
+                                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                                    <div>Wed</div>
+                                                    <div class="fw-bold">06</div>
+                                                </div>
+                                            </button>
+                                            <button class="btn me-2 mb-3 slot_btn">
+                                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                                    <div>Thu</div>
+                                                    <div class="fw-bold">07</div>
+                                                </div>
+                                            </button>
+                                            <button class="btn me-2 mb-3 slot_btn">
+                                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                                    <div>Fri</div>
+                                                    <div class="fw-bold">08</div>
+                                                </div>
+                                            </button>
+                                            <button class="btn me-2 mb-3 slot_btn">
+                                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                                    <div>Sat</div>
+                                                    <div class="fw-bold">09</div>
+                                                </div>
+                                            </button>
+                                            <button class="btn me-2 mb-3 slot_btn">
+                                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                                    <div>Sun</div>
+                                                    <div class="fw-bold">10</div>
+                                                </div>
+                                            </button>
+                                        </div>
+                                        <div class="h5 mb-4">Select Time Slot</div>
+                                        <div class="mb-3 d-flex justify-content-between">
+                                            <button class="btn me-2 mb-3 slot_btn">10am-12pm</button>
+                                            <button class="btn me-2 mb-3 slot_btn">12pm-2pm</button>
+                                            <button class="btn me-2 mb-3 slot_btn">2pm-4pm</button>
+                                            <button class="btn me-2 mb-3 slot_btn">4pm-7pm</button>
+                                        </div>
+                                        <button class="btn py-2 px-4 mt-3 text-white btn_color w-100">Add to Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         {% if not forloop.last %}
                             <div class="my-5" style="border: 1px solid #e7e7e7;"></div>
                         {% endif %}
@@ -109,75 +176,6 @@
         </div>
     </section>
 
-
-    <!-- Appointment Modal -->
-    <div class="modal fade" id="bookAppointment">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="myModalLabel">
-                        When Should the Professional Arrive?
-                    </h1>
-                    <button class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3 d-flex justify-content-between" id="appointment_date">
-                        <button class="btn me-2 mb-3 slot_btn">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <div>Mon</div>
-                                <div class="fw-bold">04</div>
-                            </div>
-                        </button>
-                        <button class="btn me-2 mb-3 slot_btn">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <div>Tue</div>
-                                <div class="fw-bold">05</div>
-                            </div>
-                        </button>
-                        <button class="btn me-2 mb-3 slot_btn">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <div>Wed</div>
-                                <div class="fw-bold">06</div>
-                            </div>
-                        </button>
-                        <button class="btn me-2 mb-3 slot_btn">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <div>Thu</div>
-                                <div class="fw-bold">07</div>
-                            </div>
-                        </button>
-                        <button class="btn me-2 mb-3 slot_btn">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <div>Fri</div>
-                                <div class="fw-bold">08</div>
-                            </div>
-                        </button>
-                        <button class="btn me-2 mb-3 slot_btn">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <div>Sat</div>
-                                <div class="fw-bold">09</div>
-                            </div>
-                        </button>
-                        <button class="btn me-2 mb-3 slot_btn">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <div>Sun</div>
-                                <div class="fw-bold">10</div>
-                            </div>
-                        </button>
-                    </div>
-
-                    <div class="h5 mb-4">Select Time Slot</div>
-                    <div class="mb-3 d-flex justify-content-between">
-                        <button class="btn me-2 mb-3 slot_btn">10am-12pm</button>
-                        <button class="btn me-2 mb-3 slot_btn">12pm-2pm</button>
-                        <button class="btn me-2 mb-3 slot_btn">2pm-4pm</button>
-                        <button class="btn me-2 mb-3 slot_btn">4pm-7pm</button>
-                    </div>
-                    <button class="btn py-2 px-4 mt-3 text-white btn_color w-100">Add to Cart</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
     <!-- FAQ Section -->
