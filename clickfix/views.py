@@ -8,7 +8,12 @@ from .models import *
 
 def home(request):
     services = Services.objects.all()
-    return render(request, 'home.html', {'services': services})
+    testimonials = Testimonials.objects.all()
+    data = {
+        'services': services,
+        'testimonials': testimonials,
+    }
+    return render(request, 'home.html', data)
 
 def profile(request):
     return render(request, 'profile.html')
@@ -26,8 +31,6 @@ def live_tracking(request):
 
 def bookings(request):
     return render(request, 'bookings.html')
-
-
 
 def contact(request):
     if request.method == "POST":

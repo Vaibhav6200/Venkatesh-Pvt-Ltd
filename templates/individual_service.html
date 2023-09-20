@@ -81,15 +81,8 @@
                         <div class="card py-4 mb-4 border-0" id="sub_service_{{service.id}}">
                             <img class="img-fluid service_img" src="{{ service.sub_service_main_image.url }}" alt="...">
                             <div class="card-body">
-                                <div class="card-title d-flex flex-column mb-4">
-                                    <div class="h5 mb-4">{{service.sub_service_name}} </div>
-                                    <div class="num_spinner">
-                                        <div class="num-in">
-                                            <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
-                                            <input type="text" class="in-num" value="0">
-                                            <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
-                                        </div>
-                                    </div>
+                                <div class="card-title my-3">
+                                    <h5>{{service.sub_service_name}} </h5>
                                 </div>
                                 <p class="card-text">{{ service.description}} </p>
                                 <div class="mb-3">
@@ -157,11 +150,30 @@
                                         </div>
                                         <div class="h5 mb-4">Select Time Slot</div>
                                         <div class="mb-3 d-flex justify-content-between" id="appointment_time">
-                                            <button class="btn me-2 mb-3 slot_btn">10am-12pm</button>
-                                            <button class="btn me-2 mb-3 slot_btn">12pm-2pm</button>
-                                            <button class="btn me-2 mb-3 slot_btn">2pm-4pm</button>
-                                            <button class="btn me-2 mb-3 slot_btn">4pm-7pm</button>
+                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_time(this)">10am-12pm</button>
+                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_time(this)">12pm-2pm</button>
+                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_time(this)">2pm-4pm</button>
+                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_time(this)">4pm-7pm</button>
                                         </div>
+
+                                        <div class="h5 mb-4">Select Quantity</div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="num_spinner">
+                                                    <div class="num-in">
+                                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this, 'service_cost_{{service.id}}', 'total_cost_{{service.id}}')"></span>
+                                                        <input type="text" class="in-num" value="0">
+                                                        <span class="plus" id="plusBtn" onclick="plusFunc(this, 'service_cost_{{service.id}}', 'total_cost_{{service.id}}')"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+
+                                                <div>Service Price: <span id="service_cost_{{service.id}}">{{ service.sub_service_price }}</span></div>
+                                                <div>Total Cost: <span id="total_cost_{{service.id}}"> 0.0</span></div>
+                                            </div>
+                                        </div>
+
                                         <button class="btn py-2 px-4 mt-3 text-white btn_color w-100" value="{{service.id}}" onclick="addToCart(this)">Add to Cart</button>
                                     </div>
                                 </div>
@@ -197,9 +209,7 @@
             </div>
             <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">What
-                        services does Click Fix offer?</button>
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">What services does Click Fix offer?</button>
                 </h2>
                 <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
                     data-bs-parent="#accordionFlushExample">
@@ -330,21 +340,40 @@
 
     {% block extra_js %}
         <script>
-            let test = document.getElementById('test')
-            function plusFunc(button) {
+            function increment_total_cost(quantity, service_cost_id, total_cost_id){
+                service_cost = document.getElementById(service_cost_id)
+                total_cost = document.getElementById(total_cost_id)
+
+                total_cost.innerHTML = parseFloat(quantity)*parseFloat(service_cost.innerHTML)
+
+            }
+            function decrement_total_cost(quantity, service_cost_id, total_cost_id){
+                service_cost = document.getElementById(service_cost_id)
+                total_cost = document.getElementById(total_cost_id)
+                total_cost.innerHTML = parseFloat(total_cost.innerHTML) - parseFloat(service_cost.innerHTML)
+            }
+            function plusFunc(button, service_cost_id, total_cost_id) {
                 let input = button.previousSibling.previousElementSibling;
                 let quantity = parseInt(input.value)
                 quantity = parseInt(quantity)
                 quantity += 1
                 button.previousSibling.previousElementSibling.value = quantity
+
+                increment_total_cost(quantity, service_cost_id, total_cost_id)
             }
 
-            function minusFunc(button) {
+            function minusFunc(button, service_cost_id, total_cost_id) {
                 let input = button.nextSibling.nextElementSibling;
                 let quantity = parseInt(input.value)
                 quantity -= 1
                 if (quantity < 0) quantity = 0
                 button.nextSibling.nextElementSibling.value = quantity
+
+                if(quantity>0)
+                    decrement_total_cost(quantity, service_cost_id, total_cost_id)
+                else
+                    document.getElementById(total_cost_id).innerHTML = 0
+
             }
         </script>
     {% endblock %}
