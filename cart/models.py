@@ -7,7 +7,9 @@ from clickfix.models import *
 class Cart(models.Model):
     class Meta:
         verbose_name_plural = 'Cart'
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
+    session_id = models.CharField(max_length=100, null=True, blank=True)
     cart_cost = models.FloatField(default=0.0)
     isPaid = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -12,8 +12,13 @@ def home(request):
     services = Services.objects.all()
     testimonials = Testimonials.objects.all()
 
-    if request.user.is_authenticated:
-        cart, created = Cart.objects.get_or_create(user=request.user, isPaid=False)
+    try:
+        if request.user.is_authenticated:
+            cart = Cart.objects.get(user=request.user, isPaid=False)
+        else:
+            cart = Cart.objects.get(session_id=request.session['nonuser'], isPaid=False)
+    except:
+        cart = {'num_of_items': 0}
 
     data = {
         'services': services,
@@ -29,8 +34,14 @@ def individual_service(request, service_name):
     service = Services.objects.get(slug=service_name)
     sub_services = SubServices.objects.filter(service=service)
 
-    if request.user.is_authenticated:
-        cart, created = Cart.objects.get_or_create(user=request.user, isPaid=False)
+    try:
+        if request.user.is_authenticated:
+            cart = Cart.objects.get(user=request.user, isPaid=False)
+        else:
+            cart = Cart.objects.get(session_id=request.session['nonuser'], isPaid=False)
+    except:
+        cart = {'num_of_items': 0}
+
 
     week_days = []
     day_of_month = []
