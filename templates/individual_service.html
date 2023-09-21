@@ -106,14 +106,13 @@
                                     <div class="modal-body">
                                         <div class="mb-3 d-flex justify-content-between" id="appointment_date">
                                             {% for day, date in timeline %}
-                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_date(this)">
+                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_date(this, '{{service.id}}')">
                                                 <div class="d-flex flex-column align-items-center justify-content-center">
                                                     <div>{{day}}</div>
                                                     <div class="fw-bold">{{date}}</div>
                                                 </div>
                                             </button>
                                             {% endfor %}
-
                                         </div>
                                         <div class="h5 mb-4">Select Time Slot</div>
                                         <div class="mb-3 d-flex justify-content-between" id="appointment_time">
@@ -123,10 +122,10 @@
                                             <button class="btn me-2 mb-3 slot_btn" onclick="select_time(this)">4pm-7pm</button>
                                         </div>
 
-                                        <div class="h5 mb-4">Select Quantity</div>
+                                        <!-- <div class="h5 mb-4">Select Quantity</div>
                                         <div class="row">
                                             <div class="col-6">
-                                                <div class="num_spinner">
+                                                <div class="num_spinner" id="subservice_{{service.id}}">
                                                     <div class="num-in">
                                                         <span class="minus dis" id="minusBtn" onclick="minusFunc(this, 'service_cost_{{service.id}}', 'total_cost_{{service.id}}')"></span>
                                                         <input type="text" class="in-num" value="0">
@@ -139,9 +138,9 @@
                                                 <div>Service Price: <span id="service_cost_{{service.id}}">{{ service.sub_service_price }}</span></div>
                                                 <div>Total Cost: <span id="total_cost_{{service.id}}"> 0.0</span></div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
-                                        <button class="btn py-2 px-4 mt-3 text-white btn_color w-100" value="{{service.id}}" onclick="addToCart(this)">Add to Cart</button>
+                                        <button class="btn py-2 px-4 mt-3 text-white btn_color w-100" value="{{service.id}}" onclick="addToCart(this)" data-bs-dismiss="modal">Add to Cart</button>
                                     </div>
                                 </div>
                             </div>
@@ -304,45 +303,4 @@
 
 
     {% include 'includes/footer.html' %}
-
-    {% block extra_js %}
-        <script>
-            function increment_total_cost(quantity, service_cost_id, total_cost_id){
-                service_cost = document.getElementById(service_cost_id)
-                total_cost = document.getElementById(total_cost_id)
-
-                total_cost.innerHTML = parseFloat(quantity)*parseFloat(service_cost.innerHTML)
-
-            }
-            function decrement_total_cost(quantity, service_cost_id, total_cost_id){
-                service_cost = document.getElementById(service_cost_id)
-                total_cost = document.getElementById(total_cost_id)
-                total_cost.innerHTML = parseFloat(total_cost.innerHTML) - parseFloat(service_cost.innerHTML)
-            }
-            function plusFunc(button, service_cost_id, total_cost_id) {
-                let input = button.previousSibling.previousElementSibling;
-                let quantity = parseInt(input.value)
-                quantity = parseInt(quantity)
-                quantity += 1
-                button.previousSibling.previousElementSibling.value = quantity
-
-                increment_total_cost(quantity, service_cost_id, total_cost_id)
-            }
-
-            function minusFunc(button, service_cost_id, total_cost_id) {
-                let input = button.nextSibling.nextElementSibling;
-                let quantity = parseInt(input.value)
-                quantity -= 1
-                if (quantity < 0) quantity = 0
-                button.nextSibling.nextElementSibling.value = quantity
-
-                if(quantity>0)
-                    decrement_total_cost(quantity, service_cost_id, total_cost_id)
-                else
-                    document.getElementById(total_cost_id).innerHTML = 0
-
-            }
-        </script>
-    {% endblock %}
-
 {% endblock %}

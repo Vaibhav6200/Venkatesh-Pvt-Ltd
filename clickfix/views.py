@@ -5,14 +5,20 @@ from django.conf import settings
 from django.contrib import messages
 from .models import *
 from datetime import datetime, timedelta
+from cart.models import Cart
 
 
 def home(request):
     services = Services.objects.all()
     testimonials = Testimonials.objects.all()
+
+    if request.user.is_authenticated:
+        cart, created = Cart.objects.get_or_create(user=request.user, isPaid=False)
+
     data = {
         'services': services,
         'testimonials': testimonials,
+        'cart': cart
     }
     return render(request, 'home.html', data)
 
@@ -22,6 +28,9 @@ def profile(request):
 def individual_service(request, service_name):
     service = Services.objects.get(slug=service_name)
     sub_services = SubServices.objects.filter(service=service)
+
+    if request.user.is_authenticated:
+        cart, created = Cart.objects.get_or_create(user=request.user, isPaid=False)
 
     week_days = []
     day_of_month = []
@@ -33,6 +42,7 @@ def individual_service(request, service_name):
     data = {
         'sub_services': sub_services,
         'timeline': timeline,
+        'cart': cart,
     }
     return render(request, 'individual_service.html', data)
 

@@ -14,60 +14,36 @@
             <!-- User Details and payment summary -->
             <div class="col-md-6 col-sm-12  p-3">
                 <div class="blockquote fw-bold mb-4">Services Booked</div>
+                {% for item in cart_items %}
                 <div class="row my-4">
                     <div class="col-4">
-                        <img class="img-fluid cart_img mr-3" src="{% static 'clickfix_photos/image.webp' %}" alt="">
+                        <img class="img-fluid cart_img mr-3" src="{{ item.sub_service.sub_service_main_image.url }}" alt="">
                     </div>
                     <div class="col-8">
-                        <div class="d-flex flex-column h-100">
+                        <div class="d-flex flex-column justify-content-center h-100">
                             <div class="">
                                 <div class="d-flex justify-content-between w-100">
-                                    <div>Desktop Repair</div>
-                                    <div>Rs 650/-</div>
+                                    <h5>{{ item.sub_service.sub_service_name }} </h5>
+                                    <div>Rs {{ item.sub_service.sub_service_price }}/-</div>
                                 </div>
-                                <small>Sept 9, 10AM</small>
-                            </div>
-                            <div class="d-flex justify-content-between mt-auto">
-                                <div class="num_spinner">
-                                    <div class="num-in">
-                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
-                                        <input type="text" class="in-num" value="1" id="test">
-                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
-                                    </div>
-                                </div>
-                                <a class="text-danger text-decoration-none" href="">remove</a>
+                                <div>Service Date: Sept 9, 10 AM</div>
+                                <div>Quantity: {{ item.quantity }}</div>
                             </div>
                         </div>
                     </div>
                 </div>
-
+                {% if not forloop.last %}
                 <div class="my-3" style="border: 1px solid #f6911e25;"></div>
-                <div class="row my-4">
-                    <div class="col-4">
-                        <img class="img-fluid cart_img mr-3" src="{% static 'clickfix_photos/image2.webp' %}" alt="">
-                    </div>
-                    <div class="col-8">
-                        <div class="d-flex flex-column  h-100">
-                            <div class="">
-                                <div class="d-flex justify-content-between w-100">
-                                    <div>Desktop Repair</div>
-                                    <div>Rs 650/-</div>
-                                </div>
-                                <small>Sept 9, 10AM</small>
-                            </div>
-                            <div class="d-flex justify-content-between mt-auto">
-                                <div class="num_spinner">
-                                    <div class="num-in">
-                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this)"></span>
-                                        <input type="text" class="in-num" value="1">
-                                        <span class="plus" id="plusBtn" onclick="plusFunc(this)"></span>
-                                    </div>
-                                </div>
-                                <a class="text-danger text-decoration-none" href="">remove</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% endif %}
+                {% empty %}
+                <h3 class="text-muted">Nothing in Cart!</h3>
+                {% endfor %}
+
+                {% if cart_items %}
+                <h5 class="mt-5">Grand Total: Rs {{ cart.cart_cost }}</h5>
+                {% endif %}
+
+
             </div>
 
 
