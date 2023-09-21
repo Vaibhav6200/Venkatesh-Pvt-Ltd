@@ -22,8 +22,5 @@ class CartItem(models.Model):
     sub_service = models.ForeignKey(SubServices, on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0)
-
-    # TAX_AMOUNT = 19.25
-
-    # def price_ttc(self):
-    #     return self.price_ht * (1 + TAX_AMOUNT/100.0)
+    start_time = models.TimeField(null=True)
+    start_date = models.DateField(null=True)

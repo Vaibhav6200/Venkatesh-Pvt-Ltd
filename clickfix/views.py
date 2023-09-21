@@ -4,6 +4,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
 from .models import *
+from datetime import datetime, timedelta
 
 
 def home(request):
@@ -21,7 +22,19 @@ def profile(request):
 def individual_service(request, service_name):
     service = Services.objects.get(slug=service_name)
     sub_services = SubServices.objects.filter(service=service)
-    return render(request, 'individual_service.html', {'sub_services': sub_services})
+
+    week_days = []
+    day_of_month = []
+    for i in range(7):
+        week_days.append((datetime.today() + timedelta(days=i)).strftime("%a"))
+        day_of_month.append((datetime.today() + timedelta(days=i)).strftime("%d"))
+    timeline = [(day, date) for day, date in zip(week_days, day_of_month)]
+
+    data = {
+        'sub_services': sub_services,
+        'timeline': timeline,
+    }
+    return render(request, 'individual_service.html', data)
 
 def checkout(request):
     return render(request, 'checkout.html')
