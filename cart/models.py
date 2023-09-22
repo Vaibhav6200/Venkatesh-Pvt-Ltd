@@ -16,7 +16,10 @@ class Cart(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.user.username
+        if self.user:
+            return self.user.username
+        else:
+            return "Guest"
 
     @property
     def num_of_items(self):
