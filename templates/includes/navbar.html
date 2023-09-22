@@ -12,7 +12,22 @@
                 <li class="nav-item"><a class="nav-link text-dark fw-bold me-4" href="#">About</a></li>
                 <li class="nav-item"><a class="nav-link text-dark fw-bold me-4" href="#">Contact</a></li>
                 <li class="nav-item"><a class="nav-link text-dark fw-bold me-4" href="{% url 'cart:cart' %}"><i class="fa-solid fa-cart-shopping"></i> <span id="num_of_items">{{cart.num_of_items}}</span></a></li>
-                <li class="nav-item"><a class="nav-link text-dark fw-bold" href="#"><i class="fa-solid fa-user"></i></a></li>
+
+
+                <li class="nav-item dropdown me-4 pull-right">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-user text-dark"></i>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% if user.is_authenticated %}
+                    <li><a class="dropdown-item" href="{% url 'clickfix:profile' %}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a></li>
+                    {% else %}
+                    <li><a class="dropdown-item" href="{% url 'accounts:login' %}">Login</a></li>
+                    <li><a class="dropdown-item" href="{% url 'accounts:register' %}">Register</a></li>
+                    {% endif %}
+                  </ul>
+                </li>
             </ul>
           </div>
         </div>
