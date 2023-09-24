@@ -273,7 +273,7 @@
 
 @media(min-width: 786px){
     .account_container{
-        width: 50%;
+        width: 40%;
     }
 }
 @media(max-width: 786px){

@@ -1,3 +1,8 @@
+var date_selected = null
+var time_selected = null
+var selected_service = null
+
+
 
 function getCookie(name) {
     let cookieValue = null;
@@ -16,45 +21,62 @@ function getCookie(name) {
 }
 const csrftoken = getCookie('csrftoken');
 
-function select_date(pressed_button, sub_service_id){
-    const appointment_date = document.getElementById('appointment_date')
-    const date_slotBtn = appointment_date.querySelectorAll('.slot_btn')
-    date_slotBtn.forEach((button)=>{
-        button.classList.remove('slot_btn_active')
-        button.classList.remove('selected-date')
-    } );
-    pressed_button.classList.add('slot_btn_active', 'selected-date')
 
-    // var selectedDate = document.querySelector('.selected-date');
-    // var selectedQuantity = parseInt(document.getElementById("subservice_" + sub_service_id).querySelector('.in-num').value);
+
+function select_date(pressed_button){
+    const date_slotBtn = document.querySelectorAll('.date_slot_btn')
+    date_slotBtn.forEach(button=>button.classList.remove('slot_btn_active', 'selected-date'));
+    pressed_button.classList.add('slot_btn_active', 'selected-date')
+    date_selected = pressed_button
+    // document.getElementById('bookAppointmentModal').setAttribute("data-bs-dismiss", "modal");
 }
 
 function select_time(pressed_button){
-    const appointment_time = document.getElementById('appointment_time')
-    const time_slotBtn = appointment_time.querySelectorAll('.slot_btn')
-    time_slotBtn.forEach(button => button.classList.remove('slot_btn_active'));
-    pressed_button.classList.add('slot_btn_active')
+    const time_slotBtn = document.querySelectorAll('.time_slot_btn')
+    time_slotBtn.forEach(button => button.classList.remove('slot_btn_active', 'selected-time'));
+    pressed_button.classList.add('slot_btn_active', 'selected-time')
+    time_selected = pressed_button
 }
 
+
+
 function addToCart(cart_btn){
-    let sub_service_id = cart_btn.value
-    let url = "/cart/add_to_cart/"
-    let data= {
-        sub_service_id:sub_service_id,
+    if(date_selected && time_selected){
+        let date_slot = date_selected.querySelector('div>div + div').textContent
+        let time_slot = time_selected.textContent
+
+        $("#bookAppointmentModal").modal("hide");
+
+        document.querySelectorAll('.date_slot_btn').forEach(button=>button.classList.remove('slot_btn_active', 'selected-date'));
+        document.querySelectorAll('.time_slot_btn').forEach(button => button.classList.remove('slot_btn_active', 'selected-time'));
+
+        let url = "/cart/add_to_cart/"
+        let data= {
+            sub_service_id:selected_service,
+            date_slot: date_slot,
+            time_slot: time_slot,
+        }
+        fetch(url, {
+            method: "POST",
+            headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+            body: JSON.stringify(data)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            document.getElementById('num_of_items').innerHTML = data
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+
+
+        date_selected = null
+        time_selected = null
+        selected_service = null
     }
-    fetch(url, {
-        method: "POST",
-        headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
-        body: JSON.stringify(data)
-    })
-    .then(res=>res.json())
-    .then(data=>{
-        document.getElementById('num_of_items').innerHTML = data
-        console.log(data)
-    })
-    .catch(error=>{
-        console.log(error)
-    })
+    else{
+        alert('please select date and time properly')
+    }
 }
 
 
@@ -93,3 +115,11 @@ function addToCart(cart_btn){
 //         document.getElementById(total_cost_id).innerHTML = 0
 // }
 
+
+
+booking_modal = document.getElementById('bookAppointmentModal')
+function bookService(btn, sub_service_id){
+    let appointment_date = document.getElementById('appointment_date')
+    let selected_date = appointment_date.querySelector('.selected-date')
+    selected_service = sub_service_id
+}

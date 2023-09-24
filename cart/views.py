@@ -29,6 +29,8 @@ def cart(request):
 def add_to_cart(request):
     data = json.loads(request.body)
     sub_service = SubServices.objects.get(id=data['sub_service_id'])
+    date_slot = SubServices.objects.get(id=data['date_slot'])
+    time_slot = SubServices.objects.get(id=data['time_slot'])
 
     if request.user.is_authenticated:
         cart, created = Cart.objects.get_or_create(user=request.user, isPaid=False)

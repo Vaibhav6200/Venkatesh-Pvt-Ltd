@@ -4,9 +4,7 @@
 {% block title %} Individual Service {% endblock %}
 
 {% block content %}
-
     {% include 'includes/navbar.html' %}
-
     <section id="individual_service">
         <div class="row mt-5" style="width: 90%; margin: auto;">
             <div class="col-md-4">
@@ -77,7 +75,6 @@
 
                 <div class="service_detail_container">
                         {% for service in sub_services %}
-
                         <div class="card py-4 mb-4 border-0" id="sub_service_{{service.id}}">
                             <img class="img-fluid service_img" src="{{ service.sub_service_main_image.url }}" alt="...">
                             <div class="card-body">
@@ -89,60 +86,7 @@
                                     Starts from {{ service.sub_service_price }}
                                     {{ service.price_details|safe }}
                                 </div>
-                                <button class="btn py-2 px-4 text-white btn_color" data-bs-toggle="modal" data-bs-target="#bookAppointment-{{service.id}}">Check Availability</button>
-                            </div>
-                        </div>
-
-                        <!-- Appointment Modal -->
-                        <div class="modal fade" id="bookAppointment-{{service.id}}">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="myModalLabel">
-                                            When Should the Professional Arrive?
-                                        </h1>
-                                        <button class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="mb-3 d-flex justify-content-between" id="appointment_date">
-                                            {% for day, date in timeline %}
-                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_date(this, '{{service.id}}')">
-                                                <div class="d-flex flex-column align-items-center justify-content-center">
-                                                    <div>{{day}}</div>
-                                                    <div class="fw-bold">{{date}}</div>
-                                                </div>
-                                            </button>
-                                            {% endfor %}
-                                        </div>
-                                        <div class="h5 mb-4">Select Time Slot</div>
-                                        <div class="mb-3 d-flex justify-content-between" id="appointment_time">
-                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_time(this)">10am-12pm</button>
-                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_time(this)">12pm-2pm</button>
-                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_time(this)">2pm-4pm</button>
-                                            <button class="btn me-2 mb-3 slot_btn" onclick="select_time(this)">4pm-7pm</button>
-                                        </div>
-
-                                        <!-- <div class="h5 mb-4">Select Quantity</div>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="num_spinner" id="subservice_{{service.id}}">
-                                                    <div class="num-in">
-                                                        <span class="minus dis" id="minusBtn" onclick="minusFunc(this, 'service_cost_{{service.id}}', 'total_cost_{{service.id}}')"></span>
-                                                        <input type="text" class="in-num" value="0">
-                                                        <span class="plus" id="plusBtn" onclick="plusFunc(this, 'service_cost_{{service.id}}', 'total_cost_{{service.id}}')"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-
-                                                <div>Service Price: <span id="service_cost_{{service.id}}">{{ service.sub_service_price }}</span></div>
-                                                <div>Total Cost: <span id="total_cost_{{service.id}}"> 0.0</span></div>
-                                            </div>
-                                        </div> -->
-
-                                        <button class="btn py-2 px-4 mt-3 text-white btn_color w-100" value="{{service.id}}" onclick="addToCart(this)" data-bs-dismiss="modal">Add to Cart</button>
-                                    </div>
-                                </div>
+                                <button class="btn py-2 px-4 text-white btn_color" onclick="bookService(this, '{{service.id}}')" data-bs-toggle="modal" data-bs-target="#bookAppointmentModal">Check Availability</button>
                             </div>
                         </div>
 
@@ -150,6 +94,40 @@
                             <div class="my-5" style="border: 1px solid #e7e7e7;"></div>
                         {% endif %}
                     {% endfor %}
+                </div>
+
+                <!-- Appointment Modal -->
+                <div class="modal fade" id="bookAppointmentModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="myModalLabel">
+                                    When Should the Professional Arrive?
+                                </h1>
+                                <button class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3 d-flex justify-content-between" id="appointment_date">
+                                    {% for day, date in timeline %}
+                                        <button class="btn me-2 mb-3 slot_btn date_slot_btn" id="date_button_{{forloop.counter}}" onclick="select_date(this)">
+                                            <div class="d-flex flex-column align-items-center justify-content-center">
+                                                <div>{{day}}</div>
+                                                <div class="fw-bold">{{date}}</div>
+                                            </div>
+                                        </button>
+                                    {% endfor %}
+                                </div>
+                                <div class="h5 mb-4">Select Time Slot</div>
+                                <div class="mb-3 d-flex justify-content-between" id="appointment_time">
+                                    <button class="btn me-2 mb-3 slot_btn time_slot_btn" id="time_button_1" onclick="select_time(this)">10am-12pm</button>
+                                    <button class="btn me-2 mb-3 slot_btn time_slot_btn" id="time_button_2" onclick="select_time(this)">12pm-2pm</button>
+                                    <button class="btn me-2 mb-3 slot_btn time_slot_btn disabled" id="time_button_3" onclick="select_time(this)">2pm-4pm</button>
+                                    <button class="btn me-2 mb-3 slot_btn time_slot_btn" id="time_button_4" onclick="select_time(this)">4pm-7pm</button>
+                                </div>
+                                <button class="btn py-2 px-4 mt-3 text-white btn_color w-100" onclick="addToCart(this)">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

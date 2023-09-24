@@ -31,11 +31,18 @@ class Cart(models.Model):
 class CartItem(models.Model):
     class Meta:
         verbose_name_plural = 'Cart Items'
+
+    TIME_SLOTS = (
+    ("10-12", "10AM - 12PM"),
+    ("12-2", "12PM - 2PM"),
+    ("2-4", "2PM - 4PM"),
+    ("4-7", "4PM - 7PM"),
+)
     sub_service = models.ForeignKey(SubServices, on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="cartitems")
     quantity = models.IntegerField(default=0)
-    start_time = models.TimeField(null=True)
     start_date = models.DateField(null=True)
+    time_slot = models.CharField(max_length=20, choices=TIME_SLOTS, default=1)
 
     @property
     def price(self):
