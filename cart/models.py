@@ -33,11 +33,11 @@ class CartItem(models.Model):
         verbose_name_plural = 'Cart Items'
 
     TIME_SLOTS = (
-    ("10-12", "10AM - 12PM"),
-    ("12-2", "12PM - 2PM"),
-    ("2-4", "2PM - 4PM"),
-    ("4-7", "4PM - 7PM"),
-)
+        ("10am-12pm", "10am-12pm"),
+        ("12pm-2pm", "12pm-2pm"),
+        ("2pm-4pm", "2pm-4pm"),
+        ("4pm-7pm", "4pm-7pm"),
+    )
     sub_service = models.ForeignKey(SubServices, on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="cartitems")
     quantity = models.IntegerField(default=0)
