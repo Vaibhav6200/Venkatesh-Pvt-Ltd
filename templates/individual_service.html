@@ -109,10 +109,10 @@
                             <div class="modal-body">
                                 <div class="mb-3 d-flex justify-content-between" id="appointment_date">
                                     {% for day, date in timeline %}
-                                        <button class="btn me-2 mb-3 slot_btn date_slot_btn" id="date_button_{{forloop.counter}}" onclick="select_date(this)">
+                                        <button value="{{day|date:'Y-m-d'}}" class="btn me-2 mb-3 slot_btn date_slot_btn" id="date_button_{{forloop.counter}}" onclick="select_date(this)">
                                             <div class="d-flex flex-column align-items-center justify-content-center">
-                                                <div>{{day}}</div>
-                                                <div class="fw-bold">{{date}}</div>
+                                                <div>{{day|date:"D"}}</div>
+                                                <div class="fw-bold">{{date|date:"d"}}</div>
                                             </div>
                                         </button>
                                     {% endfor %}

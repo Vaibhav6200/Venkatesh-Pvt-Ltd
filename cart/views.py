@@ -47,7 +47,6 @@ def add_to_cart(request):
     data = json.loads(request.body)
     sub_service = SubServices.objects.get(id=data['sub_service_id'])
     day = data['date_slot']
-    print(day)
     date_slot = getDate(day)
     time_slot = id=data['time_slot']
 
@@ -76,3 +75,22 @@ def add_to_cart(request):
         num_of_items = cart.num_of_items
 
     return JsonResponse(num_of_items, safe=False)
+
+
+def get_available_dates(request):
+    data = json.loads(request.body)
+    sub_service = CartItem.objects.filter(sub_service=data['sub_service_id'])
+
+    today = datetime.now().date()
+    available_dates = [(today + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(7)]
+    booked_dates = []
+    for service in sub_service:
+        booked_dates.append(service.start_date.strftime("%Y-%m-%d"))
+    available_dates = [date for date in available_dates if date not in booked_dates]
+
+    return JsonResponse(available_dates, safe=False)
+
+
+def availabile_time_slots(request):
+    data = json.loads(request.body)
+    return JsonResponse("Time Slot", safe=False)

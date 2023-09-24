@@ -10,7 +10,7 @@ class CustomCart(admin.ModelAdmin):
 
 @admin.register(CartItem)
 class CustomCartItem(admin.ModelAdmin):
-    list_display = ['id', 'sub_service', 'cart', 'quantity']
+    list_display = ['id', 'sub_service', 'cart', 'quantity', 'start_date', 'time_slot']
     list_display_links = ['id', 'sub_service']
     search_fields = ['id', 'sub_service', 'cart', 'quantity']
     list_filter = ['sub_service']

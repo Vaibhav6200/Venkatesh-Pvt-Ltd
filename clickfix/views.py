@@ -46,8 +46,8 @@ def individual_service(request, service_name):
     week_days = []
     day_of_month = []
     for i in range(7):
-        week_days.append((datetime.today() + timedelta(days=i)).strftime("%a"))
-        day_of_month.append((datetime.today() + timedelta(days=i)).strftime("%d"))
+        week_days.append((datetime.today() + timedelta(days=i)))
+        day_of_month.append((datetime.today() + timedelta(days=i)))
     timeline = [(day, date) for day, date in zip(week_days, day_of_month)]
 
     data = {

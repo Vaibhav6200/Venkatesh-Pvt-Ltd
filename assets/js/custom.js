@@ -39,7 +39,6 @@ function select_time(pressed_button){
 }
 
 
-
 function addToCart(cart_btn){
     if(date_selected && time_selected){
         let date_slot = date_selected.querySelector('div>div + div').textContent
@@ -68,7 +67,6 @@ function addToCart(cart_btn){
         .catch(error=>{
             console.log(error)
         })
-
 
         date_selected = null
         time_selected = null
@@ -117,9 +115,35 @@ function addToCart(cart_btn){
 
 
 
-booking_modal = document.getElementById('bookAppointmentModal')
+booking_modal = document.getElementById('bookAppointmentModal');
+
 function bookService(btn, sub_service_id){
     let appointment_date = document.getElementById('appointment_date')
     let selected_date = appointment_date.querySelector('.selected-date')
     selected_service = sub_service_id
+
+
+    let url = "/cart/get_available_dates/"
+    let data= {
+        sub_service_id:sub_service_id,
+    }
+    fetch(url, {
+        method: "POST",
+        headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+        body: JSON.stringify(data)
+    })
+    .then(res=>res.json())
+    .then(available_dates=>{
+        date_buttons = document.querySelectorAll('.date_slot_btn')
+        date_buttons.forEach(button => {
+            const buttonDate = button.getAttribute('value')
+
+            if(!available_dates.includes(buttonDate)){
+                button.classList.add('disabled')
+            }
+        })
+    })
+    .catch(error=>{
+        console.log(error)
+    })
 }
