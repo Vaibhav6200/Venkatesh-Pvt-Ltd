@@ -87,6 +87,7 @@ function bookService(sub_service_id){
     let appointment_date = document.getElementById('appointment_date')
     // let selected_date = appointment_date.querySelector('.selected-date')
     document.querySelectorAll('.date_slot_btn').forEach(button=>{button.classList.remove('disabled')})
+    document.querySelectorAll('.time_slot_btn').forEach(button=>{button.classList.remove('disabled')})
 
 
     let url = "/cart/get_available_dates/"
@@ -100,15 +101,12 @@ function bookService(sub_service_id){
     })
     .then(res=>res.json())
     .then(available_dates_map=>{
-        // console.log(available_dates_map)
-
-        date_buttons = document.querySelectorAll('.date_slot_btn')
+        let date_buttons = document.querySelectorAll('.date_slot_btn')
         date_buttons.forEach(button => {
             const buttonDateValue = button.getAttribute('value')
 
             if(available_dates_map[buttonDateValue]){
                 button.classList.add('disabled')
-                console.log(date_selected)
             }
         })
     })
@@ -132,8 +130,14 @@ function handleSelectedDate(){
         body: JSON.stringify(data)
     })
     .then(res=>res.json())
-    .then(available_slots=>{
-        console.log(available_slots)
+    .then(available_time_map=>{
+        let time_buttons = document.querySelectorAll('.time_slot_btn')
+        time_buttons.forEach(button => {
+            const buttonDateValue = button.getAttribute('value')
+            if(available_time_map[buttonDateValue]){
+                button.classList.add('disabled')
+            }
+        })
     })
     .catch(error=>{
         console.log(error)
