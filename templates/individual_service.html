@@ -86,7 +86,7 @@
                                     Starts from {{ service.sub_service_price }}
                                     {{ service.price_details|safe }}
                                 </div>
-                                <button class="btn py-2 px-4 text-white btn_color" onclick="bookService(this, '{{service.id}}')" data-bs-toggle="modal" data-bs-target="#bookAppointmentModal">Check Availability</button>
+                                <button class="btn py-2 px-4 text-white btn_color" onclick="bookService('{{service.id}}')" data-bs-toggle="modal" data-bs-target="#bookAppointmentModal">Check Availability</button>
                             </div>
                         </div>
 
@@ -117,14 +117,30 @@
                                         </button>
                                     {% endfor %}
                                 </div>
-                                <div class="h5 mb-4">Select Time Slot</div>
+                                <button class="btn py-2 px-4 mt-3 text-white btn_color w-100" onclick="handleSelectedDate(this)" data-bs-toggle="modal" data-bs-target="#timeSlotModal">Select Time Slot</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Slot Modal -->
+                <div class="modal fade" id="timeSlotModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="myModalLabel">
+                                    Select Time Slot?
+                                </h1>
+                                <button class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
                                 <div class="mb-3 d-flex justify-content-between" id="appointment_time">
                                     <button class="btn me-2 mb-3 slot_btn time_slot_btn" id="time_button_1" onclick="select_time(this)">10am-12pm</button>
                                     <button class="btn me-2 mb-3 slot_btn time_slot_btn" id="time_button_2" onclick="select_time(this)">12pm-2pm</button>
-                                    <button class="btn me-2 mb-3 slot_btn time_slot_btn disabled" id="time_button_3" onclick="select_time(this)">2pm-4pm</button>
+                                    <button class="btn me-2 mb-3 slot_btn time_slot_btn" id="time_button_3" onclick="select_time(this)">2pm-4pm</button>
                                     <button class="btn me-2 mb-3 slot_btn time_slot_btn" id="time_button_4" onclick="select_time(this)">4pm-7pm</button>
                                 </div>
-                                <button class="btn py-2 px-4 mt-3 text-white btn_color w-100" onclick="addToCart(this)">Add to Cart</button>
+                                <button class="btn py-2 px-4 mt-3 text-white btn_color w-100" onclick="addToCart()">Add to Cart</button>
                             </div>
                         </div>
                     </div>

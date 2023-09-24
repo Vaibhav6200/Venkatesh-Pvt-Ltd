@@ -6,6 +6,7 @@ from .models import *
 import uuid
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
+from django.db.models import Count
 
 
 def getDate(day):
@@ -78,19 +79,30 @@ def add_to_cart(request):
 
 
 def get_available_dates(request):
+    date_disable_map = {}
     data = json.loads(request.body)
-    sub_service = CartItem.objects.filter(sub_service=data['sub_service_id'])
-
     today = datetime.now().date()
     available_dates = [(today + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(7)]
-    booked_dates = []
-    for service in sub_service:
-        booked_dates.append(service.start_date.strftime("%Y-%m-%d"))
-    available_dates = [date for date in available_dates if date not in booked_dates]
-
-    return JsonResponse(available_dates, safe=False)
+    for date in available_dates:
+        date_disable_map[date] = False
 
 
-def availabile_time_slots(request):
+    booked_time_slots = CartItem.objects.filter(sub_service=data['sub_service_id']).values('start_date').annotate(total_time_slots=Count('time_slot'))
+
+    for slot in booked_time_slots:
+        temp_date = slot['start_date'].strftime('%Y-%m-%d')
+        total_slots = slot['total_time_slots']
+        if total_slots == 4:
+            date_disable_map[temp_date] = True
+
+    return JsonResponse(date_disable_map, safe=False)
+
+
+def get_available_time_slots(request):
     data = json.loads(request.body)
-    return JsonResponse("Time Slot", safe=False)
+    date = data['date_slot']
+    start_date = datetime.strptime(date, "%Y-%m-%d")
+    booked_time_slots = CartItem.objects.filter(sub_service=data['sub_service_id'], start_date=start_date).values('start_date').annotate(total_time_slots=Count('time_slot'))
+
+
+    return JsonResponse("Success", safe=False)

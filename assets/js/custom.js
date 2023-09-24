@@ -28,7 +28,6 @@ function select_date(pressed_button){
     date_slotBtn.forEach(button=>button.classList.remove('slot_btn_active', 'selected-date'));
     pressed_button.classList.add('slot_btn_active', 'selected-date')
     date_selected = pressed_button
-    // document.getElementById('bookAppointmentModal').setAttribute("data-bs-dismiss", "modal");
 }
 
 function select_time(pressed_button){
@@ -39,12 +38,15 @@ function select_time(pressed_button){
 }
 
 
-function addToCart(cart_btn){
+function addToCart(){
     if(date_selected && time_selected){
         let date_slot = date_selected.querySelector('div>div + div').textContent
         let time_slot = time_selected.textContent
 
-        $("#bookAppointmentModal").modal("hide");
+        console.log(date_slot)
+        console.log(time_slot)
+
+        $("#timeSlotModal").modal("hide");
 
         document.querySelectorAll('.date_slot_btn').forEach(button=>button.classList.remove('slot_btn_active', 'selected-date'));
         document.querySelectorAll('.time_slot_btn').forEach(button => button.classList.remove('slot_btn_active', 'selected-time'));
@@ -78,49 +80,13 @@ function addToCart(cart_btn){
 }
 
 
-// *** QUANTITY SPINNER JAVASCRIPT OF INDIVIDUAL SERVICE PAGE ***
-// function increment_total_cost(quantity, service_cost_id, total_cost_id){
-//     service_cost = document.getElementById(service_cost_id)
-//     total_cost = document.getElementById(total_cost_id)
-
-//     total_cost.innerHTML = parseFloat(quantity)*parseFloat(service_cost.innerHTML)
-
-// }
-// function decrement_total_cost(quantity, service_cost_id, total_cost_id){
-//     service_cost = document.getElementById(service_cost_id)
-//     total_cost = document.getElementById(total_cost_id)
-//     total_cost.innerHTML = parseFloat(total_cost.innerHTML) - parseFloat(service_cost.innerHTML)
-// }
-// function plusFunc(button, service_cost_id, total_cost_id) {
-//     let input = button.previousSibling.previousElementSibling;
-//     let quantity = parseInt(input.value)
-//     quantity = parseInt(quantity)
-//     quantity += 1
-//     button.previousSibling.previousElementSibling.value = quantity
-
-//     increment_total_cost(quantity, service_cost_id, total_cost_id)
-// }
-// function minusFunc(button, service_cost_id, total_cost_id) {
-//     let input = button.nextSibling.nextElementSibling;
-//     let quantity = parseInt(input.value)
-//     quantity -= 1
-//     if (quantity < 0) quantity = 0
-//     button.nextSibling.nextElementSibling.value = quantity
-
-//     if(quantity>0)
-//         decrement_total_cost(quantity, service_cost_id, total_cost_id)
-//     else
-//         document.getElementById(total_cost_id).innerHTML = 0
-// }
-
-
-
 booking_modal = document.getElementById('bookAppointmentModal');
 
-function bookService(btn, sub_service_id){
-    let appointment_date = document.getElementById('appointment_date')
-    let selected_date = appointment_date.querySelector('.selected-date')
+function bookService(sub_service_id){
     selected_service = sub_service_id
+    let appointment_date = document.getElementById('appointment_date')
+    // let selected_date = appointment_date.querySelector('.selected-date')
+    document.querySelectorAll('.date_slot_btn').forEach(button=>{button.classList.remove('disabled')})
 
 
     let url = "/cart/get_available_dates/"
@@ -133,15 +99,41 @@ function bookService(btn, sub_service_id){
         body: JSON.stringify(data)
     })
     .then(res=>res.json())
-    .then(available_dates=>{
+    .then(available_dates_map=>{
+        // console.log(available_dates_map)
+
         date_buttons = document.querySelectorAll('.date_slot_btn')
         date_buttons.forEach(button => {
-            const buttonDate = button.getAttribute('value')
+            const buttonDateValue = button.getAttribute('value')
 
-            if(!available_dates.includes(buttonDate)){
+            if(available_dates_map[buttonDateValue]){
                 button.classList.add('disabled')
+                console.log(date_selected)
             }
         })
+    })
+    .catch(error=>{
+        console.log(error)
+    })
+}
+
+
+function handleSelectedDate(){
+    let date_slot = date_selected.value
+
+    let url = "/cart/get_available_time_slots/"
+    let data= {
+        sub_service_id:selected_service,
+        date_slot:date_slot,
+    }
+    fetch(url, {
+        method: "POST",
+        headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+        body: JSON.stringify(data)
+    })
+    .then(res=>res.json())
+    .then(available_slots=>{
+        console.log(available_slots)
     })
     .catch(error=>{
         console.log(error)
