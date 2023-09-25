@@ -14,3 +14,16 @@ class CustomCartItem(admin.ModelAdmin):
     list_display_links = ['id', 'sub_service']
     search_fields = ['id', 'sub_service', 'cart', 'quantity']
     list_filter = ['sub_service']
+
+@admin.register(Order)
+class CustomOrder(admin.ModelAdmin):
+    list_display = ['id', 'user', 'session_id', 'cart', 'total_cost', 'payment_status', 'order_date']
+    list_display_links = ['id', 'user', 'session_id']
+    search_fields = ['id', 'user', 'session_id', 'cart', 'payment_status', 'order_date']
+    list_filter = ['payment_status']
+
+@admin.register(BillingDetails)
+class CustomBillingDetails(admin.ModelAdmin):
+    list_display = ['id', 'first_name', 'last_name', 'email', "phone", 'city', 'state']
+    list_display_links = ['id', 'first_name', 'last_name']
+    search_fields = ['id', 'first_name', 'last_name', 'email', "phone", 'city', 'state']

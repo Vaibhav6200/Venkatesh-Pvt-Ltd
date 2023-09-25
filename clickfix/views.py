@@ -14,9 +14,9 @@ def home(request):
 
     try:
         if request.user.is_authenticated:
-            cart = Cart.objects.get(user=request.user, isPaid=False)
+            cart = Cart.objects.get(user=request.user)
         else:
-            cart = Cart.objects.get(session_id=request.session['nonuser'], isPaid=False)
+            cart = Cart.objects.get(session_id=request.session['nonuser'])
     except:
         cart = {'num_of_items': 0}
 
@@ -38,9 +38,9 @@ def individual_service(request, service_name):
 
     try:
         if request.user.is_authenticated:
-            cart = Cart.objects.get(user=request.user, isPaid=False)
+            cart = Cart.objects.get(user=request.user)
         else:
-            cart = Cart.objects.get(session_id=request.session['nonuser'], isPaid=False)
+            cart = Cart.objects.get(session_id=request.session['nonuser'])
     except:
         cart = {'num_of_items': 0}
 
@@ -65,9 +65,9 @@ def checkout(request):
     cart_items = []
     try:
         if request.user.is_authenticated:
-            cart = Cart.objects.get(user=request.user, isPaid=False)
+            cart = Cart.objects.get(user=request.user)
         else:
-            cart = Cart.objects.get(session_id=request.session['nonuser'], isPaid=False)
+            cart = Cart.objects.get(session_id=request.session['nonuser'])
         cart_items = cart.cartitems.all()
     except:
         cart = {'num_of_items': 0}

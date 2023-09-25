@@ -30,9 +30,9 @@ def cart(request):
     cart_items = []
     try:
         if request.user.is_authenticated:
-            cart = Cart.objects.get(user=request.user, isPaid=False)
+            cart = Cart.objects.get(user=request.user)
         else:
-            cart = Cart.objects.get(session_id=request.session['nonuser'], isPaid=False)
+            cart = Cart.objects.get(session_id=request.session['nonuser'])
         cart_items = cart.cartitems.all()
     except:
         cart = {'num_of_items': 0}
@@ -52,7 +52,7 @@ def add_to_cart(request):
     time_slot = id=data['time_slot']
 
     if request.user.is_authenticated:
-        cart, created = Cart.objects.get_or_create(user=request.user, isPaid=False)
+        cart, created = Cart.objects.get_or_create(user=request.user)
         # cart_item, created = CartItem.objects.get_or_create(cart=cart, sub_service=sub_service)
         cart_item, created = CartItem.objects.get_or_create(cart=cart, start_date=date_slot, time_slot=time_slot, sub_service=sub_service)
         cart_item.quantity += 1
@@ -67,7 +67,7 @@ def add_to_cart(request):
             session_id = str(uuid.uuid4())
             request.session['nonuser'] = session_id
 
-        cart, created = Cart.objects.get_or_create(session_id=session_id, isPaid=False)
+        cart, created = Cart.objects.get_or_create(session_id=session_id)
         cart_item, created = CartItem.objects.get_or_create(cart=cart, sub_service=sub_service)
         cart_item.quantity += 1
         cart_item.save()
@@ -124,3 +124,21 @@ def billing(request):
         address_line_2 = request.POST.get('address_line_2')
         city = request.POST.get('city')
         state = request.POST.get('state')
+
+        billing_obj = BillingDetails.objects.create( first_name = first_name , last_name = last_name , email = email , phone = phone , address_line_1 = address_line_1 , address_line_2 = address_line_2 , city = city , state = state)
+
+        order_obj = Order(billing_details=billing_obj)
+        if request.user.is_authenticated:
+            user = request.user
+            cart = Cart.objects.get(user=user)
+            order_obj.user = user
+        else:
+            session_id = request.session['nonuser']
+            cart = Cart.objects.get(session_id=session_id)
+            order_obj.session_id = session_id
+
+        order_obj.cart = cart
+        order_obj.total_cost = cart.cart_cost
+        order_obj.save()
+
+        return render(request, 'payment.html')
