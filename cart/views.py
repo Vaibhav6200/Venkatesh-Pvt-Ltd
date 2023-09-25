@@ -53,27 +53,21 @@ def add_to_cart(request):
 
     if request.user.is_authenticated:
         cart, created = Cart.objects.get_or_create(user=request.user)
-        # cart_item, created = CartItem.objects.get_or_create(cart=cart, sub_service=sub_service)
-        cart_item, created = CartItem.objects.get_or_create(cart=cart, start_date=date_slot, time_slot=time_slot, sub_service=sub_service)
-        cart_item.quantity += 1
-        cart_item.save()
-        cart.cart_cost += sub_service.sub_service_price
-        cart.save()
-        num_of_items = cart.num_of_items
+
     else:
         if "nonuser" in request.session:
             session_id = request.session['nonuser']
         else:
             session_id = str(uuid.uuid4())
             request.session['nonuser'] = session_id
-
         cart, created = Cart.objects.get_or_create(session_id=session_id)
-        cart_item, created = CartItem.objects.get_or_create(cart=cart, sub_service=sub_service)
-        cart_item.quantity += 1
-        cart_item.save()
-        cart.cart_cost += sub_service.sub_service_price
-        cart.save()
-        num_of_items = cart.num_of_items
+
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, start_date=date_slot, time_slot=time_slot, sub_service=sub_service)
+    cart_item.quantity += 1
+    cart_item.save()
+    cart.cart_cost += sub_service.sub_service_price
+    cart.save()
+    num_of_items = cart.num_of_items
 
     return JsonResponse(num_of_items, safe=False)
 
@@ -88,7 +82,6 @@ def get_available_dates(request):
 
 
     booked_date_slots = CartItem.objects.filter(sub_service=data['sub_service_id']).values('start_date').annotate(total_time_slots=Count('time_slot'))
-
     for slot in booked_date_slots:
         temp_date = slot['start_date'].strftime('%Y-%m-%d')
         total_slots = slot['total_time_slots']

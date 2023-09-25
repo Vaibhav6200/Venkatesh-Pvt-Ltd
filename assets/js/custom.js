@@ -84,8 +84,6 @@ booking_modal = document.getElementById('bookAppointmentModal');
 
 function bookService(sub_service_id){
     selected_service = sub_service_id
-    let appointment_date = document.getElementById('appointment_date')
-    // let selected_date = appointment_date.querySelector('.selected-date')
     document.querySelectorAll('.date_slot_btn').forEach(button=>{button.classList.remove('disabled')})
     document.querySelectorAll('.time_slot_btn').forEach(button=>{button.classList.remove('disabled')})
 
