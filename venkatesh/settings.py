@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 from django.contrib import messages
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -138,6 +142,10 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+# Custom User Model
+AUTH_USER_MODEL = 'clickfix.Profile'
+
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
@@ -148,12 +156,13 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS = True
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-
 EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 
 
-AUTH_USER_MODEL = 'clickfix.Profile'
+# Razorpay Credentials
+RAZORPAY_KEY_ID = env('razorpay_key_id')
+RAZORPAY_KEY_SECRET = env('razorpay_key_secret')
 
 
 JAZZMIN_SETTINGS = {

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 import json
 from clickfix.models import SubServices
@@ -7,6 +7,10 @@ import uuid
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from django.db.models import Count
+from django.urls import reverse
+import requests
+from django.http import HttpResponseRedirect
+
 
 
 def getDate(day):
@@ -134,4 +138,7 @@ def billing(request):
         order_obj.total_cost = cart.cart_cost
         order_obj.save()
 
-        return render(request, 'payment.html')
+        return render(request, 'razorpay/start_payment.html', {'amount': order_obj.total_cost})
+
+
+

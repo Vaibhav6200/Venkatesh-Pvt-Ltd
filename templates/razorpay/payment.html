@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Payment {% endblock %}
+
+{% block content %}
+
+    {% block extra_js %}
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <script>
+        var options = {
+            key: "{{ razorpay_merchant_key }}",
+            amount: "{{ razorpay_amount }}",
+            currency: "{{ currency }}",
+            name: "ClickFix",
+            order_id: "{{ razorpay_order_id }}",
+            callback_url: "{{ callback_url }}",
+        };
+        var rzp = new Razorpay(options);
+        rzp.open();
+        </script>
+    {% endblock %}
+{% endblock %}
+
+
+

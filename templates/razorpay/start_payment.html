@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Start Payment {% endblock %}
+
+{% block content %}
+
+    <form action="{% url 'razorpay:payment' %}" method="post" id="myform">
+        <input type="hidden" name="amount" id="amount" value="{{ amount }}">
+    </form>
+
+{% block extra_js %}
+    <script>
+        window.addEventListener('load', function() {
+            var form = document.getElementById('myform');
+            form.submit();
+        });
+    </script>
+    {% endblock %}
+{% endblock %}
+
+
+
+
