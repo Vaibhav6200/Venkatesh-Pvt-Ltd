@@ -24,4 +24,5 @@ urlpatterns = [
     path('', include('clickfix.urls')),
     path('cart/', include('cart.urls')),
     path('accounts/', include('accounts.urls')),
+    path('razorpay/', include('razorpayAPI.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

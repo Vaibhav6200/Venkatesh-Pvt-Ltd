@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'clickfix.apps.ClickfixConfig',
     'cart.apps.CartConfig',
     'accounts.apps.AccountsConfig',
+    'razorpayAPI.apps.RazorpayapiConfig',
     'ckeditor',
 ]
 

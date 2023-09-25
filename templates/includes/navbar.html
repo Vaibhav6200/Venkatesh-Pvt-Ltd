@@ -8,9 +8,9 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link text-dark fw-bold me-4" aria-current="page" href="{% url 'clickfix:home' %}">Home</a></li>
-                <li class="nav-item"><a class="nav-link text-dark fw-bold me-4" href="#">Services</a></li>
-                <li class="nav-item"><a class="nav-link text-dark fw-bold me-4" href="#">About</a></li>
-                <li class="nav-item"><a class="nav-link text-dark fw-bold me-4" href="#">Contact</a></li>
+                <li class="nav-item"><a class="nav-link text-dark fw-bold me-4" href="{% url 'clickfix:home' %}#services">Services</a></li>
+                <li class="nav-item"><a class="nav-link text-dark fw-bold me-4" href="{% url 'clickfix:home' %}#about">About</a></li>
+                <li class="nav-item"><a class="nav-link text-dark fw-bold me-4" href="{% url 'clickfix:home' %}#contact_form">Contact</a></li>
                 <li class="nav-item"><a class="nav-link text-dark fw-bold me-4" href="{% url 'cart:cart' %}"><i class="fa-solid fa-cart-shopping"></i> <span id="num_of_items">{{cart.num_of_items}}</span></a></li>
 
 

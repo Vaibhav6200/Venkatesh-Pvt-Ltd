@@ -11,7 +11,6 @@ class Cart(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     session_id = models.CharField(max_length=100, null=True, blank=True)
     cart_cost = models.FloatField(default=0.0)
-    isPaid = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

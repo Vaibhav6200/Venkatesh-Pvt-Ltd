@@ -111,3 +111,16 @@ def get_available_time_slots(request):
         time_disable_map[slot.time_slot] = True
 
     return JsonResponse(time_disable_map, safe=False)
+
+
+
+def billing(request):
+    if request.method == "POST":
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        address_line_1 = request.POST.get('address_line_1')
+        address_line_2 = request.POST.get('address_line_2')
+        city = request.POST.get('city')
+        state = request.POST.get('state')

@@ -27,8 +27,10 @@ def home(request):
     }
     return render(request, 'home.html', data)
 
+
 def profile(request):
     return render(request, 'profile.html')
+
 
 def individual_service(request, service_name):
     service = Services.objects.get(slug=service_name)
@@ -57,14 +59,31 @@ def individual_service(request, service_name):
     }
     return render(request, 'individual_service.html', data)
 
+
 def checkout(request):
-    return render(request, 'checkout.html')
+    cart = None
+    cart_items = []
+    try:
+        if request.user.is_authenticated:
+            cart = Cart.objects.get(user=request.user, isPaid=False)
+        else:
+            cart = Cart.objects.get(session_id=request.session['nonuser'], isPaid=False)
+        cart_items = cart.cartitems.all()
+    except:
+        cart = {'num_of_items': 0}
+
+
+    data = {'cart': cart}
+    return render(request, 'checkout.html', data)
+
 
 def live_tracking(request):
     return render(request, 'live_tracking.html')
 
+
 def bookings(request):
     return render(request, 'bookings.html')
+
 
 def contact(request):
     if request.method == "POST":
