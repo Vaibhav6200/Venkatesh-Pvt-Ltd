@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import razorpay
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
@@ -36,7 +36,6 @@ def payment(request):
 
 @csrf_exempt
 def paymenthandler(request):
-    print("Reached to payment handler")
     if request.method == "POST":
         try:
             payment_id = request.POST.get('razorpay_payment_id', '')
@@ -55,12 +54,16 @@ def paymenthandler(request):
                 amount = order['amount']
                 try:
                     razorpay_client.payment.capture(payment_id, amount)     # capture the payemt
-                    return render(request, 'paymentsuccess.html')       # render success page on successful caputre of payment
+                    print("Payment Capture Successfull")
+                    return redirect('razorpay:paymentsuccess')       # render success page on successful caputre of payment
                 except:
-                    return render(request, 'paymentfail.html')      # if there is an error while capturing payment.
+                    print("Error in Payment Capture")
+                    return redirect('razorpay:paymentfail')      # if there is an error while capturing payment.
             else:
-                return render(request, 'paymentfail.html')      # if signature verification fails.
+                print("Signature NOT Verified")
+                return redirect('razorpay:paymentfail')      # if signature verification fails.
         except:
+            print("Getting HTTP bad request error from here")
             return HttpResponseBadRequest()     # if we don't find the required parameters in POST data
     else:
         return HttpResponseBadRequest()     # if other than POST request is made.

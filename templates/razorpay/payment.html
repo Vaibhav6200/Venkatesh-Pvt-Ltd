@@ -15,6 +15,7 @@
             order_id: "{{ razorpay_order_id }}",
             callback_url: "{{ callback_url }}",
         };
+        console.log(options)
         var rzp = new Razorpay(options);
         rzp.open();
         </script>
