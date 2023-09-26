@@ -3,7 +3,7 @@ import razorpay
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest
-
+from cart.models import Order
 
 razorpay_client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
 
@@ -20,6 +20,11 @@ def payment(request):
         # order id of newly created order.
         razorpay_order_id = razorpay_order['id']
         callback_url = 'http://127.0.0.1:8000/razorpay/paymenthandler/'
+
+
+        order_obj = Order.objects.get(id=request.POST['order_id'])
+        order_obj.razorpay_order_id = razorpay_order_id
+        order_obj.save()
 
         # we need to pass these details to frontend.
         context = {}
@@ -53,11 +58,19 @@ def paymenthandler(request):
                 order = razorpay_client.order.fetch(razorpay_order_id)
                 amount = order['amount']
                 try:
-                    razorpay_client.payment.capture(payment_id, amount)     # capture the payemt
                     print("Payment Capture Successfull")
+                    razorpay_client.payment.capture(payment_id, amount)     # capture the payemt
+                    order_obj = Order.objects.get(razorpay_order_id=razorpay_order_id)
+                    order_obj.razorpay_payment_id = payment_id
+                    order_obj.payment_status = "Paid"
+                    order_obj.save()
                     return redirect('razorpay:paymentsuccess')       # render success page on successful caputre of payment
                 except:
                     print("Error in Payment Capture")
+                    order_obj = Order.objects.get(razorpay_order_id=razorpay_order_id)
+                    order_obj.razorpay_payment_id = payment_id
+                    order_obj.payment_status = "Failed"
+                    order_obj.save()
                     return redirect('razorpay:paymentfail')      # if there is an error while capturing payment.
             else:
                 print("Signature NOT Verified")

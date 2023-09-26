@@ -138,7 +138,7 @@ def billing(request):
         order_obj.total_cost = cart.cart_cost
         order_obj.save()
 
-        return render(request, 'razorpay/start_payment.html', {'amount': order_obj.total_cost})
+        return render(request, 'razorpay/start_payment.html', {'amount': order_obj.total_cost, 'order_id': order_obj.id})
 
 
 
