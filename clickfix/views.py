@@ -5,13 +5,11 @@ from django.conf import settings
 from django.contrib import messages
 from .models import *
 from datetime import datetime, timedelta
-from cart.models import Cart
+from cart.models import *
+from razorpayAPI.models import *
 
 
-def home(request):
-    services = Services.objects.all()
-    testimonials = Testimonials.objects.all()
-
+def get_cart(request):
     try:
         if request.user.is_authenticated:
             cart = Cart.objects.get(user=request.user)
@@ -19,6 +17,14 @@ def home(request):
             cart = Cart.objects.get(session_id=request.session['nonuser'])
     except:
         cart = {'num_of_items': 0}
+    return cart
+
+
+def home(request):
+    services = Services.objects.all()
+    testimonials = Testimonials.objects.all()
+
+    cart = get_cart(request)
 
     data = {
         'services': services,
@@ -36,14 +42,7 @@ def individual_service(request, service_name):
     service = Services.objects.get(slug=service_name)
     sub_services = SubServices.objects.filter(service=service)
 
-    try:
-        if request.user.is_authenticated:
-            cart = Cart.objects.get(user=request.user)
-        else:
-            cart = Cart.objects.get(session_id=request.session['nonuser'])
-    except:
-        cart = {'num_of_items': 0}
-
+    cart = get_cart(request)
 
     week_days = []
     day_of_month = []
@@ -61,28 +60,30 @@ def individual_service(request, service_name):
 
 
 def checkout(request):
-    cart = None
-    cart_items = []
-    try:
-        if request.user.is_authenticated:
-            cart = Cart.objects.get(user=request.user)
-        else:
-            cart = Cart.objects.get(session_id=request.session['nonuser'])
-        cart_items = cart.cartitems.all()
-    except:
-        cart = {'num_of_items': 0}
-
-
+    cart = get_cart(request)
     data = {'cart': cart}
     return render(request, 'checkout.html', data)
 
 
 def live_tracking(request):
-    return render(request, 'live_tracking.html')
+    cart = get_cart(request)
+    data = {'cart': cart}
+    return render(request, 'live_tracking.html', data)
 
 
 def bookings(request):
-    return render(request, 'bookings.html')
+    cart = get_cart(request)
+
+    if request.user.is_authenticated:
+        orders = Order.objects.get(user=request.user)
+    else:
+        orders = Order.objects.get(session_id=request.session['nonuser'])
+
+    data = {
+        'cart': cart,
+        'orders': orders,
+    }
+    return render(request, 'bookings.html', data)
 
 
 def contact(request):
