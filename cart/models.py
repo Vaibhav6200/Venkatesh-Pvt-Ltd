@@ -43,6 +43,9 @@ class CartItem(models.Model):
     start_date = models.DateField(null=True)
     time_slot = models.CharField(max_length=20, choices=TIME_SLOTS, default=1)
 
+    def __str__(self):
+        return self.sub_service.sub_service_name
+
     @property
     def price(self):
         new_price = self.sub_service.sub_service_price * self.quantity
@@ -63,29 +66,5 @@ class BillingDetails(models.Model):
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
 
-
-class Order(models.Model):
-    class Meta:
-        verbose_name_plural = 'Orders'
-
-    PAYMENT_CHOICES = (
-        ('Pending', 'Pending'),
-        ('Paid', 'Paid'),
-        ('Failed', 'Failed'))
-
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
-    session_id = models.CharField(max_length=100, null=True, blank=True)
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    billing_details = models.OneToOneField(BillingDetails, on_delete=models.CASCADE)
-    total_cost = models.FloatField(default=0.0)
-    order_date = models.DateTimeField(auto_now_add=True)
-    payment_status = models.CharField(max_length=20, choices=PAYMENT_CHOICES, default='Pending')
-    razorpay_order_id = models.CharField(max_length=100, default="")
-    razorpay_payment_id = models.CharField(max_length=100, default="")
-
-
     def __str__(self):
-        if self.user:
-            return f"Order #{self.id} by {self.user.username}"
-        else:
-            return f"Order #{self.id} by user with session_id = {self.session_id}"
+        return f"Billing Id - {self.id}"

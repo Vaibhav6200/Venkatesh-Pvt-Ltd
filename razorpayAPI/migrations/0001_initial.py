@@ -11,53 +11,44 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('clickfix', '0001_initial'),
+        ('cart', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='BillingDetails',
+            name='Order',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=50)),
-                ('last_name', models.CharField(max_length=50)),
-                ('email', models.EmailField(max_length=150)),
-                ('phone', models.CharField(max_length=15)),
-                ('address_line_1', models.TextField()),
-                ('address_line_2', models.TextField(blank=True, null=True)),
-                ('city', models.CharField(max_length=100)),
-                ('state', models.CharField(max_length=100)),
-            ],
-            options={
-                'verbose_name_plural': 'Billing Details',
-            },
-        ),
-        migrations.CreateModel(
-            name='Cart',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('cart_id', models.CharField(max_length=10)),
                 ('session_id', models.CharField(blank=True, max_length=100, null=True)),
-                ('cart_cost', models.FloatField(default=0.0)),
+                ('total_cost', models.FloatField(default=0.0)),
+                ('payment_status', models.CharField(choices=[('Pending', 'Pending'), ('Paid', 'Paid'), ('Failed', 'Failed')], default='Pending', max_length=20)),
+                ('razorpay_order_id', models.CharField(default='', max_length=100)),
+                ('razorpay_payment_id', models.CharField(default='', max_length=100)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
+                ('billing_details', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='cart.billingdetails')),
                 ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={
-                'verbose_name_plural': 'Cart',
+                'verbose_name_plural': 'Orders',
             },
         ),
         migrations.CreateModel(
-            name='CartItem',
+            name='OrderItem',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('quantity', models.IntegerField(default=0)),
                 ('start_date', models.DateField(null=True)),
                 ('time_slot', models.CharField(choices=[('10am-12pm', '10am-12pm'), ('12pm-2pm', '12pm-2pm'), ('2pm-4pm', '2pm-4pm'), ('4pm-7pm', '4pm-7pm')], default=1, max_length=20)),
-                ('cart', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='cartitems', to='cart.cart')),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='orderitems', to='razorpayAPI.order')),
                 ('sub_service', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='clickfix.subservices')),
             ],
             options={
-                'verbose_name_plural': 'Cart Items',
+                'verbose_name_plural': 'Order Items',
             },
         ),
     ]

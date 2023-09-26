@@ -10,7 +10,7 @@ from django.db.models import Count
 from django.urls import reverse
 import requests
 from django.http import HttpResponseRedirect
-
+from razorpayAPI.models import Order, OrderItem
 
 
 def getDate(day):
@@ -133,10 +133,21 @@ def billing(request):
             session_id = request.session['nonuser']
             cart = Cart.objects.get(session_id=session_id)
             order_obj.session_id = session_id
-
-        order_obj.cart = cart
+        order_obj.cart_id = cart.id
         order_obj.total_cost = cart.cart_cost
         order_obj.save()
+
+        # Shifting our Cart Items to Order Items
+        for item in cart.cartitems.all():
+            order_item_obj = OrderItem()
+            order_item_obj.order = order_obj
+            order_item_obj.sub_service = item.sub_service
+            order_item_obj.quantity = item.quantity
+            order_item_obj.start_date = item.start_date
+            order_item_obj.time_slot = item.time_slot
+            order_item_obj.save()
+
+
 
         return render(request, 'razorpay/start_payment.html', {'amount': order_obj.total_cost, 'order_id': order_obj.id})
 

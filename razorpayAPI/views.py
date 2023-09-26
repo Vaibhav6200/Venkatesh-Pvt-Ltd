@@ -3,10 +3,11 @@ import razorpay
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest
-from cart.models import Order
+from .models import Order
+from cart.models import Cart
+
 
 razorpay_client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
-
 
 @csrf_exempt
 def payment(request):
@@ -64,7 +65,17 @@ def paymenthandler(request):
                     order_obj.razorpay_payment_id = payment_id
                     order_obj.payment_status = "Paid"
                     order_obj.save()
-                    return redirect('razorpay:paymentsuccess')       # render success page on successful caputre of payment
+
+                    # Since Order Placed Successfully So remove all items from our cart
+                    cart_id = order_obj.cart_id
+                    print()
+                    print("**********")
+                    print(cart_id)
+                    print("**********")
+                    print()
+                    Cart.objects.get(id=cart_id).delete()
+
+                    return redirect('clickfix:bookings')       # render success page on successful caputre of payment
                 except:
                     print("Error in Payment Capture")
                     order_obj = Order.objects.get(razorpay_order_id=razorpay_order_id)
