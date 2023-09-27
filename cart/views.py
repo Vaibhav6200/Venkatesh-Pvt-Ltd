@@ -143,10 +143,21 @@ def billing(request):
             order_item_obj.start_date = item.start_date
             order_item_obj.time_slot = item.time_slot
             order_item_obj.save()
-
-
-
         return render(request, 'razorpay/start_payment.html', {'amount': order_obj.total_cost, 'order_id': order_obj.id})
 
 
 
+def remove_cart_item(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        cart_item_id = data['cart_item_id']
+        cart_item_obj = CartItem.objects.get(id=cart_item_id)
+        cart = cart_item_obj.cart
+        cart.cart_cost -= cart_item_obj.price
+        cart.save()
+        cart_item_obj.delete()
+        data = {
+            "cart_cost": cart.cart_cost,
+            "num_of_items": cart.num_of_items
+        }
+        return JsonResponse(data, safe=False)

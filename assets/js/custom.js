@@ -141,3 +141,30 @@ function handleSelectedDate(){
         console.log(error)
     })
 }
+
+
+function handleCartItemRemoval(item_id){
+    let url = "/cart/remove_cart_item/"
+    let data= {cart_item_id:item_id}
+    fetch(url, {
+        method: "POST",
+        headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+        body: JSON.stringify(data)
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        document.getElementById('cart_item_' + item_id).style.display = 'none'
+        document.getElementById('num_of_items').innerHTML = data['num_of_items']
+        let grand_total = document.getElementById('grand_total')
+        grand_total.innerHTML = data['cart_cost']
+
+        if(data['num_of_items'] == 0){
+            document.querySelector('#checkout_form').style.display = "none"
+            document.querySelector('#grand_total_heading').style.display = "none"
+            document.querySelector('#empty_cart_text').classList.remove('d-none')
+        }
+    })
+    .catch(error=>{
+        console.log(error)
+    })
+}
