@@ -36,3 +36,9 @@ class CustomSubServices(admin.ModelAdmin):
 class CustomTestimonials(admin.ModelAdmin):
     list_display = ['id', 'title', 'state']
     list_display_links = ['id', 'title']
+
+
+@admin.register(Handyman)
+class CustomHandyman(admin.ModelAdmin):
+    list_display = ['id', 'full_name', 'mobile_number']
+    list_display_links = ['id', 'full_name']

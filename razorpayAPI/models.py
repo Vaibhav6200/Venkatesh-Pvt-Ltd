@@ -1,7 +1,6 @@
 from django.db import models
 from cart.models import Cart, BillingDetails
-from clickfix.models import Profile
-from clickfix.models import SubServices
+from clickfix.models import *
 
 
 
@@ -21,10 +20,10 @@ class Order(models.Model):
         ('Booking Not Accepted', 'Booking Not Accepted'))
 
     TRACKING_CHOICES = (
-        ('Booked Today', 'Booked Today'),
-        ('Out For Service', 'Out For Service'),
-        ('Service Begun', 'Service Begun'),
-        ('Service Completed', 'Service Completed'))
+        (1, 'Booked Today'),
+        (2, 'Out For Service'),
+        (3, 'Service Begun'),
+        (4, 'Service Completed'))
 
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     cart_id = models.CharField(max_length=10)
@@ -35,7 +34,8 @@ class Order(models.Model):
     razorpay_order_id = models.CharField(max_length=100, default="")
     razorpay_payment_id = models.CharField(max_length=100, default="")
     booking_status = models.CharField(max_length=30, choices=BOOKING_CHOICES, null=True, blank=True)
-    tracking_status = models.CharField(max_length=30, choices=TRACKING_CHOICES, null=True, blank=True)
+    tracking_status = models.IntegerField(choices=TRACKING_CHOICES, null=True, blank=True)
+    service_provider = models.ForeignKey(Handyman, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

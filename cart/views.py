@@ -85,7 +85,7 @@ def get_available_dates(request):
         date_disable_map[date] = False
 
 
-    booked_date_slots = CartItem.objects.filter(sub_service=data['sub_service_id']).values('start_date').annotate(total_time_slots=Count('time_slot'))
+    booked_date_slots = OrderItem.objects.filter(sub_service=data['sub_service_id']).values('start_date').annotate(total_time_slots=Count('time_slot'))
     for slot in booked_date_slots:
         temp_date = slot['start_date'].strftime('%Y-%m-%d')
         total_slots = slot['total_time_slots']
@@ -98,7 +98,7 @@ def get_available_dates(request):
 def get_available_time_slots(request):
     time_disable_map = {}
     data = json.loads(request.body)
-    booked_time_slots = CartItem.objects.filter(sub_service=data['sub_service_id'], start_date=data['date_slot'])
+    booked_time_slots = OrderItem.objects.filter(sub_service=data['sub_service_id'], start_date=data['date_slot'])
 
     time_slots = ["10am-12pm", "12pm-2pm", "2pm-4pm", "4pm-7pm"]
     for slot in time_slots:

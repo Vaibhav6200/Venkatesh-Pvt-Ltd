@@ -41,7 +41,11 @@
                             <div class="d-flex">
                                 <!-- <button class="me-2 btn btn-outline-warning">Reschedule</button> -->
                                 <button class="me-2 btn btn-outline-danger">Cancel</button>
-                                <a href="{% url 'clickfix:live_tracking' %}" class="btn btn-outline-dark">Track</a>
+                                <form action="{% url 'clickfix:live_tracking' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="order_item_id" value="{{ item.id }}">
+                                    <button href="{% url 'clickfix:live_tracking' %}" type="submit" class="btn btn-outline-dark">Track</button>
+                                </form>
                             </div>
                         </div>
                     </div>

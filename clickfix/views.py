@@ -7,6 +7,7 @@ from .models import *
 from datetime import datetime, timedelta
 from cart.models import *
 from razorpayAPI.models import *
+from django.http import HttpResponseBadRequest
 
 
 def get_cart(request):
@@ -66,9 +67,17 @@ def checkout(request):
 
 
 def live_tracking(request):
-    cart = get_cart(request)
-    data = {'cart': cart}
-    return render(request, 'live_tracking.html', data)
+    data = {}
+    if request.method == "POST":
+        order_item_id = request.POST.get('order_item_id')
+        order_item = OrderItem.objects.get(id=order_item_id)
+        data['order_item'] = order_item
+        cart = get_cart(request)
+        data['cart'] = cart
+
+        return render(request, 'live_tracking.html', data)
+
+    return HttpResponseBadRequest()
 
 
 def bookings(request):

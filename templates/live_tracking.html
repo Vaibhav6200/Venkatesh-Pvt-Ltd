@@ -15,12 +15,18 @@
                     <small>Service Number</small>
                     <h6 class="mb-3">EV-2017002346</h6>
 
-                    <small class="fw-light">Laptop repair</small>
+                    <small class="fw-light">{{ order_item.sub_service }}</small>
                     <hr class="my-4">
                     <div class="d-flex align-items-center">
                         <img class="img-fluid me-4" style="width: 50px;" src="{% static 'img/green_location.png' %}" alt="">
                         <div>
+                            {% if order_item.order.service_provider %}
                             <h5>Service Partner Assigned</h5>
+                            {% else %}
+                            <h5>Allocating professional</h5>
+                            {% endif %}
+
+
                         </div>
                     </div>
                     <span class="vertical_dotted_line_2"></span>
@@ -30,19 +36,20 @@
                             <h5>A-1302 Pinecreset Godrej Garden City</h5>
                         </div>
                     </div>
-                    <hr class="my-4">
-
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex justify-content-between">
-                            <img class="img-fluid me-4" src="{% static 'img/service_provider.png' %}" style="width: 80px; object-fit: cover;" alt="">
-                            <div>
-                                <div>Service Provider</div>
-                                <div>Ketul Raval</div>
-                                <div>+91 9825436789</div>
+                    {% if order_item.order.service_provider  %}
+                        <hr class="my-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between">
+                                <img class="img-fluid me-4" src="{% static 'img/service_provider.png' %}" style="width: 80px; object-fit: cover;" alt="">
+                                <div>
+                                    <div>Service Provider</div>
+                                    <div>{{ order_item.order.service_provider.full_name }}</div>
+                                    <div>+91 {{ order_item.order.service_provider.mobile_number }}</div>
+                                </div>
                             </div>
+                            <img class="img-fluid" src="{% static 'img/call.png' %}" style="width: 60px; height: 60px; object-fit: cover;" alt="">
                         </div>
-                        <img class="img-fluid" src="{% static 'img/call.png' %}" style="width: 60px; height: 60px; object-fit: cover;" alt="">
-                    </div>
+                    {% endif %}
                 </div>
 
             </div>
@@ -50,22 +57,22 @@
                 <div class="shadow border px-5 py-5" id="live_tracking" >
                     <span  class="d-flex flex-column">
                         <div class="d-flex align-items-center">
-                            <input type="checkbox" class="form-check-input p-4" id="check_1" checked />
+                            <input type="checkbox" class="form-check-input p-4" id="check_1" {% if order_item.order.tracking_status >= 1 %} checked {% endif %} />
                             <h5 class="ms-4">Booked Today</h5>
                         </div>
                         <span class="vertical_dotted_line"></span>
                         <div class="d-flex align-items-center">
-                            <input type="checkbox" class="form-check-input p-4" id="check_2" checked />
+                            <input type="checkbox" class="form-check-input p-4" id="check_2" {% if order_item.order.tracking_status >= 2 %} checked {% endif %} />
                             <h5 class="ms-4">Out for Service</h5>
                         </div>
                         <span class="vertical_dotted_line"></span>
                         <div class="d-flex align-items-center">
-                            <input type="checkbox" class="form-check-input p-4" id="check_3" />
+                            <input type="checkbox" class="form-check-input p-4" id="check_3" {% if order_item.order.tracking_status >= 3 %} checked {% endif %} />
                             <h5 class="ms-4">Service Begun</h5>
                         </div>
                         <span class="vertical_dotted_line"></span>
                         <div class="d-flex align-items-center">
-                            <input type="checkbox" class="form-check-input p-4" id="check_4"  />
+                            <input type="checkbox" class="form-check-input p-4" id="check_4" {% if order_item.order.tracking_status >= 4 %} checked {% endif %} />
                             <h5 class="ms-4">Service Completed</h5>
                         </div>
                     </span>
