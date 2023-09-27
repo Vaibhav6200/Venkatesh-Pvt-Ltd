@@ -53,12 +53,6 @@
                 {% empty %}
                 <h3 class="text-muted" id="empty_cart_text">Nothing in Cart!</h3>
                 {% endfor %}
-
-                {% if cart_items %}
-                <h5 class="mt-5" id="grand_total_heading">Grand Total: Rs <span id="grand_total">{{ cart_total }}</span></h5>
-                {% endif %}
-
-
             </div>
 
 
@@ -66,6 +60,7 @@
             <div class="col-md-6 col-sm-12 p-3 coupon_section">
                 <div>
                     <!-- APPLY COUPON -->
+                    {% include 'includes/messages.html' %}
                     <div class="d-flex justify-content-between align-items-center p-4" style="border: 1px solid #f6911e75; border-radius: 10px;">
                         <div class="d-flex">
                             <div class="d-flex justify-content-center align-items-center text-white coupon_img">
@@ -102,7 +97,11 @@
                                                 <a href="" class="text-decoration-none" style="color: #F6921E;">View T&C</a>
                                             </div>
                                         </div>
-                                        <a class="text-decoration-none" href="" style="color: #F6921E;">Apply</a>
+                                        <form action="{% url 'cart:cart' %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="coupon" value="{{ coupon.coupon_code }}">
+                                            <button type="submit" class="text-decoration-none btn" style="color: #F6921E;">Apply</button>
+                                        </form>
                                     </div>
                                     {% if not forloop.last %}
                                         <div class="my-4" style="border: 1px solid #e3e3e3;"></div>
@@ -113,26 +112,33 @@
                         </div>
                     </div>
 
-                    <!-- <div class="mt-4 d-flex justify-content-between align-items-center p-4" style="border: 1px solid #f6911e75; border-radius: 10px;">
+                    {% if cart.coupon %}
+                    <div class="mt-4 d-flex justify-content-between align-items-center p-4" style="border: 1px solid #f6911e75; border-radius: 10px;">
                         <div class="d-flex">
                             <div class="d-flex justify-content-center align-items-center text-white coupon_img">
                                 <span>%</span>
                             </div>
                             <div class="d-flex justify-content-center align-items-center ms-4">
-                                <span class="fw-bold me-2">SILKUC20</span> applied
+                                <span class="fw-bold me-2">{{ cart.coupon.coupon_code }}</span> applied
                             </div>
                         </div>
-                        <a href="" class="text-danger text-decoration-none">Remove</a>
+                        <a href="{% url 'discount:remove_coupon' cart.id %}" class="text-danger text-decoration-none">Remove</a>
                     </div>
-
                     <div class="mt-4 d-flex align-items-center p-4" style="background-color: #f6911e44; border-radius: 10px;">
                         <img class="img-fluid" style="width: 50px;" src="{% static 'img/coins.png' %}" alt="">
                         <div class="d-flex">
                             <div class="d-flex justify-content-center align-items-center ms-4">
-                                You're saving total ₹350 on this order!
+                                You're saving total ₹{{ cart.coupon.discount_price }} on this order!
                             </div>
                         </div>
-                    </div> -->
+                    </div>
+                    {% endif %}
+
+                    {% if cart_items %}
+                    <h5 class="mt-5" id="grand_total_heading">Grand Total: Rs <span id="grand_total">{{ cart_total }}</span></h5>
+                    {% endif %}
+
+
                 </div>
             </div>
         </div>

@@ -21,6 +21,10 @@ class Cart(models.Model):
         price = []
         for cart_item in cart_items:
             price.append(cart_item.sub_service.sub_service_price)
+
+        if self.coupon:
+            if self.coupon.minimum_price < sum(price):
+                return sum(price) - self.coupon.discount_price
         return sum(price)
 
     def __str__(self):

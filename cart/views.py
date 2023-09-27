@@ -9,7 +9,8 @@ from dateutil.relativedelta import relativedelta
 from django.db.models import Count
 from razorpayAPI.models import Order, OrderItem
 from discount.models import Coupon
-
+from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 
 def getDate(day):
@@ -27,18 +28,41 @@ def getDate(day):
     return None
 
 
-# NOTE: we have to send cart object to all functions so that it could be rendered on top right cart icon
-def cart(request):
-    cart = None
-    cart_items = []
+def get_cart(request):
     try:
         if request.user.is_authenticated:
             cart = Cart.objects.get(user=request.user)
         else:
             cart = Cart.objects.get(session_id=request.session['nonuser'])
-        cart_items = cart.cartitems.all()
     except:
         cart = {'num_of_items': 0}
+    return cart
+
+
+# NOTE: we have to send cart object to all functions so that it could be rendered on top right cart icon
+def cart(request):
+    cart = get_cart(request)
+    cart_items = cart.cartitems.all()
+
+    if request.method == "POST":
+        coupon_code = request.POST.get('coupon')
+        coupon_obj = Coupon.objects.filter(coupon_code__iexact=coupon_code)[0]
+
+        if cart.coupon:
+            messages.warning(request, "Coupon Already Exists.")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+        if cart.get_cart_total() < coupon_obj.minimum_price:
+            messages.warning(request, f"Amount Should be greater than {coupon_obj.minimum_price}.")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+        if coupon_obj.is_expired:
+            messages.danger(request, "Coupon Expired")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+        cart.coupon = coupon_obj
+        cart.save()
+        messages.success(request, "Coupon Applied!")
 
     data = {}
     data['cart'] = cart
