@@ -40,7 +40,7 @@
                         <hr class="my-4">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex justify-content-between">
-                                <img class="img-fluid me-4" src="{% static 'img/service_provider.png' %}" style="width: 80px; object-fit: cover;" alt="">
+                                <img class="img-fluid me-4" src="{{ order_item.order.service_provider.image.url }}" style="width: 80px; object-fit: cover;" alt="">
                                 <div>
                                     <div>Service Provider</div>
                                     <div>{{ order_item.order.service_provider.full_name }}</div>

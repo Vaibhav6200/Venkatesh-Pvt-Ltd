@@ -86,7 +86,8 @@ class Handyman(models.Model):
     class Meta:
         verbose_name_plural = 'Service Provider'
     full_name = models.CharField(max_length=100)
-    mobile_number = models.CharField(max_length=20)
+    mobile_number = models.CharField(max_length=10, help_text="It should be 10 digit number")
+    image = models.ImageField(upload_to='handyman', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

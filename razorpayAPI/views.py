@@ -65,7 +65,7 @@ def paymenthandler(request):
                     order_obj.razorpay_payment_id = payment_id
                     order_obj.payment_status = "Paid"
                     order_obj.booking_status = "Upcoming"
-                    order_obj.tracking_status = "Booked Today"
+                    order_obj.tracking_status = 1
                     order_obj.save()
 
                     # Since Order Placed Successfully So remove all items from our cart

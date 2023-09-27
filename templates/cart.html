@@ -17,7 +17,10 @@
                     <span class="blockquote fw-bold mb-4">Services Booked</span>
 
                     {% if cart_items %}
-                    <a href="{% url 'clickfix:checkout' %}" class="btn btn_color fw-bold mb-4 d-flex align-items-center">Proceed to checkout <i class="fa-solid fa-caret-right ms-2"></i></a>
+                    <form action="{% url 'clickfix:checkout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn_color fw-bold mb-4 d-flex align-items-center">Proceed to checkout <i class="fa-solid fa-caret-right ms-2"></i></button>
+                    </form>
                     {% endif %}
                 </div>
                 {% for item in cart_items %}
@@ -56,7 +59,7 @@
 
             <!-- For Cart and coupon applied -->
             <div class="col-md-6 col-sm-12 p-3 coupon_section">
-                <div style="">
+                <div>
                     <!-- APPLY COUPON -->
                     <div class="d-flex justify-content-between align-items-center p-4" style="border: 1px solid #f6911e75; border-radius: 10px;">
                         <div class="d-flex">

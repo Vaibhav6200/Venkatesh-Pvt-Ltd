@@ -61,10 +61,12 @@ def individual_service(request, service_name):
 
 
 def checkout(request):
-    cart = get_cart(request)
-    data = {'cart': cart}
-    return render(request, 'checkout.html', data)
+    if request.method == "POST":
+        cart = get_cart(request)
+        data = {'cart': cart}
+        return render(request, 'checkout.html', data)
 
+    return HttpResponseBadRequest()
 
 def live_tracking(request):
     data = {}
@@ -83,8 +85,8 @@ def live_tracking(request):
 def bookings(request):
     cart = get_cart(request)
 
-    orders_by_logged_in_user = Order.objects.filter(user=request.user)
-    orders_as_a_guest = Order.objects.filter(session_id=request.session['nonuser'])
+    orders_by_logged_in_user = Order.objects.filter(user=request.user).order_by('-created_at')
+    orders_as_a_guest = Order.objects.filter(session_id=request.session['nonuser']).order_by('-created_at')
 
     orders = []
     for order in orders_by_logged_in_user:
