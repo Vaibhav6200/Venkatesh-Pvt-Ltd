@@ -19,31 +19,38 @@
     {% include 'includes/navbar.html' %}
 
     <div class="container my-5">
+        {% if order_items %}
         <h1 class="mb-5">My Bookings</h1>
+        {% endif %}
         <div class="row">
+            {% for item in order_items %}
             <div class="col-md-6 mb-3">
                 <div class="d-flex flex-column rounded p-4" style="border: 1px solid #BADBFF;">
                     <div class="d-flex flex-column">
-                        <p class="text-uppercase" style="color: #25d366;">Upcoming</p>
-                        <h2>Desktop Repair</h2>
-                        <p class="mb-0">Sun, Aug 12, 2023 at 06:00 PM </p>
+                        <p class="text-uppercase" style="color: #25d366;">{{item.order.booking_status}}</p>
+                        <h2>{{ item.sub_service }}</h2>
+                        <p class="mb-0"></p>
+                        <p class="mb-0"></p>
                     </div>
                     <div class="my-4" style="border:1px solid #BADBFF;"></div>
                     <div class="row">
                         <div class="col-md-6 col-12 mb-3">
-                            <span>Amount Paid ₹788</span>
+                            <span>Amount Paid ₹{{item.order.total_cost}}</span>
                         </div>
                         <div class="col-12">
                             <div class="d-flex">
-                                <button class="me-2 btn btn-outline-warning">Reschedule</button>
+                                <!-- <button class="me-2 btn btn-outline-warning">Reschedule</button> -->
                                 <button class="me-2 btn btn-outline-danger">Cancel</button>
-                                <button class="btn btn-outline-dark">Track</button>
+                                <a href="{% url 'clickfix:live_tracking' %}" class="btn btn-outline-dark">Track</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 mb-3">
+            {% empty %}
+            <h1 class="text-muted text-center">No Bookings</h1>
+            {% endfor %}
+            <!-- <div class="col-md-6 mb-3">
                 <div class="d-flex flex-column rounded p-4" style="border: 1px solid #BADBFF;">
                     <div class="d-flex flex-column">
                         <p class="text-uppercase text-danger">BOOKING NOT ACCEPTED</p>
@@ -104,7 +111,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 

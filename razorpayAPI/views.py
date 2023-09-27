@@ -64,15 +64,12 @@ def paymenthandler(request):
                     order_obj = Order.objects.get(razorpay_order_id=razorpay_order_id)
                     order_obj.razorpay_payment_id = payment_id
                     order_obj.payment_status = "Paid"
+                    order_obj.booking_status = "Upcoming"
+                    order_obj.tracking_status = "Booked Today"
                     order_obj.save()
 
                     # Since Order Placed Successfully So remove all items from our cart
                     cart_id = order_obj.cart_id
-                    print()
-                    print("**********")
-                    print(cart_id)
-                    print("**********")
-                    print()
                     Cart.objects.get(id=cart_id).delete()
 
                     return redirect('clickfix:bookings')       # render success page on successful caputre of payment

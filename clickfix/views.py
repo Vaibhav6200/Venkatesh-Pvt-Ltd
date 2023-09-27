@@ -74,14 +74,22 @@ def live_tracking(request):
 def bookings(request):
     cart = get_cart(request)
 
-    if request.user.is_authenticated:
-        orders = Order.objects.get(user=request.user)
-    else:
-        orders = Order.objects.get(session_id=request.session['nonuser'])
+    orders_by_logged_in_user = Order.objects.filter(user=request.user)
+    orders_as_a_guest = Order.objects.filter(session_id=request.session['nonuser'])
+
+    orders = []
+    for order in orders_by_logged_in_user:
+        orders.append(order)
+    for order in orders_as_a_guest:
+        orders.append(order)
+
+    order_items = []
+    for item in orders:
+        order_items += item.orderitems.all()
 
     data = {
         'cart': cart,
-        'orders': orders,
+        'order_items': order_items,
     }
     return render(request, 'bookings.html', data)
 

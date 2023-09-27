@@ -14,6 +14,18 @@ class Order(models.Model):
         ('Paid', 'Paid'),
         ('Failed', 'Failed'))
 
+    BOOKING_CHOICES = (
+        ('Upcoming', 'Upcoming'),
+        ('Rescheduled', 'Rescheduled'),
+        ('Job Completed', 'Job Completed'),
+        ('Booking Not Accepted', 'Booking Not Accepted'))
+
+    TRACKING_CHOICES = (
+        ('Booked Today', 'Booked Today'),
+        ('Out For Service', 'Out For Service'),
+        ('Service Begun', 'Service Begun'),
+        ('Service Completed', 'Service Completed'))
+
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     cart_id = models.CharField(max_length=10)
     session_id = models.CharField(max_length=100, null=True, blank=True)
@@ -22,6 +34,8 @@ class Order(models.Model):
     payment_status = models.CharField(max_length=20, choices=PAYMENT_CHOICES, default='Pending')
     razorpay_order_id = models.CharField(max_length=100, default="")
     razorpay_payment_id = models.CharField(max_length=100, default="")
+    booking_status = models.CharField(max_length=30, choices=BOOKING_CHOICES, null=True, blank=True)
+    tracking_status = models.CharField(max_length=30, choices=TRACKING_CHOICES, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
