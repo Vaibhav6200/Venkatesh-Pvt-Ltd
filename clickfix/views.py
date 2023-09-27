@@ -63,9 +63,11 @@ def individual_service(request, service_name):
 def checkout(request):
     if request.method == "POST":
         cart = get_cart(request)
-        data = {'cart': cart}
+        data = {}
+        data['cart'] = cart
+        data['grand_total'] = cart.get_cart_total()
+        data['items_total'] = cart.get_cart_total() + cart.coupon.discount_price
         return render(request, 'checkout.html', data)
-
     return HttpResponseBadRequest()
 
 def live_tracking(request):
