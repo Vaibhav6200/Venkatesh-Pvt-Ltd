@@ -144,7 +144,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Custom User Model
-AUTH_USER_MODEL = 'clickfix.Profile'
+AUTH_USER_MODEL = 'accounts.Profile'
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'

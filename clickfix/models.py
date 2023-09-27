@@ -1,23 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-from django.contrib.auth import password_validation
 from ckeditor.fields import RichTextField
 from django.utils.text import slugify
 
-
-
-class Profile(AbstractUser):
-    email = models.EmailField(unique=True)
-    username = models.CharField(max_length=50)
-    password = models.CharField(validators=[password_validation.validate_password], max_length=128)
-    bio = models.CharField(max_length=255, blank=True, null=True)
-    image = models.ImageField(upload_to='profile_images', null=True, blank=True)
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username',]
-
-    def __str__(self):
-        return self.username
 
 
 class Services(models.Model):

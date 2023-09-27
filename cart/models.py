@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 from clickfix.models import *
-
+from accounts.models import *
 
 class Cart(models.Model):
     class Meta:

@@ -1,7 +1,7 @@
 from django.db import models
 from cart.models import Cart, BillingDetails
 from clickfix.models import *
-
+from accounts.models import *
 
 
 class Order(models.Model):

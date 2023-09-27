@@ -1,3 +1,15 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
+
+@admin.register(Profile)
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = ['id', 'username', 'email', 'is_staff', 'is_superuser']
+    list_display_links = ['id', 'username']
+
+    fieldsets = [
+        [
+            ('Personal Details'),
+            {'fields': ('first_name', 'last_name', 'username', 'email', 'password', 'bio', 'image', 'groups', 'user_permissions', 'is_staff', 'is_superuser', 'is_active', 'date_joined', 'last_login')}
+        ]
+    ]

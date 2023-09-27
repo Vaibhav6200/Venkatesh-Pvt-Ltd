@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import JsonResponse
 import json
 from clickfix.models import SubServices
@@ -7,9 +7,6 @@ import uuid
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from django.db.models import Count
-from django.urls import reverse
-import requests
-from django.http import HttpResponseRedirect
 from razorpayAPI.models import Order, OrderItem
 
 
