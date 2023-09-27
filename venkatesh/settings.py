@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'accounts.apps.AccountsConfig',
     'razorpayAPI.apps.RazorpayapiConfig',
+    'discount.apps.DiscountConfig',
     'ckeditor',
 ]
 

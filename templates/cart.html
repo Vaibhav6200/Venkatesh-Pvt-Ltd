@@ -41,7 +41,7 @@
                                 <div>Time Slot: {{ item.time_slot }}</div>
                                 <div class="d-flex justify-content-between">
                                     <span>Quantity: {{ item.quantity }}</span>
-                                    <span onclick="handleCartItemRemoval('{{ item.id }}')" style="cursor: pointer;"><i class="fa-solid fa-trash text-danger"></i></span>
+                                    <span onclick="handleCartItemRemoval('{{ item.id }}', '{{ item.cart.id }}')" style="cursor: pointer;"><i class="fa-solid fa-trash text-danger"></i></span>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                 {% endfor %}
 
                 {% if cart_items %}
-                <h5 class="mt-5" id="grand_total_heading">Grand Total: Rs <span id="grand_total">{{ cart.cart_cost }}</span></h5>
+                <h5 class="mt-5" id="grand_total_heading">Grand Total: Rs <span id="grand_total">{{ cart_total }}</span></h5>
                 {% endif %}
 
 
@@ -66,7 +66,7 @@
             <div class="col-md-6 col-sm-12 p-3 coupon_section">
                 <div>
                     <!-- APPLY COUPON -->
-                    <!-- <div class="d-flex justify-content-between align-items-center p-4" style="border: 1px solid #f6911e75; border-radius: 10px;">
+                    <div class="d-flex justify-content-between align-items-center p-4" style="border: 1px solid #f6911e75; border-radius: 10px;">
                         <div class="d-flex">
                             <div class="d-flex justify-content-center align-items-center text-white coupon_img">
                                 <span>%</span>
@@ -76,8 +76,8 @@
                                 <small class="text-muted">Save ₹250 on this order</small>
                             </div>
                         </div>
-                        <a href="" class="text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#couponModal">4 Offers > </a>
-                    </div> -->
+                        <a href="" class="text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#couponModal">{{coupons|length}} Offers > </a>
+                    </div>
                     <!-- COUPON MODAL -->
                     <div class="modal fade" id="couponModal">
                         <div class="modal-dialog">
@@ -89,44 +89,25 @@
                                     <button class="btn-close" data-bs-dismiss="modal"></button>
                                 </div>
                                 <div class="modal-body  px-4">
+                                    {% for coupon in coupons %}
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
-                                            <img class="img-fluid coupon_modal_img me-4" src="{% static 'img/kotak.png' %}" alt="">
+                                            {% if coupon.image %}
+                                                <img class="img-fluid coupon_modal_img me-4" src="{{ coupon.image.url }}" alt="">
+                                            {% endif %}
                                             <div class="d-flex flex-column h-100">
-                                                <div>15% off on Kotak Credit card</div>
-                                                <small>15% off up to INR 250</small>
-                                                <p class="text-success">SAVE 250 ON THIS ORDER</p>
+                                                <div>Coupon Code: "{{ coupon.coupon_code }}"</div>
+                                                <small>₹{{ coupon.discount_price }} off at min shopping of ₹{{coupon.minimum_price}}</small>
+                                                <p class="text-success">SAVE ₹{{ coupon.discount_price }} ON THIS ORDER</p>
                                                 <a href="" class="text-decoration-none" style="color: #F6921E;">View T&C</a>
                                             </div>
                                         </div>
                                         <a class="text-decoration-none" href="" style="color: #F6921E;">Apply</a>
                                     </div>
-                                    <div class="my-4" style="border: 1px solid #e3e3e3;"></div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="d-flex">
-                                            <img class="img-fluid coupon_modal_img me-4" src="{% static 'img/kotak.png' %}" alt="">
-                                            <div class="d-flex flex-column h-100">
-                                                <div>15% off on Kotak Credit card</div>
-                                                <small>15% off up to INR 250</small>
-                                                <p class="text-success">SAVE 250 ON THIS ORDER</p>
-                                                <a href="" class="text-decoration-none" style="color: #F6921E;">View T&C</a>
-                                            </div>
-                                        </div>
-                                        <a class="text-decoration-none" href="" style="color: #F6921E;">Apply</a>
-                                    </div>
-                                    <div class="my-4" style="border: 1px solid #e3e3e3;"></div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="d-flex">
-                                            <img class="img-fluid coupon_modal_img me-4" src="{% static 'img/kotak.png' %}" alt="">
-                                            <div class="d-flex flex-column h-100">
-                                                <div>15% off on Kotak Credit card</div>
-                                                <small>15% off up to INR 250</small>
-                                                <p class="text-success">SAVE 250 ON THIS ORDER</p>
-                                                <a href="" class="text-decoration-none" style="color: #F6921E;">View T&C</a>
-                                            </div>
-                                        </div>
-                                        <a class="text-decoration-none" href="" style="color: #F6921E;">Apply</a>
-                                    </div>
+                                    {% if not forloop.last %}
+                                        <div class="my-4" style="border: 1px solid #e3e3e3;"></div>
+                                    {% endif %}
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>

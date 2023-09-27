@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from clickfix.models import *
 from accounts.models import *
+from discount.models import *
+
 
 class Cart(models.Model):
     class Meta:
@@ -10,9 +12,16 @@ class Cart(models.Model):
 
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     session_id = models.CharField(max_length=100, null=True, blank=True)
-    cart_cost = models.FloatField(default=0.0)
+    coupon = models.ForeignKey(Coupon, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def get_cart_total(self):
+        cart_items = self.cartitems.all()
+        price = []
+        for cart_item in cart_items:
+            price.append(cart_item.sub_service.sub_service_price)
+        return sum(price)
 
     def __str__(self):
         if self.user:

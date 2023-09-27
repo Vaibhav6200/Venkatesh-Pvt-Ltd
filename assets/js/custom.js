@@ -143,9 +143,12 @@ function handleSelectedDate(){
 }
 
 
-function handleCartItemRemoval(item_id){
+function handleCartItemRemoval(item_id, cart_id){
     let url = "/cart/remove_cart_item/"
-    let data= {cart_item_id:item_id}
+    let data= {
+        cart_item_id:item_id,
+        cart_id: cart_id
+    }
     fetch(url, {
         method: "POST",
         headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
@@ -161,7 +164,6 @@ function handleCartItemRemoval(item_id){
         if(data['num_of_items'] == 0){
             document.querySelector('#checkout_form').style.display = "none"
             document.querySelector('#grand_total_heading').style.display = "none"
-            document.querySelector('#empty_cart_text').classList.remove('d-none')
         }
     })
     .catch(error=>{

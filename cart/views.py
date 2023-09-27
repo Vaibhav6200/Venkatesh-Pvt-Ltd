@@ -8,6 +8,8 @@ from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from django.db.models import Count
 from razorpayAPI.models import Order, OrderItem
+from discount.models import Coupon
+
 
 
 def getDate(day):
@@ -38,10 +40,12 @@ def cart(request):
     except:
         cart = {'num_of_items': 0}
 
-    data = {
-        'cart': cart,
-        'cart_items': cart_items,
-    }
+    data = {}
+    data['cart'] = cart
+    data['cart_items'] = cart_items
+    data['coupons'] = Coupon.objects.filter(is_expired=False)
+    data['cart_total'] = cart.get_cart_total()
+
     return render(request, 'cart.html', data)
 
 
@@ -66,8 +70,6 @@ def add_to_cart(request):
     cart_item, created = CartItem.objects.get_or_create(cart=cart, start_date=date_slot, time_slot=time_slot, sub_service=sub_service)
     cart_item.quantity += 1
     cart_item.save()
-    cart.cart_cost += sub_service.sub_service_price
-    cart.save()
     num_of_items = cart.num_of_items
 
     return JsonResponse(num_of_items, safe=False)
@@ -107,7 +109,6 @@ def get_available_time_slots(request):
     return JsonResponse(time_disable_map, safe=False)
 
 
-
 def billing(request):
     if request.method == "POST":
         first_name = request.POST.get('first_name')
@@ -131,7 +132,7 @@ def billing(request):
             cart = Cart.objects.get(session_id=session_id)
             order_obj.session_id = session_id
         order_obj.cart_id = cart.id
-        order_obj.total_cost = cart.cart_cost
+        order_obj.total_cost = cart.get_cart_total()
         order_obj.save()
 
         # Shifting our Cart Items to Order Items
@@ -146,18 +147,15 @@ def billing(request):
         return render(request, 'razorpay/start_payment.html', {'amount': order_obj.total_cost, 'order_id': order_obj.id})
 
 
-
 def remove_cart_item(request):
     if request.method == "POST":
         data = json.loads(request.body)
         cart_item_id = data['cart_item_id']
-        cart_item_obj = CartItem.objects.get(id=cart_item_id)
-        cart = cart_item_obj.cart
-        cart.cart_cost -= cart_item_obj.price
-        cart.save()
-        cart_item_obj.delete()
-        data = {
-            "cart_cost": cart.cart_cost,
-            "num_of_items": cart.num_of_items
-        }
+        cart_id = data['cart_id']
+        CartItem.objects.get(id=cart_item_id).delete()
+        data = {}
+        cart = Cart.objects.get(id=cart_id)
+        data['cart_cost'] = cart.get_cart_total()
+        data['num_of_items'] = cart.num_of_items
+
         return JsonResponse(data, safe=False)
