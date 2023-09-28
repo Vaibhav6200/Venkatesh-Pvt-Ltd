@@ -112,7 +112,7 @@ def contact(request):
         client_email = request.POST.get('email')
         service_needed = request.POST.get('service_needed')
         phone_number = request.POST.get('phone')
-        message = request.POST.get('query')
+        message = request.POST.get('message')
         mail_subject = f"ClickFix Query: from '{full_name}'"
         message += f"\n\nClient Email: {client_email}\nClient Phone: {phone_number}"
         to_email = settings.EMAIL_HOST_USER

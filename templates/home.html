@@ -274,28 +274,32 @@
                     <div class="blockquote mb-3"><i class="fa-solid fa-location-dot me-3 mb-5" style="color: #F6921E;"></i> Chandni Chawk, Bowbazar, Kolkata, West Bengal</div>
                 </div>
                 <div class="shadow-lg p-5 ">
-                    <div class="input-group rounded mb-3" style="border: 1px solid black;">
-                        <i class="input-group-text fa-solid fa-user bg-white d-flex align-items-center" style="border-right: 0px;"></i>
-                        <input class="form-control" style="border-left: 0px;" type="text" name="" id="" placeholder="Name" required>
-                    </div>
-                    <div class="input-group rounded mb-3" style="border: 1px solid black;">
-                        <i class="input-group-text fa-solid fa-envelope bg-white d-flex align-items-center" style="border-right: 0px;"></i>
-                        <input class="form-control" type="email" name="" id="" placeholder="Email" required style="border-left: 0px;">
-                    </div>
-                    <div class="input-group rounded mb-3" style="border: 1px solid black;">
-                        <i class="input-group-text fa-solid fa-phone bg-white d-flex align-items-center" style="border-right: 0px;"></i>
-                        <input class="form-control" type="tel" name="" id="" placeholder="Phone" required style="border-left: 0px;">
-                    </div>
-                    <div class="input-group rounded mb-3" style="border: 1px solid black;">
-                        <i class="input-group-text fa-solid fa-wrench bg-white d-flex align-items-center" style="border-right: 0px;"></i>
-                        <input class="form-control" type="text" name="" id="" placeholder="Service You Need" required style="border-left: 0px;">
-                    </div>
+                    <form action="{% url 'clickfix:contact' %}" method="post">
+                        {% csrf_token %}
+                        {% include 'includes/messages.html' %}
+                        <div class="input-group rounded mb-3" style="border: 1px solid black;">
+                            <i class="input-group-text fa-solid fa-user bg-white d-flex align-items-center" style="border-right: 0px;"></i>
+                            <input class="form-control input_field" style="border-left: 0px;" type="text" name="full_name" id="full_name" placeholder="Name" required>
+                        </div>
+                        <div class="input-group rounded mb-3" style="border: 1px solid black;">
+                            <i class="input-group-text fa-solid fa-envelope bg-white d-flex align-items-center" style="border-right: 0px;"></i>
+                            <input class="form-control input_field" type="email" name="email" id="email" placeholder="Email" required style="border-left: 0px;">
+                        </div>
+                        <div class="input-group rounded mb-3" style="border: 1px solid black;">
+                            <i class="input-group-text fa-solid fa-phone bg-white d-flex align-items-center" style="border-right: 0px;"></i>
+                            <input class="form-control input_field" type="tel" name="phone" id="phone" placeholder="Phone" required style="border-left: 0px;">
+                        </div>
+                        <div class="input-group rounded mb-3" style="border: 1px solid black;">
+                            <i class="input-group-text fa-solid fa-wrench bg-white d-flex align-items-center" style="border-right: 0px;"></i>
+                            <input class="form-control input_field" type="text" name="service_needed" id="service_needed" placeholder="Service You Need" required style="border-left: 0px;">
+                        </div>
 
-                    <div class="input-group rounded mb-3" style="border: 1px solid black;">
-                        <i class="input-group-text fa-solid fa-pen-to-square bg-white pt-2 mt-1 border-0" style="border-right: 0px;"></i>
-                        <textarea class="form-control" name="" id="" cols="30" rows="5" placeholder="Any Note For Us" required style="border-left: 0px;"></textarea>
-                    </div>
-                    <button class="btn btn_color w-100 py-3" style="font-size: 18px;">Get An Appointment</button>
+                        <div class="input-group rounded mb-3" style="border: 1px solid black;">
+                            <i class="input-group-text fa-solid fa-pen-to-square bg-white pt-2 mt-1 border-0" style="border-right: 0px;"></i>
+                            <textarea class="form-control input_field" name="message" id="message" cols="30" rows="5" placeholder="Any Note For Us" required style="border-left: 0px;"></textarea>
+                        </div>
+                        <button class="btn btn_color w-100 py-3" style="font-size: 18px;">Get An Appointment</button>
+                    </form>
                 </div>
             </div>
         </div>

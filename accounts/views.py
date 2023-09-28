@@ -3,7 +3,19 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import Profile
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
+from cart.models import *
 
+
+
+def get_cart(request):
+    try:
+        if request.user.is_authenticated:
+            cart = Cart.objects.get(user=request.user)
+        else:
+            cart = Cart.objects.get(session_id=request.session['nonuser'])
+    except:
+        cart = {'num_of_items': 0}
+    return cart
 
 
 def register(request):
@@ -58,8 +70,6 @@ def user_logout(request):
     return redirect("/")
 
 
-
-
 def profile(request):
     if request.user.is_authenticated:
         data = {}
@@ -95,5 +105,6 @@ def profile(request):
 
 
         data['profile'] = profile
+        data['cart'] = get_cart(request)
         return render(request, 'profile.html', data)
     return HttpResponseBadRequest()

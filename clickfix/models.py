@@ -3,7 +3,6 @@ from ckeditor.fields import RichTextField
 from django.utils.text import slugify
 
 
-
 class Services(models.Model):
     class Meta:
         verbose_name_plural = 'Our Services'
@@ -62,6 +61,7 @@ class Contact(models.Model):
     mobile_number = models.CharField(max_length=20)
     service_needed = models.CharField(max_length=255)
     message = models.TextField()
+    is_answered = models.BooleanField(default=False, help_text="Tick it if you have replied to the customers query")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

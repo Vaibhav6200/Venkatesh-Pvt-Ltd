@@ -3,29 +3,6 @@
 
 {% block title %} Profile {% endblock %}
 
-{% block extra_css %}
-<style>
-    .profile_img{
-        width: 170px;
-        height: 170px;
-        border-radius: 50%;
-        object-fit: cover;
-        object-position: center;
-    }
-    .profile_menu{
-        cursor: pointer;
-    }
-    .btn_color{
-        background-image: linear-gradient(to right bottom, #F6931E, #f3c082);
-        color: white;
-    }
-    .input_field:focus, .input_field:active {
-        outline: none !important;
-        box-shadow: none;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
 
     {% include 'includes/navbar.html' %}
@@ -82,46 +59,6 @@
             </div>
         </div>
     </div>
-
-    {% block extra_js %}
-    <script>
-        function openBio(){
-            document.getElementById('my_bio').classList.remove('d-none');
-            document.getElementById('my_address').classList.add('d-none')
-            document.getElementById('my_profile').classList.add('d-none')
-            document.getElementById('my_password').classList.add('d-none')
-        }
-        function openAddress(){
-            document.getElementById('my_bio').classList.add('d-none');
-            document.getElementById('my_address').classList.remove('d-none')
-            document.getElementById('my_profile').classList.add('d-none')
-            document.getElementById('my_password').classList.add('d-none')
-        }
-        function openProfile(){
-            document.getElementById('my_bio').classList.add('d-none');
-            document.getElementById('my_address').classList.add('d-none')
-            document.getElementById('my_profile').classList.remove('d-none')
-            document.getElementById('my_password').classList.add('d-none')
-        }
-        function openPassword(){
-            document.getElementById('my_bio').classList.add('d-none');
-            document.getElementById('my_address').classList.add('d-none')
-            document.getElementById('my_profile').classList.add('d-none')
-            document.getElementById('my_password').classList.remove('d-none')
-        }
-        function enableEditing(){
-            document.getElementById('full_name').removeAttribute('readonly')
-            document.getElementById('email').removeAttribute('readonly')
-            document.getElementById('phone').removeAttribute('readonly')
-            document.getElementById('dob').removeAttribute('readonly')
-            document.getElementById('billing_address').removeAttribute('readonly')
-            document.getElementById('new_password').removeAttribute('readonly')
-            document.getElementById('confirm_new_password').removeAttribute('readonly')
-            document.getElementById('save_btn').classList.remove('d-none')
-        }
-    </script>
-
-    {% endblock %}
 
         {% include 'includes/footer.html' %}
     {% endblock %}

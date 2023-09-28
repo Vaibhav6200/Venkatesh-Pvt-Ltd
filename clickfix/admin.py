@@ -9,7 +9,6 @@ class CustomServices(admin.ModelAdmin):
     exclude = ('slug',)
 
 
-
 @admin.register(SubServices)
 class CustomSubServices(admin.ModelAdmin):
     list_display = ['id', 'sub_service_name', 'service', 'sub_service_price']
@@ -28,3 +27,10 @@ class CustomTestimonials(admin.ModelAdmin):
 class CustomHandyman(admin.ModelAdmin):
     list_display = ['id', 'full_name', 'mobile_number']
     list_display_links = ['id', 'full_name']
+
+
+@admin.register(Contact)
+class CustomContact(admin.ModelAdmin):
+    list_display = ['id', 'full_name', 'email', 'mobile_number', 'service_needed', 'is_answered']
+    list_display_links = ['id', 'full_name']
+    list_filter = ['is_answered']
