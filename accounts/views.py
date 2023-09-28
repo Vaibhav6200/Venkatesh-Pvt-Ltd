@@ -75,7 +75,8 @@ def profile(request):
         data = {}
         profile = Profile.objects.get(email=request.user.email)
         if request.method == "POST":
-            full_name = request.POST.get('full_name', None)
+            first_name = request.POST.get('first_name', None)
+            last_name = request.POST.get('last_name', None)
             email = request.POST.get('email', None)
             phone = request.POST.get('phone', None)
             dob = request.POST.get('dob', None)
@@ -87,8 +88,10 @@ def profile(request):
 
             if profile_image:
                 profile.image = profile_image
-            if full_name:
-                profile.full_name = full_name
+            if first_name:
+                profile.first_name = first_name
+            if last_name:
+                profile.last_name = last_name
             if email:
                 profile.email = email
             if phone:

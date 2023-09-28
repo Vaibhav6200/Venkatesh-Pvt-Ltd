@@ -63,7 +63,16 @@ def checkout(request):
         data = {}
         data['cart'] = cart
         data['grand_total'] = cart.get_cart_total()
-        data['items_total'] = cart.get_cart_total() + cart.coupon.discount_price
+
+        if cart.coupon:
+            data['items_total'] = cart.get_cart_total() + cart.coupon.discount_price
+        else:
+            data['items_total'] = cart.get_cart_total()
+
+        if request.user.is_authenticated:
+            profile = Profile.objects.get(email=request.user.email)
+            data['profile'] = profile
+
         return render(request, 'checkout.html', data)
     return HttpResponseBadRequest()
 

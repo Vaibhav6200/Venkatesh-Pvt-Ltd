@@ -15,13 +15,21 @@
                     <div class="row">
                         <div class="col-md-6 col-12 mb-3">
                             <label for="first_name" class="form-label">First Name</label>
-                            <input class="form-control" type="text" id="first_name" name="first_name" placeholder="Enter your first name" required>
+                            {% if user.is_authenticated and profile.first_name %}
+                                <input class="form-control" type="text" id="first_name" name="first_name" value="{{ profile.first_name }}" required>
+                            {% else %}
+                                <input class="form-control" type="text" id="first_name" name="first_name" placeholder="Enter your first name" required>
+                            {% endif %}
                             <div class="valid-feedback">Looks Good</div>
                             <div class="invalid-feedback">please enter your first name</div>
                         </div>
                         <div class="col-md-6 col-12 mb-3">
                             <label for="last_name" class="form-label">Last Name</label>
-                            <input class="form-control" type="text" id="last_name" name="last_name" placeholder="Enter your last name" required>
+                            {% if user.is_authenticated and profile.last_name %}
+                                <input class="form-control" type="text" id="last_name" name="last_name" value="{{ profile.last_name }}" required>
+                            {% else %}
+                                <input class="form-control" type="text" id="last_name" name="last_name" placeholder="Enter your last name" required>
+                            {% endif %}
                             <div class="valid-feedback">Looks Good</div>
                             <div class="invalid-feedback">please pick a last name</div>
                         </div>
@@ -29,13 +37,21 @@
                     <div class="row">
                         <div class="col-md-6 col-12 mb-3">
                             <label for="email" class="form-label">Email Address</label>
-                            <input class="form-control" type="email" id="email" name="email" placeholder="e.g. vaibhav@gmail.com" required>
+                            {% if user.is_authenticated and profile.email %}
+                                <input class="form-control" type="email" id="email" name="email" value="{{ profile.email }}" required>
+                            {% else %}
+                                <input class="form-control" type="email" id="email" name="email" placeholder="e.g. vaibhav@gmail.com" required>
+                            {% endif %}
                             <div class="valid-feedback">Looks Good</div>
                             <div class="invalid-feedback">please enter valid email</div>
                         </div>
                         <div class="col-md-6 col-12 mb-3">
                             <label for="phone" class="form-label">Phone Number</label>
-                            <input class="form-control" type="tel" id="phone" name="phone" placeholder="e.g. +91 9988007766" required>
+                            {% if user.is_authenticated and profile.phone %}
+                                <input class="form-control" type="tel" id="phone" name="phone" value="{{ profile.phone }}" required>
+                            {% else %}
+                                <input class="form-control" type="tel" id="phone" name="phone" placeholder="e.g. +91 9988007766" required>
+                            {% endif %}
                             <div class="valid-feedback">Looks Good</div>
                             <div class="invalid-feedback">please pick a valid phone number</div>
                         </div>
@@ -43,7 +59,11 @@
                     <div class="row">
                         <div class="col-12 mb-3">
                             <label for="address_line_1" class="form-label">Address Line 1</label>
-                            <input class="form-control" type="text" id="address_line_1" name="address_line_1" placeholder="House Number and Street Name" required>
+                            {% if user.is_authenticated and profile.billing_address %}
+                                <input class="form-control" type="text" id="address_line_1" name="address_line_1" value="{{ profile.billing_address }}" required>
+                            {% else %}
+                                <input class="form-control" type="text" id="address_line_1" name="address_line_1" placeholder="House Number and Street Name" required>
+                            {% endif %}
                             <div class="valid-feedback">Looks Good</div>
                             <div class="invalid-feedback">please enter your address</div>
                         </div>

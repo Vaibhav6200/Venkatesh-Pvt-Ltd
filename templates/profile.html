@@ -31,8 +31,10 @@
                         <form action="{% url 'accounts:profile' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="" id="my_profile">
-                                <label for="full_name">Full Name</label>
-                                <input readonly class="form-control mb-3 input_field" name="full_name" id="full_name" type="text" placeholder="{{ profile.full_name }}">
+                                <label for="full_name">First Name</label>
+                                <input readonly class="form-control mb-3 input_field" name="first_name" id="first_name" type="text" placeholder="{{ profile.first_name }}">
+                                <label for="full_name">Last Name</label>
+                                <input readonly class="form-control mb-3 input_field" name="last_name" id="last_name" type="text" placeholder="{{ profile.last_name }}">
                                 <label for="email">Email Address</label>
                                 <input readonly class="form-control mb-3 input_field" name="email" id="email" type="email" placeholder="{{ profile.email }}">
                                 <label for="phone">Contact Number</label>
@@ -54,8 +56,8 @@
                                 <input readonly class="form-control mb-2 input_field" name="new_password" id="new_password" type="text" placeholder="new password">
                                 <input readonly class="form-control mb-2 input_field" name="confirm_new_password" id="confirm_new_password" type="text" placeholder="confirm password">
                             </div>
-                            <div class="btn mt-4 btn_color" onclick="enableEditing()" id="edit_btn"><i class="fa-solid fa-pen me-2"></i> Edit</div>
-                            <button type="submit" class="btn mt-4 btn_color d-none" id="save_btn"><i class="fa-solid fa-floppy-disk me-2"></i> Save</button>
+                            <div class="btn mt-2 btn_color" onclick="enableEditing()" id="edit_btn"><i class="fa-solid fa-pen me-2"></i> Edit</div>
+                            <button type="submit" class="btn mt-2 btn_color d-none" id="save_btn"><i class="fa-solid fa-floppy-disk me-2"></i> Save</button>
                         </form>
                     </div>
                 </div>

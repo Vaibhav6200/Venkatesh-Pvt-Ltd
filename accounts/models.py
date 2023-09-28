@@ -4,7 +4,6 @@ from django.contrib.auth import password_validation
 
 
 class Profile(AbstractUser):
-    full_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=10, null=True, blank=True, help_text="It should be a 10 digit number only")
     dob = models.DateField(null=True, blank=True)

@@ -207,10 +207,11 @@ function openPassword(){
     document.getElementById('my_password').classList.remove('d-none')
 }
 function enableEditing(){
-    document.getElementById('full_name').removeAttribute('readonly')
+    document.getElementById('first_name').removeAttribute('readonly')
+    document.getElementById('last_name').removeAttribute('readonly')
     document.getElementById('email').removeAttribute('readonly')
     document.getElementById('phone').removeAttribute('readonly')
-    document.getElementById('dob').removeAttribute('readonly')
+    document.getElementById('bio').removeAttribute('readonly')
     document.getElementById('billing_address').removeAttribute('readonly')
     document.getElementById('new_password').removeAttribute('readonly')
     document.getElementById('confirm_new_password').removeAttribute('readonly')
