@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 from cart.models import *
 from razorpayAPI.models import *
 from django.http import HttpResponseBadRequest
+from .helper import *
 
 
 def get_cart(request):
@@ -128,3 +129,18 @@ def contact(request):
         messages.success(request, "Your Query has been Recorded")
         return redirect('/')
     return render(request, 'contact.html')
+
+
+
+def Order_SMS(request):
+    owner_whatsapp_number = "7427089473"
+    customer_whatsapp_number = "7427089473"
+
+    return HttpResponse("<h1> Success </h1>")
+    # SMS_Handler(owner_number=owner_whatsapp_number, customer_whatsapp_number=customer_whatsapp_number).send_message()
+
+
+def Order_Email(request):
+    customer_email = "vaibhavpaliwal620@gmail.com"
+    customer_full_name = "Vaibhav Paliwal"
+    Email_Handler(customer_email, customer_full_name).send_otp_via_mail()

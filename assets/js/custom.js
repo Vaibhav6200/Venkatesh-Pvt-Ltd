@@ -24,6 +24,7 @@ const csrftoken = getCookie('csrftoken');
 
 
 function select_date(pressed_button){
+    document.getElementById('date_selected_next_button').removeAttribute('disabled')
     const date_slotBtn = document.querySelectorAll('.date_slot_btn')
     date_slotBtn.forEach(button=>button.classList.remove('slot_btn_active', 'selected-date'));
     pressed_button.classList.add('slot_btn_active', 'selected-date')
@@ -31,6 +32,7 @@ function select_date(pressed_button){
 }
 
 function select_time(pressed_button){
+    document.getElementById('time_selected_next_button').removeAttribute('disabled')
     const time_slotBtn = document.querySelectorAll('.time_slot_btn')
     time_slotBtn.forEach(button => button.classList.remove('slot_btn_active', 'selected-time'));
     pressed_button.classList.add('slot_btn_active', 'selected-time')
@@ -115,31 +117,37 @@ function bookService(sub_service_id){
 
 
 function handleSelectedDate(){
-    let date_slot = date_selected.value
-
-    let url = "/cart/get_available_time_slots/"
-    let data= {
-        sub_service_id:selected_service,
-        date_slot:date_slot,
+    if(date_selected == null){
+        document.getElementById('date_selected_next_button').setAttribute('disabled')
     }
-    fetch(url, {
-        method: "POST",
-        headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
-        body: JSON.stringify(data)
-    })
-    .then(res=>res.json())
-    .then(available_time_map=>{
-        let time_buttons = document.querySelectorAll('.time_slot_btn')
-        time_buttons.forEach(button => {
-            const buttonDateValue = button.getAttribute('value')
-            if(available_time_map[buttonDateValue]){
-                button.classList.add('disabled')
-            }
+    else{
+
+        let date_slot = date_selected.value
+
+        let url = "/cart/get_available_time_slots/"
+        let data= {
+            sub_service_id:selected_service,
+            date_slot:date_slot,
+        }
+        fetch(url, {
+            method: "POST",
+            headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+            body: JSON.stringify(data)
         })
-    })
-    .catch(error=>{
-        console.log(error)
-    })
+        .then(res=>res.json())
+        .then(available_time_map=>{
+            let time_buttons = document.querySelectorAll('.time_slot_btn')
+            time_buttons.forEach(button => {
+                const buttonDateValue = button.getAttribute('value')
+                if(available_time_map[buttonDateValue]){
+                    button.classList.add('disabled')
+                }
+            })
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    }
 }
 
 
@@ -206,5 +214,6 @@ function enableEditing(){
     document.getElementById('billing_address').removeAttribute('readonly')
     document.getElementById('new_password').removeAttribute('readonly')
     document.getElementById('confirm_new_password').removeAttribute('readonly')
+    document.getElementById('profile_image').removeAttribute('disabled')
     document.getElementById('save_btn').classList.remove('d-none')
 }

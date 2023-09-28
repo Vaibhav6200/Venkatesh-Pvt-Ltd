@@ -24,9 +24,11 @@
                 <h1>My Profile</h1>
                 <hr>
                 <div class="d-flex">
+                    {% if profile.image %}
                     <img class="img-fluid profile_img" src="{{ profile.image.url }}" alt="">
+                    {% endif %}
                     <div class="ms-4 w-100">
-                        <form action="{% url 'accounts:profile' %}" method="post">
+                        <form action="{% url 'accounts:profile' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="" id="my_profile">
                                 <label for="full_name">Full Name</label>
@@ -37,6 +39,8 @@
                                 <input readonly class="form-control mb-3 input_field" name="phone" id="phone" type="tel" placeholder="+91 {{ profile.phone }}">
                                 <label for="dob">Date of Birth</label>
                                 <input readonly class="form-control mb-3 input_field" name="dob" id="dob" type="date" value="{{ profile.dob|default:'' }}">
+                                <label for="profile_image">Profile Image</label>
+                                <input disabled class="form-control" type="file" name="profile_image" id="profile_image" accept="image/*">
                             </div>
                             <div class="profile_menu d-none" id="my_address">
                                 <label for="bio">Billing Address</label>

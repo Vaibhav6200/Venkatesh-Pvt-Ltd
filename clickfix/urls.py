@@ -10,4 +10,7 @@ urlpatterns = [
     path('live_tracking/', views.live_tracking, name='live_tracking'),
     path('bookings/', views.bookings, name='bookings'),
     path('contact/', views.contact, name='contact'),
+
+    path('order_sms/', views.Order_SMS, name='order_sms'),
+    path('order_email/', views.Order_Email, name='order_email'),
 ]

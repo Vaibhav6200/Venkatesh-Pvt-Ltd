@@ -168,6 +168,13 @@ RAZORPAY_KEY_ID = env('razorpay_key_id')
 RAZORPAY_KEY_SECRET = env('razorpay_key_secret')
 
 
+# Twilio Settings (phone otp)
+TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
+COUNTRY_CODE = "+91"
+TWILIO_PHONE_NUMBER = os.environ['TWILIO_PHONE_NUMBER']
+
+
 JAZZMIN_SETTINGS = {
     "site_title": "ClickFix",
     "site_header": "ClickFix",

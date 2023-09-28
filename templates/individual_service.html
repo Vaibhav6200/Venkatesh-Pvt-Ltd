@@ -117,7 +117,7 @@
                                         </button>
                                     {% endfor %}
                                 </div>
-                                <button class="btn py-2 px-4 mt-3 text-white btn_color w-100" onclick="handleSelectedDate(this)" data-bs-toggle="modal" data-bs-target="#timeSlotModal">Select Time Slot</button>
+                                <button class="btn py-2 px-4 mt-3 text-white btn_color w-100" id="date_selected_next_button" disabled onclick="handleSelectedDate(this)" data-bs-toggle="modal" data-bs-target="#timeSlotModal">Select Time Slot</button>
                             </div>
                         </div>
                     </div>
@@ -140,7 +140,7 @@
                                     <button class="btn me-2 mb-3 slot_btn time_slot_btn" id="time_button_3" onclick="select_time(this)" value="2pm-4pm">2pm-4pm</button>
                                     <button class="btn me-2 mb-3 slot_btn time_slot_btn" id="time_button_4" onclick="select_time(this)" value="4pm-7pm">4pm-7pm</button>
                                 </div>
-                                <button class="btn py-2 px-4 mt-3 text-white btn_color w-100" onclick="addToCart()">Add to Cart</button>
+                                <button class="btn py-2 px-4 mt-3 text-white btn_color w-100" id="time_selected_next_button" disabled onclick="addToCart()">Add to Cart</button>
                             </div>
                         </div>
                     </div>

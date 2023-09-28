@@ -83,10 +83,10 @@ def profile(request):
             bio = request.POST.get('bio')
             new_password = request.POST.get('new_password', None)
             confirm_new_password = request.POST.get('confirm_new_password', None)
-            # profile_image = request.POST.get('profile_image', None)
+            profile_image = request.FILES.get('profile_image', None)
 
-            # if profile_image:
-            #     profile.profile_image = profile_image
+            if profile_image:
+                profile.image = profile_image
             if full_name:
                 profile.full_name = full_name
             if email:
@@ -102,7 +102,6 @@ def profile(request):
             if new_password and confirm_new_password and new_password == confirm_new_password:
                 profile.set_password(new_password)
             profile.save()
-
 
         data['profile'] = profile
         data['cart'] = get_cart(request)
