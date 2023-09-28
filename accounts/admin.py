@@ -10,6 +10,6 @@ class CustomUserAdmin(admin.ModelAdmin):
     fieldsets = [
         [
             ('Personal Details'),
-            {'fields': ('first_name', 'last_name', 'username', 'email', 'password', 'bio', 'image', 'groups', 'user_permissions', 'is_staff', 'is_superuser', 'is_active', 'date_joined', 'last_login')}
+            {'fields': ('full_name', 'email', 'phone', 'dob', 'image', 'bio', 'billing_address', 'groups', 'user_permissions', 'is_staff', 'is_superuser', 'is_active', 'date_joined', 'last_login')}
         ]
     ]

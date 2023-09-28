@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import Profile
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
 
 
 
@@ -56,3 +56,44 @@ def register(request):
 def user_logout(request):
     logout(request)
     return redirect("/")
+
+
+
+
+def profile(request):
+    if request.user.is_authenticated:
+        data = {}
+        profile = Profile.objects.get(email=request.user.email)
+        if request.method == "POST":
+            full_name = request.POST.get('full_name', None)
+            email = request.POST.get('email', None)
+            phone = request.POST.get('phone', None)
+            dob = request.POST.get('dob', None)
+            billing_address = request.POST.get('billing_address', None)
+            bio = request.POST.get('bio')
+            new_password = request.POST.get('new_password', None)
+            confirm_new_password = request.POST.get('confirm_new_password', None)
+            # profile_image = request.POST.get('profile_image', None)
+
+            # if profile_image:
+            #     profile.profile_image = profile_image
+            if full_name:
+                profile.full_name = full_name
+            if email:
+                profile.email = email
+            if phone:
+                profile.phone = phone
+            if dob:
+                profile.dob = dob
+            if billing_address:
+                profile.billing_address = billing_address
+            if bio:
+                profile.bio = bio
+            if new_password and confirm_new_password and new_password == confirm_new_password:
+                profile.set_password(new_password)
+            profile.save()
+
+
+        data['profile'] = profile
+        return render(request, 'profile.html', data)
+    return HttpResponseBadRequest()

@@ -35,10 +35,6 @@ def home(request):
     return render(request, 'home.html', data)
 
 
-def profile(request):
-    return render(request, 'profile.html')
-
-
 def individual_service(request, service_name):
     service = Services.objects.get(slug=service_name)
     sub_services = SubServices.objects.filter(service=service)
@@ -69,6 +65,7 @@ def checkout(request):
         data['items_total'] = cart.get_cart_total() + cart.coupon.discount_price
         return render(request, 'checkout.html', data)
     return HttpResponseBadRequest()
+
 
 def live_tracking(request):
     data = {}

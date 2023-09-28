@@ -5,18 +5,23 @@
 
 {% block extra_css %}
 <style>
-    #profile_card{
-        position: relative;
-    }
-    @media(min-width: 768px){
-        #profile_card{
-            width: 60%;
-        }
-    }
     .profile_img{
-        width: 9.5rem;
+        width: 170px;
+        height: 170px;
         border-radius: 50%;
         object-fit: cover;
+        object-position: center;
+    }
+    .profile_menu{
+        cursor: pointer;
+    }
+    .btn_color{
+        background-image: linear-gradient(to right bottom, #F6931E, #f3c082);
+        color: white;
+    }
+    .input_field:focus, .input_field:active {
+        outline: none !important;
+        box-shadow: none;
     }
 </style>
 {% endblock %}
@@ -24,96 +29,99 @@
 {% block content %}
 
     {% include 'includes/navbar.html' %}
-        <div class="mt-3 w-md-50 mx-auto shadow-lg p-5 rounded-5 mb-5" id="profile_card">
-            <div class="d-flex flex-wrap align-items-center justify-content-between">
-                <img class="img-fluid profile_img" src="{% static 'clickfix_photos/avatar.png' %}" alt="">
-                <span><button class="btn btn_color">Upload Photo <i class="fa-solid fa-camera ms-2"></i></button></span>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-4 col-12">
+                <div class="border px-5 py-2 mb-2 rounded-1 profile_menu" onclick="openProfile()"><div class="text-decoration-none text-dark"><i class="fa-solid fa-user me-3"></i> Profile</div></div>
+                <a href="{% url 'clickfix:bookings' %}"  class="text-decoration-none text-dark">
+                    <div class="border px-5 py-2 mb-2 rounded-1 profile_menu"><i class="fa-solid fa-bag-shopping me-3"></i> Bookings</div>
+                </a>
+                <div class="border px-5 py-2 mb-2 rounded-1 profile_menu" onclick="openAddress()"><div class="text-decoration-none text-dark"><i class="fa-solid fa-location-dot me-3"></i> My Address</div></div>
+                <div class="border px-5 py-2 mb-2 rounded-1 profile_menu"  onclick="openBio()"><div class="text-decoration-none text-dark"><i class="fa-solid fa-bars me-3"></i> Bio</div></div>
+                <div class="border px-5 py-2 mb-2 rounded-1 profile_menu" onclick="openPassword()"><div class="text-decoration-none text-dark"><i class="fa-solid fa-key me-3"></i> Change Password</div></div>
+                <a href="{% url 'accounts:logout' %}"  class="text-decoration-none text-dark">
+                    <div class="border px-5 py-2 mb-2 rounded-1 profile_menu"><i class="fa-solid fa-right-from-bracket me-3"></i> Logout</div>
+                </a>
             </div>
-            <div class="p-4 mt-3 rounded-3" style="border: 1px solid #F6921E;">
-                <div class="row mb-3">
-                    <div class="col-9">
-                        <div class="d-flex flex-column">
-                            <div style="color: #F6921E;">Your Name</div>
-                            <div>Vaibhav</div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="d-flex justify-content-end w-100">
-                            <button class="btn px-4 btn_color"><i class="fa-solid fa-pen me-2"></i> Edit</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-9">
-                        <div class="d-flex flex-column">
-                            <div style="color: #F6921E;">Username</div>
-                            <div>Vaibhav620</div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="d-flex justify-content-end w-100">
-                            <button class="btn px-4 btn_color"><i class="fa-solid fa-pen me-2"></i> Edit</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-9">
-                        <div class="d-flex flex-column">
-                            <div style="color: #F6921E;">Phone Number</div>
-                            <div>+91 7788990066</div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="d-flex justify-content-end w-100">
-                            <button class="btn px-4 btn_color"><i class="fa-solid fa-pen me-2"></i> Edit</button>
-                        </div>
+            <div class="col-md-6 col-12">
+                <h1>My Profile</h1>
+                <hr>
+                <div class="d-flex">
+                    <img class="img-fluid profile_img" src="{{ profile.image.url }}" alt="">
+                    <div class="ms-4 w-100">
+                        <form action="{% url 'accounts:profile' %}" method="post">
+                            {% csrf_token %}
+                            <div class="" id="my_profile">
+                                <label for="full_name">Full Name</label>
+                                <input readonly class="form-control mb-3 input_field" name="full_name" id="full_name" type="text" placeholder="{{ profile.full_name }}">
+                                <label for="email">Email Address</label>
+                                <input readonly class="form-control mb-3 input_field" name="email" id="email" type="email" placeholder="{{ profile.email }}">
+                                <label for="phone">Contact Number</label>
+                                <input readonly class="form-control mb-3 input_field" name="phone" id="phone" type="tel" placeholder="+91 {{ profile.phone }}">
+                                <label for="dob">Date of Birth</label>
+                                <input readonly class="form-control mb-3 input_field" name="dob" id="dob" type="date" value="{{ profile.dob|default:'' }}">
+                            </div>
+                            <div class="profile_menu d-none" id="my_address">
+                                <label for="bio">Billing Address</label>
+                                <textarea readonly class="form-control mb-2 input_field" name="billing_address" id="billing_address" cols="30" rows="5" placeholder="{{ profile.billing_address }}"></textarea>
+                            </div>
+                            <div class="profile_menu d-none" id="my_bio">
+                                <label for="bio">Write a short description about youself ...</label>
+                                <textarea readonly class="form-control mb-2 input_field" name="bio" id="bio" cols="30" rows="5" placeholder="{{ profile.bio }}"></textarea>
+                            </div>
+                            <div class="profile_menu d-none" id="my_password">
+                                <input readonly class="form-control mb-2 input_field" name="new_password" id="new_password" type="text" placeholder="new password">
+                                <input readonly class="form-control mb-2 input_field" name="confirm_new_password" id="confirm_new_password" type="text" placeholder="confirm password">
+                            </div>
+                            <div class="btn mt-4 btn_color" onclick="enableEditing()" id="edit_btn"><i class="fa-solid fa-pen me-2"></i> Edit</div>
+                            <button type="submit" class="btn mt-4 btn_color d-none" id="save_btn"><i class="fa-solid fa-floppy-disk me-2"></i> Save</button>
+                        </form>
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <div class="col-9">
-                        <div class="d-flex flex-column">
-                            <div style="color: #F6921E;">Password</div>
-                            <div>lorem@iPSUM1234</div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="d-flex justify-content-end w-100">
-                            <button class="btn px-4 btn_color"><i class="fa-solid fa-pen me-2"></i> Edit</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-9">
-                        <div class="d-flex flex-column">
-                            <div style="color: #F6921E;">Date Of birth</div>
-                            <div>22 / 02 / 2002</div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="d-flex justify-content-end w-100">
-                            <button class="btn px-4 btn_color"><i class="fa-solid fa-pen me-2"></i> Edit</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-9">
-                        <div class="d-flex flex-column">
-                            <div style="color: #F6921E;">Address</div>
-                            <div>A-1103, Eden, Godrej garden City Jagatpur road, Chandkhedbutton - 387123</div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="d-flex justify-content-end w-100">
-                            <button class="btn px-4 btn_color"><i class="fa-solid fa-pen me-2"></i> Edit</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
+    </div>
+
+    {% block extra_js %}
+    <script>
+        function openBio(){
+            document.getElementById('my_bio').classList.remove('d-none');
+            document.getElementById('my_address').classList.add('d-none')
+            document.getElementById('my_profile').classList.add('d-none')
+            document.getElementById('my_password').classList.add('d-none')
+        }
+        function openAddress(){
+            document.getElementById('my_bio').classList.add('d-none');
+            document.getElementById('my_address').classList.remove('d-none')
+            document.getElementById('my_profile').classList.add('d-none')
+            document.getElementById('my_password').classList.add('d-none')
+        }
+        function openProfile(){
+            document.getElementById('my_bio').classList.add('d-none');
+            document.getElementById('my_address').classList.add('d-none')
+            document.getElementById('my_profile').classList.remove('d-none')
+            document.getElementById('my_password').classList.add('d-none')
+        }
+        function openPassword(){
+            document.getElementById('my_bio').classList.add('d-none');
+            document.getElementById('my_address').classList.add('d-none')
+            document.getElementById('my_profile').classList.add('d-none')
+            document.getElementById('my_password').classList.remove('d-none')
+        }
+        function enableEditing(){
+            document.getElementById('full_name').removeAttribute('readonly')
+            document.getElementById('email').removeAttribute('readonly')
+            document.getElementById('phone').removeAttribute('readonly')
+            document.getElementById('dob').removeAttribute('readonly')
+            document.getElementById('billing_address').removeAttribute('readonly')
+            document.getElementById('new_password').removeAttribute('readonly')
+            document.getElementById('confirm_new_password').removeAttribute('readonly')
+            document.getElementById('save_btn').classList.remove('d-none')
+        }
+    </script>
+
+    {% endblock %}
 
         {% include 'includes/footer.html' %}
     {% endblock %}

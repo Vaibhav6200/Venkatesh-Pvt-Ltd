@@ -5,7 +5,6 @@ app_name = "clickfix"
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('profile/', views.profile, name='profile'),
     path('service/<slug:service_name>/', views.individual_service, name='individual_service'),
     path('checkout/', views.checkout, name='checkout'),
     path('live_tracking/', views.live_tracking, name='live_tracking'),
