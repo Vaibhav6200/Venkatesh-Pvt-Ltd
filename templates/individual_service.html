@@ -81,7 +81,7 @@
                                 <div class="card-title my-3">
                                     <h5>{{service.sub_service_name}} </h5>
                                 </div>
-                                <p class="card-text">{{ service.description}} </p>
+                                <p class="card-text">{{ service.description|safe}} </p>
                                 <div class="mb-3">
                                     Starts from {{ service.sub_service_price }}
                                     {{ service.price_details|safe }}
