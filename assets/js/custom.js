@@ -168,6 +168,11 @@ function handleCartItemRemoval(item_id, cart_id){
         document.getElementById('num_of_items').innerHTML = data['num_of_items']
         let grand_total = document.getElementById('grand_total')
         grand_total.innerHTML = data['cart_cost']
+        let remove_coupon = data['remove_coupon']
+        if(remove_coupon == true){
+            document.getElementById('coupon_name').classList.add('d-none')
+            document.getElementById('coupon_savings').classList.add('d-none')
+        }
 
         if(data['num_of_items'] == 0){
             document.querySelector('#checkout_form').style.display = "none"

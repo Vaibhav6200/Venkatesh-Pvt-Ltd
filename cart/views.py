@@ -35,14 +35,16 @@ def get_cart(request):
         else:
             cart = Cart.objects.get(session_id=request.session['nonuser'])
     except:
-        cart = {'num_of_items': 0}
+        cart = None
     return cart
 
 
 # NOTE: we have to send cart object to all functions so that it could be rendered on top right cart icon
 def cart(request):
     cart = get_cart(request)
-    cart_items = cart.cartitems.all()
+    cart_items = None
+    if cart:
+        cart_items = cart.cartitems.all()
 
     if request.method == "POST":
         coupon_code = request.POST.get('coupon')
@@ -68,7 +70,8 @@ def cart(request):
     data['cart'] = cart
     data['cart_items'] = cart_items
     data['coupons'] = Coupon.objects.filter(is_expired=False)
-    data['cart_total'] = cart.get_cart_total()
+    if cart:
+        data['cart_total'] = cart.get_cart_total()
 
     return render(request, 'cart.html', data)
 
@@ -180,6 +183,11 @@ def remove_cart_item(request):
         data = {}
         cart = Cart.objects.get(id=cart_id)
         data['cart_cost'] = cart.get_cart_total()
+        data['remove_coupon'] = False   # this is done to remove coupon from cart when its price is not proper
+        if int(cart.coupon.minimum_price) > cart.get_cart_total():
+            cart.coupon = None
+            cart.save()
+            data['remove_coupon'] = True
         data['num_of_items'] = cart.num_of_items
 
         return JsonResponse(data, safe=False)

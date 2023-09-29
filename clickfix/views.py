@@ -18,7 +18,7 @@ def get_cart(request):
         else:
             cart = Cart.objects.get(session_id=request.session['nonuser'])
     except:
-        cart = {'num_of_items': 0}
+        cart = None
     return cart
 
 
