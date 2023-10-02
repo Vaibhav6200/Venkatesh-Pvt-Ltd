@@ -25,10 +25,6 @@ def payment(request):
 
         # order id of newly created order.
         razorpay_order_id = razorpay_order['id']
-
-        callback_url = 'http://127.0.0.1:8000/razorpay/paymenthandler/'
-
-
         order_obj = Order.objects.get(id=request.POST['order_id'])
         order_obj.razorpay_order_id = razorpay_order_id
         order_obj.save()
@@ -39,7 +35,8 @@ def payment(request):
         context['razorpay_merchant_key'] = settings.RAZORPAY_KEY_ID
         context['razorpay_amount'] = amount
         context['currency'] = currency
-        context['callback_url'] = callback_url
+        context['callback_url'] = 'http://127.0.0.1:8000/razorpay/paymenthandler/'
+        # context['callback_url'] = "http://john001.pythonanywhere.com/razorpay/paymenthandler/"
 
         return render(request, 'razorpay/payment.html', context=context)
     return HttpResponseBadRequest()

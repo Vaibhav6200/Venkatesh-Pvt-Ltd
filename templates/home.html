@@ -42,6 +42,10 @@
             max-height: 210px;
             object-fit: cover;
         }
+        /* .deals_content{
+            width: 100%;
+            display: flex;
+        } */
     </style>
 {% endblock %}
 
@@ -165,7 +169,7 @@
 
 
     <!-- Deals & Discount -->
-    <section id="deals_and_discount" style="margin: 150px 0px;">
+    <section class="" id="deals_and_discount" style="margin: 150px 0px;">
         <h2 class="text-center mb-5 home_banner_heading" style="color: #F6921e;">DEALS AND DISCOUNTS</h2>
         <div class="swiper deals_and_discount_swiper">
             <div class="swiper-wrapper pb-5">
@@ -175,13 +179,20 @@
                     <div class="sales_container">
                         <img class="sales_image" src="{{ deal.image.url }}" alt="">
                         <div class="overlay">
-                            <div class="text-white h-100 d-flex justify-content-center align-items-center">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div style="font-size: 4rem;">{{ deal.heading }}</div>
-                                        <div class="blockquote"> <span style="font-size: 4rem; color: #F6921E;">{{ deal.percent_off }}%</span> OFF</div>
-                                        <div class="blockquote">{{ deal.subheading }}</div>
-                                        <!-- <a href="#services" class="btn btn_color">Avail Now</a> -->
+                            <div class="text-white h-100 d-flex justify-content-center align-items-center w-100">
+                                <div class="row container">
+                                    <div class="col-12 ">
+                                        {% if deal.heading %}
+                                        <div class="home_banner_heading text-start">{{ deal.heading|upper }}</div>
+                                        {% endif %}
+                                        {% if deal.percent_off %}
+                                        <div class="home_banner_subheading"> <span style="font-size: 4rem; color: #F6921E;">{{ deal.percent_off }}%</span> OFF</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-12 ">
+                                        {% if deal.description %}
+                                        <div class="home_banner_subheading w-100">{{ deal.description }}</div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -198,7 +209,7 @@
     </section>
 
 
-    <section class="" id="testimonials" style="margin: 150px 0px;">
+    <section class="" id="testimonials px-4" style="margin: 150px 0px;">
         <h5 class="text-center mb-3 text-uppercase home_banner_heading" style="color: #F6921e;">Testimonial</h5>
         <h2 class="text-center mb-5">What our Customers Says?</h2>
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -239,10 +250,12 @@
             <div class="d-flex flex-wrap justify-content-around">
                 <div class="d-flex flex-column justify-content-center">
                     <h1>Have a question?</h1>
-                    <h1 class="mb-5">Write to us.</h1>
+                    <div class="mb-5 h1">Write to us.</div>
                     <div class="blockquote mb-3"><i class="fa-solid fa-envelope me-3" style="color: #F6921E;"></i> support@clickfix.co.in</div>
-                    <div class="blockquote mb-3"><i class="fa-solid fa-phone me-3" style="color: #F6921E;"></i>(+91) 89104 34505 / (+91) 98360 66464</div>
-                    <div class="blockquote mb-3"><i class="fa-solid fa-location-dot me-3 mb-5" style="color: #F6921E;"></i> Chandni Chawk, Bowbazar, Kolkata, West Bengal</div>
+                    <div class="blockquote mb-3 d-flex w-100">
+                        <i class="fa-solid fa-phone me-3" style="color: #F6921E;"></i> (+91) 89104 34505 / (+91) 98360 66464
+                    </div>
+                    <div class="blockquote mb-5"><i class="fa-solid fa-location-dot me-3" style="color: #F6921E;"></i> Chandni Chawk, Bowbazar, Kolkata, West Bengal</div>
                 </div>
                 <div class="shadow-lg p-5 ">
                     <form action="{% url 'clickfix:contact' %}" method="post">

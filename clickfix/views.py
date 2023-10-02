@@ -50,10 +50,13 @@ def individual_service(request, service_name):
         day_of_month.append((datetime.today() + timedelta(days=i)))
     timeline = [(day, date) for day, date in zip(week_days, day_of_month)]
 
+
+    deals = deals_and_discount.objects.all()
     data = {
         'sub_services': sub_services,
         'timeline': timeline,
         'cart': cart,
+        'deals_and_discount': deals,
     }
     return render(request, 'individual_service.html', data)
 
