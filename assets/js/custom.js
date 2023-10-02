@@ -45,9 +45,6 @@ function addToCart(){
         let date_slot = date_selected.querySelector('div>div + div').textContent
         let time_slot = time_selected.textContent
 
-        console.log(date_slot)
-        console.log(time_slot)
-
         $("#timeSlotModal").modal("hide");
 
         document.querySelectorAll('.date_slot_btn').forEach(button=>button.classList.remove('slot_btn_active', 'selected-date'));
