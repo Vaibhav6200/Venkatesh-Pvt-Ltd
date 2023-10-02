@@ -114,10 +114,10 @@ def bookings(request):
     for item in orders:
         order_items += item.orderitems.all()
 
-    data = {
-        'cart': cart,
-        'order_items': order_items,
-    }
+    data = {}
+    data['cart'] = cart
+    data['order_items'] = order_items
+
     return render(request, 'bookings.html', data)
 
 

@@ -32,7 +32,7 @@ def payment(request):
         # we need to pass these details to frontend.
         context = {}
         context['razorpay_order_id'] = razorpay_order_id
-        context['razorpay_merchant_key'] = settings.RAZORPAY_KEY_ID
+        context['razorpay_merchant_key'] = KEY_ID
         context['razorpay_amount'] = amount
         context['currency'] = currency
         context['callback_url'] = 'http://127.0.0.1:8000/razorpay/paymenthandler/'

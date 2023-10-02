@@ -48,7 +48,7 @@
                             {% if item.order.payment_status == "Failed" %}
                                 <span>Payment Failed</span>
                             {% else %}
-                                <span>Amount Paid ₹{{item.order.total_cost}}</span>
+                                <span>Amount Paid ₹{{item.sub_service.sub_service_price}}</span>
                             {% endif %}
                         </div>
                         <div class="col-12">
@@ -58,7 +58,7 @@
                                 {% if item.order.payment_status == "Failed" %}
                                     <a href="{% url 'cart:cart' %}" class="me-2 btn btn-outline-warning">Retry</a>
                                 {% else %}
-                                    <button class="me-2 btn btn-outline-danger">Cancel</button>
+                                    <!-- <button class="me-2 btn btn-outline-danger">Cancel</button> -->
                                     <form action="{% url 'clickfix:live_tracking' %}" method="post">
                                         {% csrf_token %}
                                         <input type="hidden" name="order_item_id" value="{{ item.id }}">
