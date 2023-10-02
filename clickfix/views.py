@@ -37,10 +37,10 @@ def home(request):
     return render(request, 'home.html', data)
 
 
-def individual_service(request, service_name):
+def individual_service(request, service_name, search_data=None):
     service = Services.objects.get(slug=service_name)
     sub_services = SubServices.objects.filter(service=service)
-
+    deals = deals_and_discount.objects.all()
     cart = get_cart(request)
 
     week_days = []
@@ -50,14 +50,15 @@ def individual_service(request, service_name):
         day_of_month.append((datetime.today() + timedelta(days=i)))
     timeline = [(day, date) for day, date in zip(week_days, day_of_month)]
 
+    data = {}
+    data['sub_services'] = sub_services
+    data['timeline'] = timeline
+    data['cart'] = cart
+    data['deals_and_discount'] = deals
 
-    deals = deals_and_discount.objects.all()
-    data = {
-        'sub_services': sub_services,
-        'timeline': timeline,
-        'cart': cart,
-        'deals_and_discount': deals,
-    }
+    if search_data:
+        data['search_data'] = search_data
+
     return render(request, 'individual_service.html', data)
 
 
@@ -157,3 +158,16 @@ def Order_Email(request):
     customer_email = "vaibhavpaliwal620@gmail.com"
     customer_full_name = "Vaibhav Paliwal"
     Email_Handler(customer_email, customer_full_name).send_otp_via_mail()
+
+
+
+def search_view(request):
+    if request.method == 'GET':
+        query = request.GET.get('query', '')
+        search_data = SubServices.objects.filter(
+            Q(sub_service_name__icontains=query) |
+            Q(service__name__icontains=query))
+
+        service_name = search_data[0].service.slug
+        return individual_service(request, service_name, search_data)
+    return redirect('clickfix:home')

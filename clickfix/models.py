@@ -1,11 +1,12 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.utils.text import slugify
+from django.db.models import Q
 
 
 class Services(models.Model):
     class Meta:
-        verbose_name_plural = 'Our Services'
+        verbose_name_plural = 'Services'
 
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)

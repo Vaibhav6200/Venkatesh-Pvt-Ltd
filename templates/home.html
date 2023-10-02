@@ -42,10 +42,31 @@
             max-height: 210px;
             object-fit: cover;
         }
-        /* .deals_content{
+
+
+
+        .fg--search {
+            background: white;
+            position: relative;
             width: 100%;
-            display: flex;
-        } */
+        }
+        .fg--search input {
+            width: 100%;
+            padding: 20px 60px 20px 20px;
+            display: block;
+        }
+        .fg--search button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 20px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 18px 20px;
+            z-index: 2;
+        }
     </style>
 {% endblock %}
 
@@ -62,9 +83,17 @@
                 <div class="container d-flex flex-column">
                     <p class="home_banner_heading headings"> <span style="color: #F6921e;" >Solving </span> IT <br>  <span style="color: #F6921e;">Simplifying</span> Life </p>
                     <p class="home_banner_subheading">Experience instant solutions for your IT repairs. With just one click, access seamless IT repair services.</p>
-                    <div class="input-group">
-                        <i class="input-group-text d-flex justify-content-center align-items-center fa-solid fa-magnifying-glass bg-white border-end-0" style="font-size: 25px;"></i>
-                        <input class="form-control py-3 border-start-0 banner_search_bar" name="" id="" placeholder="Search" type="text">
+
+                    <div class="row">
+                        <div class="col-md-8 col-12">
+                            <form action="{% url 'clickfix:search' %}" method="get" class="w-100">
+                                {% csrf_token %}
+                                <div class="form-group fg--search">
+                                    <input type="text" class="input" placeholder="search" name="query">
+                                    <button type="submit"><i class="fa fa-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
