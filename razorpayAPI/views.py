@@ -5,9 +5,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest
 from .models import Order
 from cart.models import Cart
+# from urllib.parse import urlparse
 
 
-razorpay_client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+
+KEY_ID = settings.RAZORPAY_KEY_ID
+KEY_SECRET = settings.RAZORPAY_KEY_SECRET
+
+razorpay_client = razorpay.Client(auth=(KEY_ID, KEY_SECRET))
 
 @csrf_exempt
 def payment(request):
@@ -20,6 +25,7 @@ def payment(request):
 
         # order id of newly created order.
         razorpay_order_id = razorpay_order['id']
+
         callback_url = 'http://127.0.0.1:8000/razorpay/paymenthandler/'
 
 

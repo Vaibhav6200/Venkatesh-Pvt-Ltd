@@ -44,7 +44,7 @@
     margin-top: 80px;
     color: white;
   }
-  #hero .home_banner_heading{
+  .home_banner_heading{
     @media (max-width:576px) {
       font-size: 7vw;
     }
@@ -58,7 +58,7 @@
         font-size: 3vw;
     }
   }
-  #hero .home_banner_subheading{
+  .home_banner_subheading{
     @media (max-width:576px) {
       font-size: 5vw;
     }

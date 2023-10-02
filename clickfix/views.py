@@ -27,11 +27,12 @@ def home(request):
     testimonials = Testimonials.objects.all()
 
     cart = get_cart(request)
-
+    deals = deals_and_discount.objects.all()
     data = {
         'services': services,
         'testimonials': testimonials,
-        'cart': cart
+        'cart': cart,
+        'deals_and_discount': deals,
     }
     return render(request, 'home.html', data)
 

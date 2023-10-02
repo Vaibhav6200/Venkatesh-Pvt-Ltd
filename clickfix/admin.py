@@ -34,3 +34,12 @@ class CustomContact(admin.ModelAdmin):
     list_display = ['id', 'full_name', 'email', 'mobile_number', 'service_needed', 'is_answered']
     list_display_links = ['id', 'full_name']
     list_filter = ['is_answered']
+
+
+@admin.register(deals_and_discount)
+class CustomDeals(admin.ModelAdmin):
+    list_display = ['id', 'heading', 'percent_off']
+    list_display_links = ['id', 'heading', 'percent_off']
+    list_filter = ['percent_off']
+    search_fields = ['heading', 'percent_off']
+

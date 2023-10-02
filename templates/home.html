@@ -71,7 +71,7 @@
     <!-- About Us -->
     <section id="about" style="margin: 150px 0px;">
         <div class="container">
-            <h3 class="text-center mb-5 fa-3x" style="color: #F6921e;">About Us</h3>
+            <h3 class="text-center mb-5 home_banner_heading" style="color: #F6921e;">About Us</h3>
             <div class="row">
                 <div class="col-md-5 col-12">
                     <img class="img-fluid mb-5 mb-md-0" src="{% static 'img/about.webp' %}" alt="">
@@ -87,8 +87,8 @@
 
     <!-- Service Slider -->
     <section style="margin: 150px 0px;" id="services">
-        <h5 class="text-center mb-3 fa-3x" style="color: #F6921e;">OUR SERVICES</h5>
-        <h2 class="text-center">We are Experienced in Making <br>your work easy</h2>
+        <h5 class="text-center mb-3 home_banner_heading" style="color: #F6921e;">OUR SERVICES</h5>
+        <h2 class="text-center home_banner_subheading w-100">We are Experienced in Making <br>your work easy</h2>
         <div class="container">
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
@@ -113,8 +113,8 @@
     <!-- Our Benefits -->
     <section style="margin: 150px 0px;">
         <div class="container">
-            <h5 class="text-center mb-3 fa-3x" style="color: #F6921E;">WHY CHOOSE US</h5>
-            <h2 class="text-center mb-5">Actually What You'll Get From</h2>
+            <h5 class="text-center mb-3 home_banner_heading" style="color: #F6921E;">WHY CHOOSE US</h5>
+            <h2 class="text-center mb-5 home_banner_subheading w-100">Actually What You'll Get From</h2>
             <div class="row">
                 <div class="col-md-3 col-6 p-4 text-center">
                     <img class="img-fluid" src="{% static 'img/services/trust.png' %}" alt="">
@@ -166,61 +166,32 @@
 
     <!-- Deals & Discount -->
     <section id="deals_and_discount" style="margin: 150px 0px;">
-        <h2 class="text-center mb-5 fa-3x" style="color: #F6921e;">DEALS AND DISCOUNTS</h2>
+        <h2 class="text-center mb-5 home_banner_heading" style="color: #F6921e;">DEALS AND DISCOUNTS</h2>
         <div class="swiper deals_and_discount_swiper">
             <div class="swiper-wrapper pb-5">
 
+                {% for deal in deals_and_discount %}
                 <div class="swiper-slide">
                     <div class="sales_container">
-                        <img class="sales_image" src="{% static 'clickfix_photos/sale1.jpg' %}" alt="">
+                        <img class="sales_image" src="{{ deal.image.url }}" alt="">
                         <div class="overlay">
                             <div class="text-white h-100 d-flex justify-content-center align-items-center">
                                 <div class="row">
                                     <div class="col-12">
-                                        <div style="font-size: 4rem;">Welcome Offer</div>
-                                        <div class="blockquote"><span style="font-size: 4rem; color: #F6921E;">10%</span> OFF</div>
-                                        <div class="blockquote">Welcome to Click Fix! Enjoy 10% off your first IT service. Let us make your tech hassles disappear</div>
-                                        <a href="#services" class="btn btn_color">Avail Now</a>
+                                        <div style="font-size: 4rem;">{{ deal.heading }}</div>
+                                        <div class="blockquote"> <span style="font-size: 4rem; color: #F6921E;">{{ deal.percent_off }}%</span> OFF</div>
+                                        <div class="blockquote">{{ deal.subheading }}</div>
+                                        <!-- <a href="#services" class="btn btn_color">Avail Now</a> -->
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide">
-                    <div class="sales_container">
-                        <img class="sales_image" src="{% static 'clickfix_photos/sale2.jpg' %}" alt="">
-                        <div class="overlay">
-                            <div class="text-white h-100 d-flex justify-content-center align-items-center">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div style="font-size: 4rem;">Welcome Offer</div>
-                                        <div class="blockquote"> <span style="font-size: 4rem; color: #F6921E;">10%</span> OFF</div>
-                                        <div class="blockquote">Welcome to Click Fix! Enjoy 10% off your first IT service. Let us make your tech hassles disappear</div>
-                                        <a href="#services" class="btn btn_color">Avail Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="sales_container">
-                        <img class="sales_image" src="{% static 'clickfix_photos/sale3.jpg' %}" alt="">
-                        <div class="overlay">
-                            <div class="text-white h-100 d-flex justify-content-center align-items-center">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div style="font-size: 4rem;">Welcome Offer</div>
-                                        <div class="blockquote"> <span style="font-size: 4rem; color: #F6921E;">10%</span> OFF</div>
-                                        <div class="blockquote">Welcome to Click Fix! Enjoy 10% off your first IT service. Let us make your tech hassles disappear</div>
-                                        <a href="#services" class="btn btn_color">Avail Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% empty %}
+                <h1 class="text-center text-muted w-100">No Offers for Now!!!</h1>
+                {% endfor %}
+
             </div>
             <div class="swiper-pagination"></div>
         </div>
@@ -228,7 +199,7 @@
 
 
     <section class="" id="testimonials" style="margin: 150px 0px;">
-        <h5 class="text-center mb-3 text-uppercase fa-3x" style="color: #F6921e;">Testimonial</h5>
+        <h5 class="text-center mb-3 text-uppercase home_banner_heading" style="color: #F6921e;">Testimonial</h5>
         <h2 class="text-center mb-5">What our Customers Says?</h2>
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">

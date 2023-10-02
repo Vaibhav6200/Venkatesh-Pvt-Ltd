@@ -77,3 +77,14 @@ class Handyman(models.Model):
 
     def __str__(self):
         return self.full_name
+
+
+class deals_and_discount(models.Model):
+    class Meta:
+        verbose_name_plural = 'Deals & Discount'
+    image = models.ImageField(upload_to='deals_and_discount_banners')
+    heading = models.CharField(max_length=255)
+    percent_off = models.CharField(max_length=3, help_text="write here only percentage i.e. (10, 20, 30 etc)")
+    subheading = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
