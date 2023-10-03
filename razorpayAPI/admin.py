@@ -15,4 +15,4 @@ class CustomOrderItem(admin.ModelAdmin):
     list_display = ['id', 'order', 'sub_service', 'quantity', 'start_date', 'time_slot', 'created_at']
     list_display_links = ['id', 'order', 'sub_service']
     search_fields = ['id', 'order', 'sub_service', 'start_date', 'time_slot', 'created_at']
-    list_filter = ['time_slot']
+    list_filter = ['time_slot', 'order']

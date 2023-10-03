@@ -41,10 +41,11 @@ class Order(models.Model):
 
 
     def __str__(self):
-        if self.user:
-            return f"Order #{self.id} by {self.user.username}"
-        else:
-            return f"Order #{self.id} by user with session_id = {self.session_id}"
+        return str(self.id)
+        # if self.user:
+        #     return f"Order #{self.id} by {self.user.username}"
+        # else:
+        #     return f"Order #{self.id} by user with session_id = {self.session_id}"
 
 
 
