@@ -232,3 +232,5 @@ function enableEditing(){
     document.getElementById('profile_image').removeAttribute('disabled')
     document.getElementById('save_btn').classList.remove('d-none')
 }
+
+
