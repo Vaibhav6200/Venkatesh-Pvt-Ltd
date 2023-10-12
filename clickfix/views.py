@@ -43,16 +43,13 @@ def individual_service(request, service_name, search_data=None):
     deals = deals_and_discount.objects.all()
     cart = get_cart(request)
 
-    week_days = []
-    day_of_month = []
+    date_list = []
     for i in range(7):
-        week_days.append((datetime.today() + timedelta(days=i)))
-        day_of_month.append((datetime.today() + timedelta(days=i)))
-    timeline = [(day, date) for day, date in zip(week_days, day_of_month)]
+        date_list.append((datetime.today() + timedelta(days=i)))
 
     data = {}
     data['sub_services'] = sub_services
-    data['timeline'] = timeline
+    data['timeline'] = date_list
     data['cart'] = cart
     data['deals_and_discount'] = deals
 

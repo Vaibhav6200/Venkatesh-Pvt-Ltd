@@ -46,3 +46,31 @@ var deals_and_discount_swiper = new Swiper(".deals_and_discount_swiper", {
         disableOnInteraction: false,
     },
 });
+
+
+var swiper = new Swiper(".dates_list", {
+    slidesPerView: 5,
+    centreSlides: true,
+    spaceBetween: 30,
+    dragCursor: true,
+    pagination: {
+        el: ".swiper-pagination",
+        dynamicBullets: true
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
+    breakpoints: {
+        0:{
+            slidesPerView: 5,
+        },
+        576:{
+            slidesPerView: 7,
+        },
+        992:{
+            slidesPerView: 6,
+        }
+    }
+});
+

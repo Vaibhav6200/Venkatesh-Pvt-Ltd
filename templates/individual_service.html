@@ -89,23 +89,25 @@
                                 <button class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="mb-3 d-flex flex-wrap" id="appointment_date">
-                                    {% for day, date in timeline %}
-                                        <button value="{{day|date:'Y-m-d'}}" class="btn me-2 mb-3 slot_btn date_slot_btn" id="date_button_{{forloop.counter}}" onclick="select_date(this)">
-                                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                                <div>{{day|date:"D"}}</div>
-                                                <div class="fw-bold">{{date|date:"d"}}</div>
-                                            </div>
-                                        </button>
-
-                                        <!-- <div class="container">
-                                             <section class="dates_list slider">
-                                                <div class="slide"><img height="100" width="100" src="https://image.freepik.com/free-vector/luxury-letter-e-logo-design_1017-8903.jpg"></div>
-                                            </section>
-                                        </div> -->
-                                    {% endfor %}
+                                <div class="" id="appointment_date">
+                                    <div class="swiper dates_list px-3">
+                                        <div class="swiper-wrapper">
+                                            {% for date in timeline %}
+                                                <div class="swiper-slide">
+                                                    <button value="{{day|date:'Y-m-d'}}" class="btn slot_btn px-3 date_slot_btn" id="date_button_{{forloop.counter}}" onclick="select_date(this)">
+                                                        <div class="d-flex flex-column align-items-center justify-content-center">
+                                                            <div>{{date|date:"D"}}</div>
+                                                            <div class="fw-bold">{{date|date:"d"}}</div>
+                                                            <div>{{date|date:"M"}}</div>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            {% endfor %}
+                                            <div class="swiper-slide"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <button class="btn py-2 px-4 mt-3 text-white btn_color w-100" id="date_selected_next_button" disabled onclick="handleSelectedDate(this)" data-bs-toggle="modal" data-bs-target="#timeSlotModal">Select Time Slot</button>
+                                <button class="btn py-2 px-4 mt-5 text-white btn_color w-100" id="date_selected_next_button" disabled onclick="handleSelectedDate(this)" data-bs-toggle="modal" data-bs-target="#timeSlotModal">Select Time Slot</button>
                             </div>
                         </div>
                     </div>
@@ -286,30 +288,4 @@
 
     {% include 'includes/footer.html' %}
 
-    {% block extra_js %}
-    <!-- <script>
-        $(document).ready(function(){
-            $('.dates_list').slick({
-                slidesToShow: 6,
-                slidesToScroll: 1,
-                autoplay: true,
-                autoplaySpeed: 1500,
-                arrows: false,
-                dots: false,
-                pauseOnHover: false,
-                responsive: [{
-                    breakpoint: 768,
-                    settings: {
-                        slidesToShow: 4
-                    }
-                }, {
-                    breakpoint: 520,
-                    settings: {
-                        slidesToShow: 3
-                    }
-                }]
-            });
-        });
-    </script> -->
-    {% endblock %}
 {% endblock %}
