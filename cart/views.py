@@ -175,19 +175,17 @@ def billing(request):
 
 
 def remove_cart_item(request):
+    data = {}
     if request.method == "POST":
         data = json.loads(request.body)
-        cart_item_id = data['cart_item_id']
-        cart_id = data['cart_id']
-        CartItem.objects.get(id=cart_item_id).delete()
-        data = {}
-        cart = Cart.objects.get(id=cart_id)
+        CartItem.objects.get(id=data['cart_item_id']).delete()
+        cart = Cart.objects.get(id=data['cart_id'])
         data['cart_cost'] = cart.get_cart_total()
         data['remove_coupon'] = False   # this is done to remove coupon from cart when its price is not proper
-        if int(cart.coupon.minimum_price) > cart.get_cart_total():
+        if cart.coupon and int(cart.coupon.minimum_price) > cart.get_cart_total():
             cart.coupon = None
             cart.save()
             data['remove_coupon'] = True
         data['num_of_items'] = cart.num_of_items
 
-        return JsonResponse(data, safe=False)
+    return JsonResponse(data, safe=False)

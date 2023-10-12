@@ -168,12 +168,10 @@ function handleCartItemRemoval(item_id, cart_id){
     .then(data=>{
         document.getElementById('cart_item_' + item_id).style.display = 'none'
 
-
         var elements = document.getElementsByClassName('num_of_items');
         for (var i = 0; i < elements.length; i++) {
             elements[i].innerHTML = data['num_of_items'];
         }
-
 
         let grand_total = document.getElementById('grand_total')
         grand_total.innerHTML = data['cart_cost']
@@ -184,8 +182,7 @@ function handleCartItemRemoval(item_id, cart_id){
         }
 
         if(data['num_of_items'] == 0){
-            document.querySelector('#checkout_form').style.display = "none"
-            document.querySelector('#grand_total_heading').style.display = "none"
+            location.reload();
         }
     })
     .catch(error=>{

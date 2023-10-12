@@ -14,13 +14,13 @@
             <!-- User Details and payment summary -->
             <div class="col-md-6 col-sm-12  p-3">
                 <div class="d-flex justify-content-between align-items-center">
-                    <span class="blockquote fw-bold mb-4">Services Booked</span>
 
                     {% if cart_items %}
+                    <span class="blockquote fw-bold mb-4" id="service_booked_heading">Services Booked</span>
                     <span id="checkout_form">
                         <form action="{% url 'clickfix:checkout' %}" method="post">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn_color fw-bold mb-4 d-flex align-items-center">Proceed to checkout <i class="fa-solid fa-caret-right ms-2"></i></button>
+                            <button type="submit" class="btn btn_color fw-bold mb-4 d-flex align-items-center" id="checkout_button">Proceed to checkout <i class="fa-solid fa-caret-right ms-2"></i></button>
                         </form>
                     </span>
                     {% endif %}
@@ -50,6 +50,7 @@
                     <div class="my-3" style="border: 1px solid #f6911e25;"></div>
                     {% endif %}
                 </div>
+
                 {% empty %}
                 <h3 class="text-muted" id="empty_cart_text">Nothing in Cart!</h3>
                 {% endfor %}
@@ -137,10 +138,8 @@
                     <h5 class="mt-5" id="grand_total_heading">Grand Total: Rs <span id="grand_total">{{ cart_total }}</span></h5>
                     {% endif %}
 
-
                 </div>
             </div>
-
             {% endif %}
         </div>
     </div>
@@ -148,28 +147,8 @@
 
 
 
-
-    {% include 'includes/footer.html' %}
-
-    {% block extra_js %}
-        <script>
-            let test = document.getElementById('test')
-            function plusFunc(button) {
-                let input = button.previousSibling.previousElementSibling;
-                let quantity = parseInt(input.value)
-                quantity = parseInt(quantity)
-                quantity += 1
-                button.previousSibling.previousElementSibling.value = quantity
-            }
-
-            function minusFunc(button) {
-                let input = button.nextSibling.nextElementSibling;
-                let quantity = parseInt(input.value)
-                quantity -= 1
-                if (quantity < 0) quantity = 0
-                button.nextSibling.nextElementSibling.value = quantity
-            }
-        </script>
-    {% endblock %}
+    {% if cart.cartitems %}
+        {% include 'includes/footer.html' %}
+    {% endif %}
 
 {% endblock %}
