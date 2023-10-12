@@ -45,7 +45,7 @@ def individual_service(request, service_name, search_data=None):
 
     date_list = []
     for i in range(7):
-        date_list.append((datetime.today() + timedelta(days=i)))
+        date_list.append(datetime.today() + timedelta(days=i))
 
     data = {}
     data['sub_services'] = sub_services

@@ -90,15 +90,15 @@
                             </div>
                             <div class="modal-body">
                                 <div class="" id="appointment_date">
-                                    <div class="swiper dates_list px-3">
+                                    <div class="swiper dates_list">
                                         <div class="swiper-wrapper">
-                                            {% for date in timeline %}
+                                            {% for date_obj in timeline %}
                                                 <div class="swiper-slide">
-                                                    <button value="{{day|date:'Y-m-d'}}" class="btn slot_btn px-3 date_slot_btn" id="date_button_{{forloop.counter}}" onclick="select_date(this)">
+                                                    <button value="{{date_obj|date:'Y-m-d'}}" class="btn slot_btn px-3 date_slot_btn" id="date_button_{{forloop.counter}}" onclick="select_date(this)">
                                                         <div class="d-flex flex-column align-items-center justify-content-center">
-                                                            <div>{{date|date:"D"}}</div>
-                                                            <div class="fw-bold">{{date|date:"d"}}</div>
-                                                            <div>{{date|date:"M"}}</div>
+                                                            <div>{{date_obj|date:"D"}}</div>
+                                                            <div class="fw-bold">{{date_obj|date:"d"}}</div>
+                                                            <div>{{date_obj|date:"M"}}</div>
                                                         </div>
                                                     </button>
                                                 </div>
@@ -107,7 +107,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn py-2 px-4 mt-5 text-white btn_color w-100" id="date_selected_next_button" disabled onclick="handleSelectedDate(this)" data-bs-toggle="modal" data-bs-target="#timeSlotModal">Select Time Slot</button>
+                                <button class="btn py-2 px-4 mt-5 text-white btn_color w-100 disabled" id="date_selected_next_button" onclick="handleSelectedDate(this)" data-bs-toggle="modal" data-bs-target="#timeSlotModal">Select Time Slot</button>
                             </div>
                         </div>
                     </div>
@@ -126,40 +126,39 @@
                             <div class="modal-body">
                                 <div class="mb-3 d-flex justify-content-between" id="appointment_time">
                                     <button class="btn slot_btn time_slot_btn" id="time_button_1" onclick="select_time(this)" value="10am-12pm">
-                                        <div class="d-flex flex-column align-items-center justify-content-center">
+                                        <div class="d-none d-md-block">12AM - 2PM</div>
+                                        <div class="d-md-none d-flex flex-column align-items-center justify-content-center">
                                             <div>10 AM</div>
                                             <div class="fw-bold">to</div>
                                             <div>12 PM</div>
                                         </div>
                                     </button>
                                     <button class="btn slot_btn time_slot_btn" id="time_button_2" onclick="select_time(this)" value="12pm-2pm">
-                                        <div class="d-flex flex-column align-items-center justify-content-center">
+                                        <div class="d-none d-md-block">12AM - 2PM</div>
+                                        <div class="d-md-none d-flex flex-column align-items-center justify-content-center">
                                             <div>12 AM</div>
                                             <div class="fw-bold">to</div>
                                             <div>2 PM</div>
                                         </div>
                                     </button>
                                     <button class="btn slot_btn time_slot_btn" id="time_button_3" onclick="select_time(this)" value="2pm-4pm">
-                                        <div class="d-flex flex-column align-items-center justify-content-center">
+                                        <div class="d-none d-md-block">2AM - 4PM</div>
+                                        <div class="d-md-none d-flex flex-column align-items-center justify-content-center">
                                             <div>2 PM</div>
                                             <div class="fw-bold">to</div>
                                             <div>4 PM</div>
                                         </div>
                                     </button>
                                     <button class="btn slot_btn time_slot_btn" id="time_button_4" onclick="select_time(this)" value="4pm-7pm">
-                                        <div class="d-flex flex-column align-items-center justify-content-center">
+                                        <div class="d-none d-md-block">4AM - 7PM</div>
+                                        <div class="d-md-none d-flex flex-column align-items-center justify-content-center">
                                             <div>4 AM</div>
                                             <div class="fw-bold">to</div>
                                             <div>7 PM</div>
                                         </div>
                                     </button>
-
-                                    <!-- <button value="{{day|date:'Y-m-d'}}" class="btn slot_btn px-3 date_slot_btn" id="date_button_{{forloop.counter}}" onclick="select_date(this)">10am-12pm</button> -->
-                                    <!-- <button class="btn me-2 mb-3 slot_btn time_slot_btn" id="time_button_2" onclick="select_time(this)" value="">12pm-2pm</button> -->
-                                    <!-- <button class="btn me-2 mb-3 slot_btn time_slot_btn" id="time_button_3" onclick="select_time(this)" value="">2pm-4pm</button> -->
-                                    <!-- <button class="btn me-2 mb-3 slot_btn time_slot_btn" id="time_button_4" onclick="select_time(this)" value="">4pm-7pm</button> -->
                                 </div>
-                                <button class="btn py-2 px-4 mt-3 text-white btn_color w-100" id="time_selected_next_button" disabled onclick="addToCart()">Add to Cart</button>
+                                <button class="btn py-2 px-4 mt-3 text-white btn_color w-100 disabled" id="time_selected_next_button" onclick="addToCart()">Add to Cart</button>
                             </div>
                         </div>
                     </div>

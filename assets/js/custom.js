@@ -24,7 +24,7 @@ const csrftoken = getCookie('csrftoken');
 
 
 function select_date(pressed_button){
-    document.getElementById('date_selected_next_button').removeAttribute('disabled')
+    document.getElementById('date_selected_next_button').classList.remove('disabled')
     const date_slotBtn = document.querySelectorAll('.date_slot_btn')
     date_slotBtn.forEach(button=>button.classList.remove('slot_btn_active', 'selected-date'));
     pressed_button.classList.add('slot_btn_active', 'selected-date')
@@ -32,7 +32,7 @@ function select_date(pressed_button){
 }
 
 function select_time(pressed_button){
-    document.getElementById('time_selected_next_button').removeAttribute('disabled')
+    document.getElementById('time_selected_next_button').classList.remove('disabled')
     const time_slotBtn = document.querySelectorAll('.time_slot_btn')
     time_slotBtn.forEach(button => button.classList.remove('slot_btn_active', 'selected-time'));
     pressed_button.classList.add('slot_btn_active', 'selected-time')
@@ -63,7 +63,7 @@ function addToCart(){
         })
         .then(res=>res.json())
         .then(data=>{
-            // document.getElementById('num_of_items').innerHTML = data
+            document.getElementById('date_selected_next_button').classList.add('disabled')
 
             var elements = document.getElementsByClassName('num_of_items');
             for (var i = 0; i < elements.length; i++) {
@@ -120,7 +120,7 @@ function bookService(sub_service_id){
 
 function handleSelectedDate(){
     if(date_selected == null){
-        document.getElementById('date_selected_next_button').setAttribute('disabled')
+        document.getElementById('date_selected_next_button').classList.add('disabled')
     }
     else{
 
