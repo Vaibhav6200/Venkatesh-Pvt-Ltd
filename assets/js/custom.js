@@ -42,9 +42,6 @@ function select_time(pressed_button){
 
 function addToCart(){
     if(date_selected && time_selected){
-        let date_slot = date_selected.querySelector('div>div + div').textContent
-        let time_slot = time_selected.textContent
-
         $("#timeSlotModal").modal("hide");
 
         document.querySelectorAll('.date_slot_btn').forEach(button=>button.classList.remove('slot_btn_active', 'selected-date'));
@@ -53,8 +50,8 @@ function addToCart(){
         let url = "/cart/add_to_cart/"
         let data= {
             sub_service_id:selected_service,
-            date_slot: date_slot,
-            time_slot: time_slot,
+            date_slot: date_selected.value,
+            time_slot: time_selected.value,
         }
         fetch(url, {
             method: "POST",

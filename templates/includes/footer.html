@@ -16,15 +16,14 @@
             <div class="col-md-2 col-sm-6 col-6 mb-4">
                 <h4 class="mb-4">Explore</h4>
                 <ul class="list-unstyled">
-                    <li class="mb-2">Home</li>
-                    <li class="mb-2">About Us</li>
-                    <li class="mb-2">Services</li>
-                    <li class="mb-2">Appointments</li>
-                    <li class="mb-2">Contact Us</li>
-                    <li class="mb-2"><a class="text-decoration-none text-dark" href="#contact_form">Register as professional</a></li>
+                    <li class="mb-2"><a class="text-decoration-none text-dark" href="{% url 'clickfix:home' %}">Home</a></li>
+                    <li class="mb-2"><a class="text-decoration-none text-dark" href="{% url 'clickfix:home' %}#about">About Us</a></li>
+                    <li class="mb-2"><a class="text-decoration-none text-dark" href="{% url 'clickfix:home' %}#services">Services</a></li>
+                    <li class="mb-2"><a class="text-decoration-none text-dark" href="{% url 'clickfix:home' %}#contact_form">Contact Us</a></li>
+                    <li class="mb-2"><a class="text-decoration-none text-dark" href="{% url 'clickfix:home' %}#contact_form">Register as professional</a></li>
                 </ul>
             </div>
-            <div class="col-md-3 col-6 mb-5">
+            <div class="col-md-2 col-6 mb-5">
                 <h4 class="mb-4">Services</h4>
                 <ul class="list-unstyled">
                     <li class="mb-2"><a class="text-decoration-none text-dark" href="#">Laptop</a></li>
@@ -36,7 +35,7 @@
                     <li class="mb-2"><a class="text-decoration-none text-dark" href="#"></a></li>
                 </ul>
             </div>
-            <div class="col-md-4 col-sm-6 mb-4">
+            <div class="col-md-5 col-sm-6 mb-5">
                 <h4 class="mb-4">Keep in Touch</h4>
                 <div class="row mb-3">
                     <div class="col-3">Address: </div>
@@ -50,23 +49,28 @@
 
                 <div class="row mb-3">
                     <div class="col-3">Contact: </div>
-                    <div class="col-9">(+91) 89104 34505 / (+91) 98360 66464</div>
+                    <div class="col-9">+91 89104 34505 / +91 98360 66464</div>
                     <div class="col-9"></div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6 d-flex justify-content-md-end">
-                <div>
-                    <h4 class="mb-4">Working Hours</h4>
-                    <ul class="list-unstyled">
-                        <li class="mb-2">Mon to Fri: 7am - 6pm</li>
-                        <li class="mb-2">Sat: 9am - 7pm</li>
-                        <li class="mb-2">Sun: 9am - 6pm</li>
-                    </ul>
+            <div class="col-md-3 col-sm-6">
+                <h4 class="mb-4">Working Hours</h4>
+                <div class="row mb-3">
+                    <div class="col-4">Mon to Fri: </div>
+                    <div class="col-8">7am - 6am</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-4">Sat: </div>
+                    <div class="col-8">9am - 7pm</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-4">Sun: </div>
+                    <div class="col-8">9am - 6pm</div>
                 </div>
             </div>
         </div>
     </div>
     <div class="d-flex justify-content-center align-items-center py-4" style="background-color: black; color: white;">
-        <p class="mb-0">copyright@clickfix</p>
+        <p class="mb-0">&copy; 2023 clickfix. All rights reserved.</p>
     </div>
 </footer>

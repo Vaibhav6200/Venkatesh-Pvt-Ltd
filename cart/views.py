@@ -13,9 +13,10 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 
 
-def getDate(day):
-    current_date = datetime.now()
-    start_date = current_date.replace(day=int(day))
+def getDate(date):
+    current_date = datetime.now().date()
+    start_date = datetime.strptime(date, '%Y-%m-%d').date()
+
     if start_date < current_date:
         start_date += relativedelta(months=1)
 
@@ -78,6 +79,9 @@ def cart(request):
 
 def add_to_cart(request):
     data = json.loads(request.body)
+    print()
+    print(data)
+    print()
     sub_service = SubServices.objects.get(id=data['sub_service_id'])
     day = data['date_slot']
     date_slot = getDate(day)
