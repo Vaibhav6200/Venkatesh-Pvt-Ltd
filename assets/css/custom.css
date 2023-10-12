@@ -12,7 +12,7 @@
 .card-img-top{
     width: 120px;
     height: 100px;
-    object-fit: cover;
+    object-fit: contain;
 }
 #hero .navbar {
   position: absolute;
@@ -20,6 +20,8 @@
   left: 0;
   right: 0;
 }
+
+
 
 /* HOME PAGE DEALS & DISCOUNT SECTION */
 #hero .home_banner_video{
@@ -110,6 +112,15 @@
 @media (max-width: 568px){
     #about .about_text{
         font-size: 1rem;
+    }
+    .footer_logo_image{
+        margin-bottom: 15px;
+    }
+    .contact_form_container{
+        box-shadow: none !important;
+    }
+    .home_banner_content{
+        padding: 0 20px;
     }
 }
 .service_image{
@@ -299,3 +310,123 @@
     outline: none !important;
     box-shadow: none;
 }
+
+
+
+
+
+/* Individual Page Appointment Date Slider */
+/* #appointment_date .slick-slide {
+    margin: 0px 20px;
+}
+
+#appointment_date .slick-slide img {
+    width: 100%;
+}
+
+#appointment_date .slick-slider
+{
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+            user-select: none;
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+    -ms-touch-action: pan-y;
+        touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#appointment_date .slick-list
+{
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+#appointment_date .slick-list:focus
+{
+    outline: none;
+}
+#appointment_date .slick-list.dragging
+{
+    cursor: pointer;
+    cursor: hand;
+}
+
+#appointment_date .slick-slider .slick-track,
+#appointment_date .slick-slider .slick-list
+{
+    -webkit-transform: translate3d(0, 0, 0);
+       -moz-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+         -o-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+}
+
+#appointment_date .slick-track
+{
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+}
+#appointment_date .slick-track:before,
+#appointment_date .slick-track:after
+{
+    display: table;
+    content: '';
+}
+#appointment_date .slick-track:after
+{
+    clear: both;
+}
+#appointment_date .slick-loading .slick-track
+{
+    visibility: hidden;
+}
+
+#appointment_date .slick-slide
+{
+    display: none;
+    float: left;
+    height: 100%;
+    min-height: 1px;
+}
+#appointment_date [dir='rtl'] .slick-slide
+{
+    float: right;
+}
+#appointment_date .slick-slide img
+{
+    display: block;
+}
+#appointment_date .slick-slide.slick-loading img
+{
+    display: none;
+}
+#appointment_date .slick-slide.dragging img
+{
+    pointer-events: none;
+}
+#appointment_date .slick-initialized .slick-slide
+{
+    display: block;
+}
+#appointment_date .slick-loading .slick-slide
+{
+    visibility: hidden;
+}
+#appointment_date .slick-vertical .slick-slide
+{
+    display: block;
+    height: auto;
+    border: 1px solid transparent;
+}
+#appointment_date .slick-arrow.slick-hidden {
+    display: none;
+} */

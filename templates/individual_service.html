@@ -67,13 +67,13 @@
                                     Starts from {{ service.sub_service_price }}
                                     {{ service.price_details|safe }}
                                 </div>
-                                <button class="btn py-2 px-4 text-white btn_color me-3" onclick="bookService('{{service.id}}')" data-bs-toggle="modal" data-bs-target="#bookAppointmentModal"><i class="fa-regular fa-clock"></i> Check Availability</button>
-                                <a href="{% url 'cart:cart' %}" class="btn py-2 px-4 text-white btn_color"><i class="fa-solid fa-cart-shopping"></i> View Cart</a>
+                                <button class="btn py-2 px-4 text-white btn_color me-3 mb-3" onclick="bookService('{{service.id}}')" data-bs-toggle="modal" data-bs-target="#bookAppointmentModal"><i class="fa-regular fa-clock"></i> Check Availability</button>
+                                <a href="{% url 'cart:cart' %}" class="btn py-2 px-4 text-white btn_color mb-3"><i class="fa-solid fa-cart-shopping"></i> View Cart <span class="num_of_items">{{cart.num_of_items}}</span></a>
                             </div>
                         </div>
 
                         {% if not forloop.last %}
-                            <div class="my-5" style="border: 1px solid #e7e7e7;"></div>
+                            <div class="mt-2 mb-5" style="border: 1px solid #e7e7e7;"></div>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -89,7 +89,7 @@
                                 <button class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="mb-3 d-flex justify-content-between" id="appointment_date">
+                                <div class="mb-3 d-flex flex-wrap" id="appointment_date">
                                     {% for day, date in timeline %}
                                         <button value="{{day|date:'Y-m-d'}}" class="btn me-2 mb-3 slot_btn date_slot_btn" id="date_button_{{forloop.counter}}" onclick="select_date(this)">
                                             <div class="d-flex flex-column align-items-center justify-content-center">
@@ -97,6 +97,12 @@
                                                 <div class="fw-bold">{{date|date:"d"}}</div>
                                             </div>
                                         </button>
+
+                                        <!-- <div class="container">
+                                             <section class="dates_list slider">
+                                                <div class="slide"><img height="100" width="100" src="https://image.freepik.com/free-vector/luxury-letter-e-logo-design_1017-8903.jpg"></div>
+                                            </section>
+                                        </div> -->
                                     {% endfor %}
                                 </div>
                                 <button class="btn py-2 px-4 mt-3 text-white btn_color w-100" id="date_selected_next_button" disabled onclick="handleSelectedDate(this)" data-bs-toggle="modal" data-bs-target="#timeSlotModal">Select Time Slot</button>
@@ -279,4 +285,31 @@
 
 
     {% include 'includes/footer.html' %}
+
+    {% block extra_js %}
+    <!-- <script>
+        $(document).ready(function(){
+            $('.dates_list').slick({
+                slidesToShow: 6,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 1500,
+                arrows: false,
+                dots: false,
+                pauseOnHover: false,
+                responsive: [{
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 4
+                    }
+                }, {
+                    breakpoint: 520,
+                    settings: {
+                        slidesToShow: 3
+                    }
+                }]
+            });
+        });
+    </script> -->
+    {% endblock %}
 {% endblock %}

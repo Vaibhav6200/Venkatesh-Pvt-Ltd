@@ -11,12 +11,18 @@
                 <li class="nav-item"><a class="nav-link text-dark fw-bold me-4" href="{% url 'clickfix:home' %}#services">Services</a></li>
                 <li class="nav-item"><a class="nav-link text-dark fw-bold me-4" href="{% url 'clickfix:home' %}#about">About</a></li>
                 <li class="nav-item"><a class="nav-link text-dark fw-bold me-4" href="{% url 'clickfix:home' %}#contact_form">Contact</a></li>
-                <li class="nav-item"><a class="nav-link text-dark fw-bold me-4" href="{% url 'cart:cart' %}"><i class="fa-solid fa-cart-shopping"></i> <span id="num_of_items">{{cart.num_of_items}}</span></a></li>
+                <li class="nav-item">
+                  <a class="nav-link text-dark fw-bold me-4" href="{% url 'cart:cart' %}">
+                    <i class="fa-solid fa-cart-shopping"></i> <span class="num_of_items">{{cart.num_of_items}}</span>
+                    <span class="d-inline-block d-md-none ms-1">Cart</span>
+                  </a>
+                </li>
 
 
                 <li class="nav-item dropdown me-4 pull-right">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa-solid fa-user text-dark"></i>
+                    <span class="d-inline-block d-md-none text-dark ms-1 fw-bold">User</span>
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     {% if user.is_authenticated %}

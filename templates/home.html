@@ -35,6 +35,16 @@
                 margin: 0 auto;
 
             }
+            .contact_details{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 0 35px;
+            }
+            .contact_numbers{
+                flex-direction: column;
+            }
         }
 
         .service_image{
@@ -43,8 +53,6 @@
             object-fit: cover;
         }
 
-
-
         .fg--search {
             background: white;
             position: relative;
@@ -52,7 +60,7 @@
         }
         .fg--search input {
             width: 100%;
-            padding: 20px 60px 20px 20px;
+            padding: 12px 20px;
             display: block;
         }
         .fg--search button {
@@ -64,7 +72,7 @@
             position: absolute;
             top: 0;
             right: 0;
-            padding: 18px 20px;
+            padding: 12px 20px;
             z-index: 2;
         }
     </style>
@@ -88,7 +96,7 @@
                         <div class="col-md-8 col-12">
                             <form action="{% url 'clickfix:search' %}" method="get" class="w-100">
                                 {% csrf_token %}
-                                <div class="form-group fg--search">
+                                <div class="form-group fg--search ">
                                     <input type="text" class="input" placeholder="search" name="query">
                                     <button type="submit"><i class="fa fa-search"></i></button>
                                 </div>
@@ -102,7 +110,7 @@
 
 
     <!-- About Us -->
-    <section id="about" style="margin: 150px 0px;">
+    <section id="about" style="margin: 100px 0px;">
         <div class="container">
             <h3 class="text-center mb-5 home_banner_heading" style="color: #F6921e;">About Us</h3>
             <div class="row">
@@ -119,7 +127,7 @@
 
 
     <!-- Service Slider -->
-    <section style="margin: 150px 0px;" id="services">
+    <section style="margin: 100px 0px;" id="services">
         <h5 class="text-center mb-3 home_banner_heading" style="color: #F6921e;">OUR SERVICES</h5>
         <h2 class="text-center home_banner_subheading w-100">We are Experienced in Making <br>your work easy</h2>
         <div class="container">
@@ -144,7 +152,7 @@
 
 
     <!-- Our Benefits -->
-    <section style="margin: 150px 0px;">
+    <section style="margin: 100px 0px;">
         <div class="container">
             <h5 class="text-center mb-3 home_banner_heading" style="color: #F6921E;">WHY CHOOSE US</h5>
             <h2 class="text-center mb-5 home_banner_subheading w-100">Actually What You'll Get From</h2>
@@ -198,7 +206,7 @@
 
 
     <!-- Deals & Discount -->
-    <section class="" id="deals_and_discount" style="margin: 150px 0px;">
+    <section class="" id="deals_and_discount" style="margin: 100px 0px;">
         <h2 class="text-center mb-5 home_banner_heading" style="color: #F6921e;">DEALS AND DISCOUNTS</h2>
         <div class="swiper deals_and_discount_swiper">
             <div class="swiper-wrapper pb-5">
@@ -238,7 +246,7 @@
     </section>
 
 
-    <section class="" id="testimonials px-4" style="margin: 150px 0px;">
+    <section class="" id="testimonials px-4" style="margin: 100px 0px;">
         <h5 class="text-center mb-3 text-uppercase home_banner_heading" style="color: #F6921e;">Testimonial</h5>
         <h2 class="text-center mb-5">What our Customers Says?</h2>
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -257,7 +265,7 @@
                                 <i class="fa-solid fa-star" style="color: #F6921e;"></i>
                                 <i class="fa-solid fa-star" style="color: #F6921e;"></i>
                             </div>
-                            <p class="card-text text-center" style="font-size: 1.5rem;">{{ testimonial.description }}</p>
+                            <p class="card-text text-center home_banner_subheading">{{ testimonial.description }}</p>
                         </div>
                     </div>
                 </div>
@@ -274,19 +282,26 @@
     </section>
 
 
-    <section style="margin: 150px 0px;" id="contact_form">
+    <section style="margin: 100px 0px;" id="contact_form">
         <div class="container">
             <div class="d-flex flex-wrap justify-content-around">
-                <div class="d-flex flex-column justify-content-center">
+                <div class="d-flex flex-column justify-content-center contact_details">
                     <h1>Have a question?</h1>
                     <div class="mb-5 h1">Write to us.</div>
-                    <div class="blockquote mb-3"><i class="fa-solid fa-envelope me-3" style="color: #F6921E;"></i> support@clickfix.co.in</div>
-                    <div class="blockquote mb-3 d-flex w-100">
-                        <i class="fa-solid fa-phone me-3" style="color: #F6921E;"></i> (+91) 89104 34505 / (+91) 98360 66464
+                    <div>
+                        <div class="blockquote mb-3"><i class="fa-solid fa-envelope me-3" style="color: #F6921E;"></i> support@clickfix.co.in</div>
+                        <div class="blockquote mb-3 d-flex w-100">
+                            <i class="fa-solid fa-phone me-3" style="color: #F6921E;"></i>
+                            <span class="d-flex contact_numbers">
+                                <span>(+91) 89104 34505</span>
+                                <span class="d-none d-md-block mx-2"> / </span>
+                                <span>(+91) 98360 66464</span>
+                            </span>
+                        </div>
+                        <div class="blockquote mb-5"><i class="fa-solid fa-location-dot me-3" style="color: #F6921E;"></i> Chandni Chawk, Bowbazar, Kolkata, West Bengal</div>
                     </div>
-                    <div class="blockquote mb-5"><i class="fa-solid fa-location-dot me-3" style="color: #F6921E;"></i> Chandni Chawk, Bowbazar, Kolkata, West Bengal</div>
                 </div>
-                <div class="shadow-lg p-5 ">
+                <div class="shadow-lg p-5 contact_form_container">
                     <form action="{% url 'clickfix:contact' %}" method="post">
                         {% csrf_token %}
                         {% include 'includes/messages.html' %}

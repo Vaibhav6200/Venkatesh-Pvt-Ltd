@@ -63,7 +63,12 @@ function addToCart(){
         })
         .then(res=>res.json())
         .then(data=>{
-            document.getElementById('num_of_items').innerHTML = data
+            // document.getElementById('num_of_items').innerHTML = data
+
+            var elements = document.getElementsByClassName('num_of_items');
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].innerHTML = data;
+            }
         })
         .catch(error=>{
             console.log(error)
@@ -162,7 +167,14 @@ function handleCartItemRemoval(item_id, cart_id){
     .then(res=>res.json())
     .then(data=>{
         document.getElementById('cart_item_' + item_id).style.display = 'none'
-        document.getElementById('num_of_items').innerHTML = data['num_of_items']
+
+
+        var elements = document.getElementsByClassName('num_of_items');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].innerHTML = data['num_of_items'];
+        }
+
+
         let grand_total = document.getElementById('grand_total')
         grand_total.innerHTML = data['cart_cost']
         let remove_coupon = data['remove_coupon']
