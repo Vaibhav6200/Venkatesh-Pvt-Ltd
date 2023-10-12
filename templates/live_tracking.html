@@ -8,14 +8,12 @@
 
     <div class="container my-5">
         <h1>Live Tracking</h1>
-        <div class="blockquote">Ongoing Service</div>
+        <div class="blockquote mb-4">Ongoing Service</div>
         <div class="row">
-            <div class="col-md-6">
-                <div class="container border shadow rounded-4 p-4 my-5">
-                    <small>Service Number</small>
-                    <h6 class="mb-3">EV-2017002346</h6>
-
-                    <small class="fw-light">{{ order_item.sub_service }}</small>
+            <div class="col-md-6 mb-4">
+                <div class="container border rounded-4 p-4">
+                    <h5>Service Name</h5>
+                    <div><small class="fw-light">{{ order_item.sub_service }}</small></div>
                     <hr class="my-4">
                     <div class="d-flex align-items-center">
                         <img class="img-fluid me-4" style="width: 50px;" src="{% static 'img/green_location.png' %}" alt="">
@@ -25,8 +23,6 @@
                             {% else %}
                             <h5>Allocating professional</h5>
                             {% endif %}
-
-
                         </div>
                     </div>
                     <span class="vertical_dotted_line_2"></span>
@@ -51,10 +47,9 @@
                         </div>
                     {% endif %}
                 </div>
-
             </div>
-            <div class="col-md-6 d-flex justify-content-center align-items-center">
-                <div class="shadow border px-5 py-5" id="live_tracking" >
+            <div class="col-md-6 d-flex justify-content-center align-items-center   ">
+                <div class="border rounded-4 px-5 py-5" id="live_tracking" >
                     <span  class="d-flex flex-column">
                         <div class="d-flex align-items-center">
                             <input type="checkbox" class="form-check-input p-4" id="check_1" {% if order_item.order.tracking_status >= 1 %} checked {% endif %} />
