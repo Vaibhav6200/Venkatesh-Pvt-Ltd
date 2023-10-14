@@ -11,7 +11,6 @@ urlpatterns = [
     path('bookings/', views.bookings, name='bookings'),
     path('contact/', views.contact, name='contact'),
     path('search/', views.search_view, name='search'),
-
-    path('order_sms/', views.Order_SMS, name='order_sms'),
-    path('order_email/', views.Order_Email, name='order_email'),
+    path('book_rent_call/', views.book_rent_call, name='book_rent_call'),
+    path('book_amc_call/', views.book_amc_call, name='book_amc_call'),
 ]

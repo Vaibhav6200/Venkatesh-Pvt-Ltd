@@ -7,6 +7,7 @@
     {% include 'includes/navbar.html' %}
     <section id="individual_service">
         <div class="row mt-5" style="width: 90%; margin: auto;">
+            <!-- Service List -->
             <div class="col-md-4 mb-5">
                 <div class="select_service_container mb-5" style="position: sticky; top: 30px;">
                     <div class="h5 mb-2">Select a Service</div>
@@ -26,9 +27,9 @@
             </div>
 
             <div class="col-md-8">
+                <!-- Deals Slider -->
                 <div class="swiper deals_and_discount_swiper mb-5 d-none d-md-block" id="individual_service_deals">
                     <div class="swiper-wrapper pb-5">
-
                         {% for deal in deals_and_discount %}
                         <div class="swiper-slide">
                             <div class="sales_container">
@@ -54,6 +55,70 @@
                     <div class="swiper-pagination"></div>
                 </div>
 
+                {% if service.enable_contact %}
+                <div class="service_detail_container">
+                    {% for service in sub_services %}
+                        <div class="card py-4 mb-4 border-0" id="sub_service_{{service.id}}">
+                            <img class="img-fluid service_img" src="{{ service.sub_service_main_image.url }}" alt="...">
+                            <div class="card-body">
+                                <div class="card-title my-3">
+                                    <h5>{{service.sub_service_name}} </h5>
+                                </div>
+                                <p class="card-text">{{ service.description|safe}} </p>
+                                <div class="mb-3">
+                                    {{ service.sub_service_price }}
+                                    {{ service.price_details|safe }}
+                                </div>
+                                <button class="btn py-2 px-4 text-white btn_color me-3 mb-3" data-bs-toggle="modal" data-bs-target="#bookCallModal"><i class="fa-solid fa-phone me-2"></i> Book a Call</button>
+                            </div>
+                        </div>
+                        {% if not forloop.last %}
+                        <div class="mt-2 mb-5" style="border: 1px solid #e7e7e7;"></div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <!-- Call Booking Modal -->
+                <div class="modal fade" id="bookCallModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="myModalLabel">
+                                    Booking Details?
+                                </h1>
+                                <button class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                {% if service.is_contact_rent %}
+                                <form action="{% url 'clickfix:book_rent_call' %}" method="post">
+                                    {% csrf_token %}
+                                    <select class="form-select mb-2" name="products" id="products">
+                                        <option disabled selected>Select Product needed on Rent</option>
+                                        <option value="laptop">Laptop on Rent</option>
+                                        <option value="desktop">Desktop on Rent</option>
+                                        <option value="printer">Printer on Rent</option>
+                                        <option value="projector">Projector on Rent</option>
+                                    </select>
+                                    <input class="form-control mb-2" name="full_name" type="text" placeholder="Full Name" required>
+                                    <input class="form-control mb-2" name="contact_number" type="text" placeholder="Contact Number" required>
+                                    <input class="form-control mb-2" name="quantity" type="number" placeholder="Quantity" required>
+                                    <input class="form-control mb-2" name="duration" type="number" placeholder="Duration (in days)" required>
+                                    <textarea class="form-control" name="description" cols="30" rows="5" placeholder="What is the Utility of product being taken?" required></textarea>
+                                    <button class="btn py-2 px-4 mt-5 text-white btn_color w-100" type="submit">Book Call</button>
+                                </form>
+                                {% else %}
+                                <form action="{% url 'clickfix:book_amc_call' %}" method="post">
+                                    {% csrf_token %}
+                                    <input class="form-control mb-2" name="full_name" type="text" placeholder="Full Name" required>
+                                    <input class="form-control mb-2" name="contact_number" type="text" placeholder="Contact Number" required>
+                                    <textarea class="form-control" name="description" cols="30" rows="5" placeholder="Description of assets to be included in amc?" required></textarea>
+                                    <button class="btn py-2 px-4 mt-5 text-white btn_color w-100" type="submit">Book Call</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
                 <div class="service_detail_container">
                         {% for service in sub_services %}
                         <div class="card py-4 mb-4 border-0" id="sub_service_{{service.id}}">
@@ -77,7 +142,6 @@
                         {% endif %}
                     {% endfor %}
                 </div>
-
                 <!-- Appointment Modal -->
                 <div class="modal fade" id="bookAppointmentModal">
                     <div class="modal-dialog">
@@ -112,7 +176,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Time Slot Modal -->
                 <div class="modal fade" id="timeSlotModal">
                     <div class="modal-dialog">
@@ -163,6 +226,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -170,6 +234,37 @@
 
 
     <!-- FAQ Section -->
+    {% if service.enable_contact %}
+    <section class="container w-75" style="margin-top: 100px; margin-bottom: 100px;">
+        <h1 class="text-center mb-5">FAQs</h1>
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">What
+                        is Click Fix?</button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">Click Fix is an online platform that connects you with skilled IT
+                        professionals who can provide various repair and service solutions right at your doorstep.</div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">What services does Click Fix offer?</button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">Click Fix offers a wide range of IT repair and services, including but not
+                        limited to just computer and laptop repairs, software troubleshooting, network setup, printer
+                        repairs, and data recovery. Click Fix also offers renting of IT infrastructure for urgent needs and
+                        can be your go to for any sort of IT infrastructure solution big or small.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% else %}
     <section class="container w-75" style="margin-top: 100px; margin-bottom: 100px;">
         <h1 class="text-center mb-5">FAQs</h1>
         <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -312,6 +407,7 @@
             </div>
         </div>
     </section>
+    {% endif %}
 
 
     {% include 'includes/footer.html' %}

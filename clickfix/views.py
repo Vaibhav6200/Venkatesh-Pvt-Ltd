@@ -52,6 +52,7 @@ def individual_service(request, service_name, search_data=None):
     data['timeline'] = date_list
     data['cart'] = cart
     data['deals_and_discount'] = deals
+    data['service'] = service
 
     if search_data:
         data['search_data'] = search_data
@@ -143,18 +144,18 @@ def contact(request):
 
 
 
-def Order_SMS(request):
-    owner_whatsapp_number = "7427089473"
-    customer_whatsapp_number = "7427089473"
+# def Order_SMS(request):
+#     owner_whatsapp_number = ""
+#     customer_whatsapp_number = ""
 
-    return HttpResponse("<h1> Success </h1>")
-    # SMS_Handler(owner_number=owner_whatsapp_number, customer_whatsapp_number=customer_whatsapp_number).send_message()
+#     return HttpResponse("<h1> Success </h1>")
+#     # SMS_Handler(owner_number=owner_whatsapp_number, customer_whatsapp_number=customer_whatsapp_number).send_message()
 
 
-def Order_Email(request):
-    customer_email = "vaibhavpaliwal620@gmail.com"
-    customer_full_name = "Vaibhav Paliwal"
-    Email_Handler(customer_email, customer_full_name).send_otp_via_mail()
+# def Order_Email(request):
+#     customer_email = ""
+#     customer_full_name = ""
+#     Email_Handler(customer_email, customer_full_name).send_otp_via_mail()
 
 
 
@@ -167,4 +168,36 @@ def search_view(request):
 
         service_name = search_data[0].service.slug
         return individual_service(request, service_name, search_data)
+    return redirect('clickfix:home')
+
+
+def book_rent_call(request):
+    if request.method == "POST":
+        full_name = request.POST.get('full_name')
+        contact_number = request.POST.get('contact_number')
+        quantity = request.POST.get('quantity')
+        duration = request.POST.get('duration')
+        description = request.POST.get('description')
+        BookCall.objects.create(
+            full_name = full_name,
+            contact_number = contact_number,
+            quantity = quantity,
+            duration = duration,
+            description = description,
+            is_rent_call = True
+        )
+    return redirect('clickfix:home')
+
+
+def book_amc_call(request):
+    if request.method == "POST":
+        full_name = request.POST.get('full_name')
+        contact_number = request.POST.get('contact_number')
+        description = request.POST.get('description')
+        BookCall.objects.create(
+            full_name = full_name,
+            contact_number = contact_number,
+            description = description,
+            is_amc_call = True
+        )
     return redirect('clickfix:home')

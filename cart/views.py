@@ -79,9 +79,6 @@ def cart(request):
 
 def add_to_cart(request):
     data = json.loads(request.body)
-    print()
-    print(data)
-    print()
     sub_service = SubServices.objects.get(id=data['sub_service_id'])
     day = data['date_slot']
     date_slot = getDate(day)
@@ -89,7 +86,6 @@ def add_to_cart(request):
 
     if request.user.is_authenticated:
         cart, created = Cart.objects.get_or_create(user=request.user)
-
     else:
         if "nonuser" in request.session:
             session_id = request.session['nonuser']

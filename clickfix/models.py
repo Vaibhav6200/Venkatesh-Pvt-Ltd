@@ -15,6 +15,10 @@ class Services(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    # New Fields
+    enable_contact = models.BooleanField(default=False)
+    is_contact_rent = models.BooleanField(default=True, help_text="Tick if you want to show Contact Form for Rent")
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
@@ -31,7 +35,7 @@ class SubServices(models.Model):
     sub_service_name = models.CharField(max_length=255)
     sub_service_card_image = models.ImageField(upload_to='service_cards', help_text='Small card image on left')
     sub_service_main_image = models.ImageField(upload_to='service_cards', help_text='Big card image on Right, which we scroll')
-    sub_service_price = models.FloatField(default=0)
+    sub_service_price = models.FloatField(default=0, null=True, blank=True)
     price_details = RichTextField(blank=True, null=True)
     description = RichTextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -87,5 +91,20 @@ class deals_and_discount(models.Model):
     heading = models.CharField(max_length=255, null=True, blank=True)
     percent_off = models.CharField(max_length=3, null=True, blank=True, help_text="write here only percentage i.e. (10, 20, 30 etc)")
     description = models.CharField(max_length=255, null=True, blank=True, help_text="it can be at max 256 of characters long")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+
+class BookCall(models.Model):
+    class Meta:
+        verbose_name_plural = "Calls Booked"
+    full_name = models.CharField(max_length=100)
+    contact_number = models.CharField(max_length=13)
+    quantity = models.CharField(max_length=3, null=True, blank=True)
+    duration = models.CharField(max_length=3, null=True, blank=True)
+    description = models.TextField()
+    is_amc_call = models.BooleanField(default=False)
+    is_rent_call = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

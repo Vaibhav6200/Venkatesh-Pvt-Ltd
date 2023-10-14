@@ -43,3 +43,12 @@ class CustomDeals(admin.ModelAdmin):
     list_filter = ['percent_off']
     search_fields = ['heading', 'percent_off']
 
+
+
+@admin.register(BookCall)
+class CustomBookCall(admin.ModelAdmin):
+    list_display = ['id', 'full_name', 'contact_number', 'quantity', 'duration', 'description', 'is_amc_call', 'is_rent_call']
+    list_display_links = ['id', 'full_name']
+    list_filter = ['is_rent_call', 'is_amc_call']
+    search_fields = ['full_name', 'contact_number']
+    readonly_fields = ['is_rent_call', 'is_amc_call']
