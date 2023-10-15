@@ -16,8 +16,8 @@ class Services(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     # New Fields
-    enable_contact = models.BooleanField(default=False)
-    is_contact_rent = models.BooleanField(default=True, help_text="Tick if you want to show Contact Form for Rent")
+    show_contact_form = models.BooleanField(default=False, help_text="Tick it for 'IT on RENT' and 'AMC' Services")
+    show_rent_form = models.BooleanField(default=True, help_text="Tick - IT on Rent, Untick - AMC Services")
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -99,6 +99,7 @@ class deals_and_discount(models.Model):
 class BookCall(models.Model):
     class Meta:
         verbose_name_plural = "Calls Booked"
+    product = models.CharField(max_length=100)
     full_name = models.CharField(max_length=100)
     contact_number = models.CharField(max_length=13)
     quantity = models.CharField(max_length=3, null=True, blank=True)
@@ -108,3 +109,4 @@ class BookCall(models.Model):
     is_rent_call = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+

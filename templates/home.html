@@ -85,6 +85,10 @@
 
         <div class="overlay">
             {% include 'includes/navbar.html' %}
+            <div style="position: absolute;  top: 100px; right: 0;">
+                {% include 'includes/messages.html' %}
+            </div>
+
     <!-- {% include 'includes/messages.html' %} -->
 
             <div class="home_banner_content d-flex justify-content-center align-items-center">
@@ -304,7 +308,6 @@
                 <div class="shadow-lg p-5 contact_form_container">
                     <form action="{% url 'clickfix:contact' %}" method="post">
                         {% csrf_token %}
-                        {% include 'includes/messages.html' %}
                         <div class="input-group rounded mb-3" style="border: 1px solid black;">
                             <i class="input-group-text fa-solid fa-user bg-white d-flex align-items-center" style="border-right: 0px;"></i>
                             <input class="form-control input_field" style="border-left: 0px;" type="text" name="full_name" id="full_name" placeholder="Name" required>

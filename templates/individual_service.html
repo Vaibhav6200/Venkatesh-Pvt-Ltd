@@ -50,12 +50,11 @@
                             </div>
                         </div>
                         {% endfor %}
-
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
 
-                {% if service.enable_contact %}
+                {% if service.show_contact_form %}
                 <div class="service_detail_container">
                     {% for service in sub_services %}
                         <div class="card py-4 mb-4 border-0" id="sub_service_{{service.id}}">
@@ -88,10 +87,10 @@
                                 <button class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <div class="modal-body">
-                                {% if service.is_contact_rent %}
+                                {% if service.show_rent_form %}
                                 <form action="{% url 'clickfix:book_rent_call' %}" method="post">
                                     {% csrf_token %}
-                                    <select class="form-select mb-2" name="products" id="products">
+                                    <select class="form-select mb-2" name="product" id="products">
                                         <option disabled selected>Select Product needed on Rent</option>
                                         <option value="laptop">Laptop on Rent</option>
                                         <option value="desktop">Desktop on Rent</option>
@@ -102,6 +101,7 @@
                                     <input class="form-control mb-2" name="contact_number" type="text" placeholder="Contact Number" required>
                                     <input class="form-control mb-2" name="quantity" type="number" placeholder="Quantity" required>
                                     <input class="form-control mb-2" name="duration" type="number" placeholder="Duration (in days)" required>
+                                    <!-- <input type="hidden" name="service_slug" value="{{ service.slug }}"> -->
                                     <textarea class="form-control" name="description" cols="30" rows="5" placeholder="What is the Utility of product being taken?" required></textarea>
                                     <button class="btn py-2 px-4 mt-5 text-white btn_color w-100" type="submit">Book Call</button>
                                 </form>
@@ -111,6 +111,7 @@
                                     <input class="form-control mb-2" name="full_name" type="text" placeholder="Full Name" required>
                                     <input class="form-control mb-2" name="contact_number" type="text" placeholder="Contact Number" required>
                                     <textarea class="form-control" name="description" cols="30" rows="5" placeholder="Description of assets to be included in amc?" required></textarea>
+                                    <!-- <input type="hidden" name="service_slug" value="{{ service.slug }}"> -->
                                     <button class="btn py-2 px-4 mt-5 text-white btn_color w-100" type="submit">Book Call</button>
                                 </form>
                                 {% endif %}
@@ -234,40 +235,72 @@
 
 
     <!-- FAQ Section -->
-    {% if service.enable_contact %}
     <section class="container w-75" style="margin-top: 100px; margin-bottom: 100px;">
         <h1 class="text-center mb-5">FAQs</h1>
         <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">What
-                        is Click Fix?</button>
-                </h2>
-                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
-                    data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">Click Fix is an online platform that connects you with skilled IT
-                        professionals who can provide various repair and service solutions right at your doorstep.</div>
+
+            {% if service.show_contact_form %}
+                {% if service.show_rent_form %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="rent_call_heading">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#rent_call" aria-expanded="false" aria-controls="rent_call">What is a rental service?</button>
+                    </h2>
+                    <div id="rent_call" class="accordion-collapse collapse" aria-labelledby="rent_call_heading"
+                        data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <p>At ClickFix, we offer IT product rentals. Whether you have an upcoming exam, a project, or simply want to watch a cricket match without the need to purchase new equipment, we have the solution!</p>
+                            <p>
+                                <div>Where is it available?</div>
+                                <div>Our rental service is available throughout Kolkata.</div>
+                            </p>
+                            <p>
+                                <div>What is the Minimum Rental Duration?</div>
+                                <div>The rental duration can be tailored to your specific requirements.</div>
+                            </p>
+                            <p>
+                                <div>What is the process of Pickup and Delivery?</div>
+                                <div>Upon completing the payment and the necessary KYC procedure, our customer support team will contact you to arrange a delivery date that suits your schedule. Once confirmed, your order will be delivered within 24 to 48 hours.</div>
+                            </p>
+                            <p>
+                                <div>How Service & Support will be handled?</div>
+                                <div>Our team will assist you with the setup and address any service issues you may encounter.</div>
+                            </p>
+                            <p>
+                                <div>What if I damage the product?</div>
+                                <div>While we cover minor damages, if a product sustains damage that significantly impairs its functionality, you will be responsible for covering the total cost of the rented item. For additional assistance, we encourage you to utilize the chat feature on our website or app for any inquiries.</div>
+                            </p>
+
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">What services does Click Fix offer?</button>
-                </h2>
-                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
-                    data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">Click Fix offers a wide range of IT repair and services, including but not
-                        limited to just computer and laptop repairs, software troubleshooting, network setup, printer
-                        repairs, and data recovery. Click Fix also offers renting of IT infrastructure for urgent needs and
-                        can be your go to for any sort of IT infrastructure solution big or small.</div>
+                {% else %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="amc_call_heading">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#amc_call" aria-expanded="false" aria-controls="amc_call">Why AMC?</button>
+                    </h2>
+                    <div id="amc_call" class="accordion-collapse collapse" aria-labelledby="amc_call_heading"
+                        data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <ol>
+                                <li>Cost Efficiency: Save on unexpected IT repair and replacement costs by having a fixed, predictable annual budget.</li>
+                                <li>Extended Lifespan: Regular maintenance and genuine parts help extend the lifespan of your IT equipment.</li>
+                                <li>Priority Support: Enjoy priority access to technical support for a faster response to your needs.</li>
+                                <li>Enhanced Security: Stay up-to-date with the latest security patches and measures to protect your digital assets.</li>
+                                <li>Customized Contracts: Tailor the AMC to suit your specific IT needs and equipment.</li>
+                                <li>Reduced Downtime: Minimize business interruptions with prompt service and maintenance.</li>
+                                <li>Access to Latest Technology: Stay current with advancements in IT technology through regular updates and recommendations.</li>
+                                <li>Compliance Assurance: Ensure your IT systems comply with industry standards and regulations.</li>
+                                <li>Peace of Mind: Have confidence in the reliability and performance of your IT infrastructure.</li>
+                                <li>Dedicated Customer Support: Benefit from a team committed to meeting your IT requirements efficiently.</li>
+                            </ol>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
-    {% else %}
-    <section class="container w-75" style="margin-top: 100px; margin-bottom: 100px;">
-        <h1 class="text-center mb-5">FAQs</h1>
-        <div class="accordion accordion-flush" id="accordionFlushExample">
+                {% endif %}
+            {% endif %}
+
             <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingOne">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -407,7 +440,6 @@
             </div>
         </div>
     </section>
-    {% endif %}
 
 
     {% include 'includes/footer.html' %}

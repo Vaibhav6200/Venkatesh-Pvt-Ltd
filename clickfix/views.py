@@ -7,7 +7,7 @@ from .models import *
 from datetime import datetime, timedelta
 from cart.models import *
 from razorpayAPI.models import *
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from .helper import *
 
 
@@ -173,12 +173,19 @@ def search_view(request):
 
 def book_rent_call(request):
     if request.method == "POST":
+        product = request.POST.get('product')
         full_name = request.POST.get('full_name')
         contact_number = request.POST.get('contact_number')
         quantity = request.POST.get('quantity')
         duration = request.POST.get('duration')
         description = request.POST.get('description')
+        # service_slug = request.POST.get('service_slug')
+
+        mail_subject = "Click Fix: You got a Call Booking For 'IT on Rent' Service"
+        message = f"Full Name: {full_name}\nContact Number: {contact_number}\nQuantity: {quantity}\nDuration: {duration} days\nDescription: {description}"
+
         BookCall.objects.create(
+            product=product,
             full_name = full_name,
             contact_number = contact_number,
             quantity = quantity,
@@ -186,6 +193,15 @@ def book_rent_call(request):
             description = description,
             is_rent_call = True
         )
+
+        send_mail(
+            subject=mail_subject,
+            message=message,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[settings.EMAIL_HOST_USER],
+            fail_silently=True,
+        )
+        messages.success(request, "Your Call has been Booked, will get back to you soon")
     return redirect('clickfix:home')
 
 
@@ -194,10 +210,23 @@ def book_amc_call(request):
         full_name = request.POST.get('full_name')
         contact_number = request.POST.get('contact_number')
         description = request.POST.get('description')
+        # service = Services.objects.get(slug=request.POST.get('service_slug'))
+
+        mail_subject = "Click Fix: You got a Call Booking For 'AMC of IT assets' Service"
+        message = f"Full Name: {full_name}\nContact Number: {contact_number}\nDescription: {description}"
+        send_mail(
+            subject=mail_subject,
+            message=message,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[settings.EMAIL_HOST_USER],
+            fail_silently=True,
+        )
+
         BookCall.objects.create(
             full_name = full_name,
             contact_number = contact_number,
             description = description,
             is_amc_call = True
         )
+        messages.success(request, "Your Call has been Booked, will get back to you soon")
     return redirect('clickfix:home')
