@@ -160,14 +160,14 @@ def contact(request):
 
 
 def search_view(request):
-    if request.method == 'GET':
-        query = request.GET.get('query', '')
-        search_data = SubServices.objects.filter(
-            Q(sub_service_name__icontains=query) |
-            Q(service__name__icontains=query))
-
-        service_name = search_data[0].service.slug
-        return individual_service(request, service_name, search_data)
+    if request.method == 'POST':
+        query = request.POST.get('query', '')
+        search_data = Services.objects.filter(Q(name__icontains=query))
+        if search_data:
+            service_name = search_data[0].slug
+            return individual_service(request, service_name, search_data)
+        else:
+            messages.error(request, "Service Not Found!")
     return redirect('clickfix:home')
 
 
