@@ -80,4 +80,4 @@ class BillingDetails(models.Model):
     state = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"Billing Id - {self.id}"
+        return f"{self.id} - {self.first_name} {self.last_name}"

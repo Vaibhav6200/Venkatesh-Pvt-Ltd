@@ -48,7 +48,11 @@
                             {% if item.order.payment_status == "Failed" %}
                                 <span>Payment Failed</span>
                             {% else %}
-                                <span>Amount Paid ₹{{item.sub_service.sub_service_price}}</span>
+                                {% if item.order.payment_mode == "cash_on_delivery" %}
+                                <span>Cash on Delivery</span>
+                                {% else %}
+                                <span>Amount Paid ₹{{item.order.total_cost}}</span>
+                                {% endif %}
                             {% endif %}
                         </div>
                         <div class="col-12">

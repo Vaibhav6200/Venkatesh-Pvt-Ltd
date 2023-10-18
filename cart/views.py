@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 import json
 from clickfix.models import SubServices
@@ -146,6 +146,7 @@ def billing(request):
         address_line_2 = request.POST.get('address_line_2')
         city = request.POST.get('city')
         state = request.POST.get('state')
+        payment_method = request.POST.get('payment_method')
 
         billing_obj = BillingDetails.objects.create( first_name = first_name , last_name = last_name , email = email , phone = phone , address_line_1 = address_line_1 , address_line_2 = address_line_2 , city = city , state = state)
 
@@ -171,6 +172,15 @@ def billing(request):
             order_item_obj.start_date = item.start_date
             order_item_obj.time_slot = item.time_slot
             order_item_obj.save()
+
+        if payment_method == "cash_on_delivery":
+            order_obj.payment_mode = "cash_on_delivery"
+            # Since Order Placed Successfully So remove all items from our cart
+            cart_id = order_obj.cart_id
+            Cart.objects.get(id=cart_id).delete()
+
+            order_obj.save()
+            return redirect('clickfix:bookings')
         return render(request, 'razorpay/start_payment.html', {'amount': order_obj.total_cost, 'order_id': order_obj.id})
 
 

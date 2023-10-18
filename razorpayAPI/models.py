@@ -25,6 +25,10 @@ class Order(models.Model):
         (3, 'Service Begun'),
         (4, 'Service Completed'))
 
+    PAYMENT_MODE = (
+        ("cash_on_delivery", 'Cash on Delivery'),
+        ("razorpay", "Razorpay"))
+
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     cart_id = models.CharField(max_length=10)
     session_id = models.CharField(max_length=100, null=True, blank=True)
@@ -33,9 +37,10 @@ class Order(models.Model):
     payment_status = models.CharField(max_length=20, choices=PAYMENT_CHOICES, default='Pending')
     razorpay_order_id = models.CharField(max_length=100, default="")
     razorpay_payment_id = models.CharField(max_length=100, default="")
-    booking_status = models.CharField(max_length=30, choices=BOOKING_CHOICES, null=True, blank=True)
-    tracking_status = models.IntegerField(choices=TRACKING_CHOICES, null=True, blank=True)
+    booking_status = models.CharField(max_length=30, choices=BOOKING_CHOICES, null=True, blank=True, default="Upcoming")
+    tracking_status = models.IntegerField(choices=TRACKING_CHOICES, null=True, blank=True, default=1)
     service_provider = models.ForeignKey(Handyman, on_delete=models.SET_NULL, null=True, blank=True)
+    payment_mode = models.CharField(max_length=20, choices=PAYMENT_MODE, null=True, blank=True, default="razorpay")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

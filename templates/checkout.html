@@ -12,6 +12,8 @@
                 <h1 class="mb-5">Billing Details</h1>
                 <form novalidate action="{% url 'cart:billing' %}" method="post" id="billing_form">
                     {% csrf_token %}
+
+                    <input type="hidden" name="payment_method" id="payment_method" value="">
                     <div class="row">
                         <div class="col-md-6 col-12 mb-3">
                             <label for="first_name" class="form-label">First Name</label>
@@ -115,8 +117,14 @@
                         <div class="fw-bold py-2">TOTAL</div>
                         <div class="fw-bold">Rs. {{grand_total}}/-</div>
                     </div>
-                    <button class="btn py-2 px-4 text-white btn_color fw-bold me-2" id="submitBtn">Pay Now</button>
-                    <!-- <button class="btn py-2 px-4 text-white btn_color fw-bold">Cash on Delivery</button> -->
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <button class="btn py-2 w-100 text-white btn_color fw-bold" id="razorpay_button">Pay Now</button>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <button class="btn py-2 w-100 text-white btn_color fw-bold" id="cash_on_delivery">Cash On Delivery</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -128,7 +136,10 @@
     {% block extra_js %}
     <script>
         let myform = document.getElementById('billing_form')
-        document.getElementById('submitBtn').addEventListener("click", (e)=>{
+        let payment_method = document.getElementById('payment_method')
+
+        document.getElementById('razorpay_button').addEventListener("click", (e)=>{
+            payment_method.value = 'razorpay'
             if(myform.checkValidity()){
                 console.log('Valid Form')
                 myform.submit();
@@ -138,6 +149,15 @@
 
             myform.classList.add('was-validated');
         })
+
+        document.getElementById('cash_on_delivery').addEventListener("click", (e)=>{
+            payment_method.value = 'cash_on_delivery'
+            if(myform.checkValidity())
+                myform.submit();
+
+            myform.classList.add('was-validated');
+        })
+
 
     </script>
     {% endblock %}

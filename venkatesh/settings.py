@@ -64,7 +64,6 @@ INSTALLED_APPS = [
     'razorpayAPI.apps.RazorpayapiConfig',
     'discount.apps.DiscountConfig',
     'ckeditor',
-    # 'djongo',
 ]
 
 MIDDLEWARE = [
