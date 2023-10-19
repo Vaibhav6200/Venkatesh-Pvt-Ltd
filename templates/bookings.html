@@ -17,6 +17,9 @@
 {% block content %}
 
     {% include 'includes/navbar.html' %}
+    <div style="position: absolute;  top: 100px; right: 0;">
+        {% include 'includes/messages.html' %}
+    </div>
 
     <div class="container my-5">
         {% if order_items %}
@@ -48,10 +51,10 @@
                             {% if item.order.payment_status == "Failed" %}
                                 <span>Payment Failed</span>
                             {% else %}
-                                {% if item.order.payment_mode == "cash_on_delivery" %}
+                                {% if item.order.payment_mode == "cash_on_delivery" and not item.order.show_amount_in_bookings %}
                                 <span>Cash on Delivery</span>
                                 {% else %}
-                                <span>Amount Paid ₹{{item.order.total_cost}}</span>
+                                <span>Total Amount Paid ₹{{item.order.total_cost}}</span>
                                 {% endif %}
                             {% endif %}
                         </div>
@@ -78,68 +81,6 @@
             {% empty %}
             <h1 class="text-muted text-center">No Bookings</h1>
             {% endfor %}
-            <!-- <div class="col-md-6 mb-3">
-                <div class="d-flex flex-column rounded p-4" style="border: 1px solid #BADBFF;">
-                    <div class="d-flex flex-column">
-                        <p class="text-uppercase text-danger">BOOKING NOT ACCEPTED</p>
-                        <h2>CCTV Repair</h2>
-                        <p class="mb-0">Sun, Aug 12, 2023 at 06:00 PM </p>
-                    </div>
-                    <div class="my-4" style="border:1px solid #BADBFF;"></div>
-                    <div class="row">
-                        <div class="col-md-6 col-12 mb-3">
-                            <span>Payment Failed</span>
-                        </div>
-                        <div class="col-12">
-                            <div class="d-flex">
-                                <button class="me-2 btn btn-outline-warning">Retry</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <div class="d-flex flex-column rounded p-4" style="border: 1px solid #BADBFF;">
-                    <div class="d-flex flex-column">
-                        <p class="text-uppercase text-warning">Rescheduled</p>
-                        <h2>Phone Repair</h2>
-                        <p class="mb-0">Sun, Aug 12, 2023 at 06:00 PM </p>
-                    </div>
-                    <div class="my-4" style="border:1px solid #BADBFF;"></div>
-                    <div class="row">
-                        <div class="col-md-6 col-12 mb-3">
-                            <span>Amount Paid ₹499</span>
-                        </div>
-                        <div class="col-12">
-                            <div class="d-flex">
-                                <button class="me-2 btn btn-outline-warning">Again Reschedule</button>
-                                <button class="me-2 btn btn-outline-danger">Cancel</button>
-                                <button class="me-2 btn btn-outline-dark">Track</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <div class="d-flex flex-column rounded p-4" style="border: 1px solid #BADBFF;">
-                    <div class="d-flex flex-column">
-                        <p class="text-uppercase" style="color: #25d366;">Job Completed</p>
-                        <h2>Phone Repair</h2>
-                        <p class="mb-0">Sun, Aug 12, 2023 at 06:00 PM </p>
-                    </div>
-                    <div class="my-4" style="border:1px solid #BADBFF;"></div>
-                    <div class="row">
-                        <div class="col-md-6 col-12 mb-3">
-                            <span>Amount Paid ₹499</span>
-                        </div>
-                        <div class="col-12">
-                            <div class="d-flex">
-                                <button class="me-2 btn btn-outline-warning">Book Again</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 

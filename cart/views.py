@@ -148,23 +148,30 @@ def billing(request):
         state = request.POST.get('state')
         payment_method = request.POST.get('payment_method')
 
+
         billing_obj = BillingDetails.objects.create( first_name = first_name , last_name = last_name , email = email , phone = phone , address_line_1 = address_line_1 , address_line_2 = address_line_2 , city = city , state = state)
 
-        order_obj = Order(billing_details=billing_obj)
+# ***************************************************************************************************************************************************************************************************
+        current_user = None
+        cart = None
         if request.user.is_authenticated:
             user = request.user
             cart = Cart.objects.get(user=user)
-            order_obj.user = user
+            current_user = user
         else:
             session_id = request.session['nonuser']
             cart = Cart.objects.get(session_id=session_id)
-            order_obj.session_id = session_id
-        order_obj.cart_id = cart.id
-        order_obj.total_cost = cart.get_cart_total()
-        order_obj.save()
+            current_user = session_id
 
-        # Shifting our Cart Items to Order Items
+        order_objects_list = []
+        total_order_amount = cart.get_cart_total()
         for item in cart.cartitems.all():
+            order_obj = Order(billing_details=billing_obj)
+            order_obj.user = current_user
+            order_obj.cart_id = cart.id
+            order_obj.total_cost = cart.get_cart_total()
+            order_obj.save()
+
             order_item_obj = OrderItem()
             order_item_obj.order = order_obj
             order_item_obj.sub_service = item.sub_service
@@ -173,15 +180,53 @@ def billing(request):
             order_item_obj.time_slot = item.time_slot
             order_item_obj.save()
 
-        if payment_method == "cash_on_delivery":
-            order_obj.payment_mode = "cash_on_delivery"
-            # Since Order Placed Successfully So remove all items from our cart
-            cart_id = order_obj.cart_id
-            Cart.objects.get(id=cart_id).delete()
+            if payment_method == "cash_on_delivery":
+                order_obj.payment_mode = "cash_on_delivery"
+                order_obj.save()
 
-            order_obj.save()
+            order_objects_list.append(order_obj)
+
+        if payment_method == "cash_on_delivery":
+            Cart.objects.get(id=cart.id).delete()       # deleting our cart cause our order placed successfully
+            messages.success(request, "Order Placed Successfully")
             return redirect('clickfix:bookings')
-        return render(request, 'razorpay/start_payment.html', {'amount': order_obj.total_cost, 'order_id': order_obj.id})
+        return render(request, 'razorpay/start_payment.html', {'total_amount': total_order_amount, 'order_objects_list': order_objects_list})
+
+# ***************************************************************************************************************************************************************************************************
+
+
+        # order_obj = Order(billing_details=billing_obj)
+        # if request.user.is_authenticated:
+        #     user = request.user
+        #     cart = Cart.objects.get(user=user)
+        #     order_obj.user = user
+        # else:
+        #     session_id = request.session['nonuser']
+        #     cart = Cart.objects.get(session_id=session_id)
+        #     order_obj.session_id = session_id
+
+        # order_obj.cart_id = cart.id
+        # order_obj.total_cost = cart.get_cart_total()
+        # order_obj.save()
+
+        # # Shifting our Cart Items to Order Items
+        # for item in cart.cartitems.all():
+        #     order_item_obj = OrderItem()
+        #     order_item_obj.order = order_obj
+        #     order_item_obj.sub_service = item.sub_service
+        #     order_item_obj.quantity = item.quantity
+        #     order_item_obj.start_date = item.start_date
+        #     order_item_obj.time_slot = item.time_slot
+        #     order_item_obj.save()
+
+        # if payment_method == "cash_on_delivery":
+        #     order_obj.payment_mode = "cash_on_delivery"
+        #     # Since Order Placed Successfully So remove all items from our cart
+        #     cart_id = order_obj.cart_id
+        #     Cart.objects.get(id=cart_id).delete()
+        #     order_obj.save()
+        #     return redirect('clickfix:bookings')
+        # return render(request, 'razorpay/start_payment.html', {'amount': order_obj.total_cost, 'order_id': order_obj.id})
 
 
 def remove_cart_item(request):
