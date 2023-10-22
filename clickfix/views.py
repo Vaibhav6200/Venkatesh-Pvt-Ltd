@@ -9,6 +9,7 @@ from cart.models import *
 from razorpayAPI.models import *
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from .helper import *
+from django.contrib.auth.decorators import login_required
 
 
 def get_cart(request):
@@ -37,6 +38,7 @@ def home(request):
     return render(request, 'home.html', data)
 
 
+@login_required()
 def individual_service(request, service_name, search_data=None):
     service = Services.objects.get(slug=service_name)
     sub_services = SubServices.objects.filter(service=service)
@@ -60,6 +62,7 @@ def individual_service(request, service_name, search_data=None):
     return render(request, 'individual_service.html', data)
 
 
+@login_required()
 def checkout(request):
     if request.method == "POST":
         cart = get_cart(request)

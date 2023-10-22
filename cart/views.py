@@ -11,6 +11,7 @@ from razorpayAPI.models import Order, OrderItem
 from discount.models import Coupon
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 def getDate(date):
@@ -136,6 +137,7 @@ def get_available_time_slots(request):
     return JsonResponse(time_disable_map, safe=False)
 
 
+@login_required()
 def billing(request):
     if request.method == "POST":
         first_name = request.POST.get('first_name')
@@ -167,7 +169,10 @@ def billing(request):
         total_order_amount = cart.get_cart_total()
         for item in cart.cartitems.all():
             order_obj = Order(billing_details=billing_obj)
-            order_obj.user = current_user
+            if request.user.is_authenticated:
+                order_obj.user = current_user
+            else:
+                order_obj.session_id = current_user
             order_obj.cart_id = cart.id
             order_obj.total_cost = cart.get_cart_total()
             order_obj.save()

@@ -31,7 +31,12 @@ def user_login(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Logged in successfully")
-            return redirect("/")
+
+            next_url = request.POST.get('next')
+            if next_url:
+                return redirect(next_url)
+            else:
+                return redirect("/")
         else:
             messages.error(request, "Invalid Credentials")
             return redirect("accounts:login")

@@ -25,7 +25,7 @@
                 <hr>
                 <div class="d-flex">
                     {% if profile.image %}
-                    <img class="img-fluid profile_img" src="{{ profile.image.url }}" alt="">
+                    <img class="img-fluid profile_img d-none d-md-block" src="{{ profile.image.url }}" alt="">
                     {% endif %}
                     <div class="ms-4 w-100">
                         <form action="{% url 'accounts:profile' %}" method="post" enctype="multipart/form-data">

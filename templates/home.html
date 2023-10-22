@@ -135,7 +135,23 @@
         <h5 class="text-center mb-3 home_banner_heading" style="color: #F6921e;">OUR SERVICES</h5>
         <h2 class="text-center home_banner_subheading w-100">We are Experienced in Making <br>your work easy</h2>
         <div class="container">
-            <div class="swiper mySwiper">
+            <div class="row  mx-4">
+                {% for service in services %}
+                <div class="col-md-4 col-sm-6 col-12">
+                    <a href="{% url 'clickfix:individual_service' service.slug %}" class="swiper-slide py-5  text-decoration-none">
+                        <div class="card">
+                            <img class="service_image" src="{{ service.card_image.url }}"  alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">{{ service.name }}</h5>
+                                <p class="card-text text-center">₹{{service.price }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     {% for service in services %}
                     <a href="{% url 'clickfix:individual_service' service.slug %}" class="swiper-slide py-5 text-decoration-none">
@@ -149,8 +165,10 @@
                     </a>
                     {% endfor %}
                 </div>
+                <div class="swiper-button-prev" style="font-size: 30px;"><i class="fa-solid fa-less-than"></i></div>
+                <div class="swiper-button-next" style="font-size: 30px;"><i class="fa-solid fa-greater-than"></i></div>
                 <div class="swiper-pagination"></div>
-            </div>
+            </div> -->
         </div>
     </section>
 
