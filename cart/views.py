@@ -12,6 +12,8 @@ from discount.models import Coupon
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.core.mail import send_mail
 
 
 def getDate(date):
@@ -137,6 +139,24 @@ def get_available_time_slots(request):
     return JsonResponse(time_disable_map, safe=False)
 
 
+def send_customer_mail(customer_email, customer_name, service_type):
+    if len(service_type) == 1:
+        service_type = service_type[0]
+    else:
+        service_type = "\n" + "\n".join([f"{i + 1}. {service}" for i, service in enumerate(service_type)])
+
+    subject = "Booking Confirmation - Thank You for Choosing ClickFix!"
+    body = f"Dear {customer_name},\nThank you for choosing ClickFix! Your booking is confirmed\nService Type: {service_type} \n\nIf you have any questions or need assistance, please reach out to our customer support team at support@clickfix.co.in or +91 8910434505. \n\nWarm regards, \nClickFix Customer Services"
+
+    send_mail(
+        subject=subject,
+        message=body,
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[customer_email],
+        fail_silently=True,
+    )
+
+
 @login_required()
 def billing(request):
     if request.method == "POST":
@@ -149,7 +169,6 @@ def billing(request):
         city = request.POST.get('city')
         state = request.POST.get('state')
         payment_method = request.POST.get('payment_method')
-
 
         billing_obj = BillingDetails.objects.create( first_name = first_name , last_name = last_name , email = email , phone = phone , address_line_1 = address_line_1 , address_line_2 = address_line_2 , city = city , state = state)
 
@@ -166,8 +185,12 @@ def billing(request):
             current_user = session_id
 
         order_objects_list = []
+        booked_services_names = []
         total_order_amount = cart.get_cart_total()
         for item in cart.cartitems.all():
+            service_name = item.sub_service.sub_service_name
+            booked_services_names.append(service_name)
+
             order_obj = Order(billing_details=billing_obj)
             if request.user.is_authenticated:
                 order_obj.user = current_user
@@ -188,13 +211,16 @@ def billing(request):
             if payment_method == "cash_on_delivery":
                 order_obj.payment_mode = "cash_on_delivery"
                 order_obj.save()
-
             order_objects_list.append(order_obj)
+
 
         if payment_method == "cash_on_delivery":
             Cart.objects.get(id=cart.id).delete()       # deleting our cart cause our order placed successfully
+            send_customer_mail(email, first_name, booked_services_names)
             messages.success(request, "Order Placed Successfully")
             return redirect('clickfix:bookings')
+
+        send_customer_mail(email, first_name, booked_services_names)
         return render(request, 'razorpay/start_payment.html', {'total_amount': total_order_amount, 'order_objects_list': order_objects_list})
 
 # ***************************************************************************************************************************************************************************************************

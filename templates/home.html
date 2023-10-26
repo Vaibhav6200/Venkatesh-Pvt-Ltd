@@ -94,7 +94,7 @@
             <div class="home_banner_content d-flex justify-content-center align-items-center">
                 <div class="container d-flex flex-column">
                     <p class="home_banner_heading headings mb-3 banner_main_heading"><span class="auto_type"></span></p>
-                    <p class="home_banner_subheading mb-5">Experience instant solutions for your IT repairs. With just one click, access seamless IT repair services.</p>
+                    <p class="home_banner_subheading mb-5">IT problems solved at your doorstep.</p>
 
                     <div class="row">
                         <div class="col-md-8 col-12">
@@ -122,7 +122,7 @@
                     <img class="img-fluid mb-5 mb-md-0" src="{% static 'img/about.webp' %}" alt="">
                 </div>
                 <div class="col-md-7 col-12 px-md-5 d-flex flex-column justify-content-center align-items-center">
-                    <p class="about_text px-4 px-md-0">Click Fix,  your gateway to a range of doorstep IT services. From repairing and upgrading laptops, desktops, CCTV, projectors, and printers to installing attendance systems, we cover it all. Our commitment is simple yet strong - provide customers with consistent, top-tier service.</p>
+                    <p class="about_text px-4 px-md-0">Click Fix, your gateway to a range of doorstep IT services. From repairing, renting and upgrading laptops, desktops, CCTV, projectors, and printers to installing attendance systems, we cover it all. Our commitment is simple yet strong - to provide customers with consistent, top-tier service.</p>
                     <p class="about_text px-4 px-md-0">We also offer comprehensive IT solutions such as AMC services to ensure your technology runs smoothly. We achieve this by collaborating closely with our carefully selected service partners, equipping them with technology, training, products, tools, financing, insurance, and our brand support. Together, we're dedicated to delivering on our promise.</p>
                 </div>
             </div>
@@ -137,13 +137,13 @@
         <div class="container">
             <div class="row  mx-4">
                 {% for service in services %}
-                <div class="col-md-4 col-sm-6 col-12">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                     <a href="{% url 'clickfix:individual_service' service.slug %}" class="swiper-slide py-5  text-decoration-none">
                         <div class="card">
                             <img class="service_image" src="{{ service.card_image.url }}"  alt="...">
                             <div class="card-body">
                                 <h5 class="card-title text-center">{{ service.name }}</h5>
-                                <p class="card-text text-center">₹{{service.price }}</p>
+                                <p class="card-text text-center">{% if not service.show_contact_form %}₹{% endif %}{{service.price }}</p>
                             </div>
                         </div>
                     </a>
@@ -177,11 +177,10 @@
     <section style="margin: 100px 0px;">
         <div class="container">
             <h5 class="text-center mb-3 home_banner_heading" style="color: #F6921E;">WHY CHOOSE US</h5>
-            <h2 class="text-center mb-5 home_banner_subheading w-100">Actually What You'll Get From</h2>
             <div class="row">
                 <div class="col-md-3 col-6 p-4 text-center">
                     <img class="img-fluid" src="{% static 'img/services/trust.png' %}" alt="">
-                    <p class="blockquote mt-3">Decade of Trust</p>
+                    <p class="blockquote mt-3">Decades of Trust</p>
                     <p>With 27+ years of industry experience, we're your reliable and trusted partner.</p>
                 </div>
                 <div class="col-md-3 col-6 p-4 text-center">
@@ -270,7 +269,7 @@
 
     <section class="" id="testimonials px-4" style="margin: 100px 0px;">
         <h5 class="text-center mb-3 text-uppercase home_banner_heading" style="color: #F6921e;">Testimonial</h5>
-        <h2 class="text-center mb-5">What our Customers Says?</h2>
+        <h2 class="text-center mb-5">What our Customers Say?</h2>
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 {% for testimonial in testimonials %}
@@ -361,7 +360,7 @@
     {% block extra_js %}
         <script>
             var typed = new Typed(".auto_type", {
-                strings: ["Solving IT", "Simplifying Life"],
+                strings: ["Solving IT. Simplifying Life."],
                 typeSpeed: 50,
                 backSpeed: 50,
                 backDelay: 2000,
