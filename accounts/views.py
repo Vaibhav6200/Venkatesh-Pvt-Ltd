@@ -7,6 +7,8 @@ from cart.models import *
 
 
 
+
+# get all items of cart
 def get_cart(request):
     try:
         if request.user.is_authenticated:
@@ -22,7 +24,7 @@ def register(request):
     if request.user.is_authenticated:
         return render(request, "home.html")
 
-# Create your views here.
+
 def user_login(request):
     if request.method == "POST":
         email = request.POST['email']
@@ -43,6 +45,7 @@ def user_login(request):
     return render(request, 'accounts/login.html')
 
 
+# Registration
 def register(request):
     if request.method == "POST":
         firstname = request.POST['first_name']
